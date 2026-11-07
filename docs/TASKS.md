@@ -13,7 +13,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T5 | **Pronunciation check**: record a sentence in the browser → `POST /api/pronunciation` (ElevenLabs speech-to-text) → words highlighted green/red + score + tip. The route applies `pronunciation_scored` itself (server-only event). Limit audio size/length. Used inside `/speak` and phrase cards. | T2 | 2–3 | | | ⬜ |
 | T6 | **Gamification** `/profile`: level ring, XP, streak, achievement grid (locked/unlocked), weekly XP; tune `RULES` in `src/server/progress-rules.ts` | T1 | 2 | | | ⬜ |
 | T7 | **Phrasebook** `/phrases`: register filter chips (slang / informal / neutral / formal), level filter, search, `PhraseCard` list, "play audio" (ElevenLabs TTS, optional) | T1 | 2 | | | ⬜ |
-| T8 | **Tolk** `/tolk`: pick the two languages → big two-sided "table" layout (phone lies between two people) → interpreter agent (`agent/tolk-prompt.md`) translates both ways; transcript in both languages | T2 | 2–3 | | | 🟡 |
+| T8 | **Tolk** `/tolk`: pick the two languages → big two-sided "table" layout (phone lies between two people) → interpreter agent (`agent/tolk-prompt.md`) translates both ways; transcript in both languages | T2 | 2–3 | | | ⬜ |
 | T9 | **League** `/league`: week/month toggle, grouped by your CEFR level, you inserted with your `weekXp`, podium for the top 3, "promotion zone" | T6 | 1–2 | | | ⬜ |
 | T10 | **Tandem** `/tandem`: "I speak X, I want Y" → matching cards (nickname + avatar only) → chat screen with the scripted partner + correction bubbles; privacy note. Avatar calls = "coming soon" button. | T1 | 2–3 | | | ⬜ |
 | T11 | **Events** `/events`: språkkafé list (sample data badge), filter by level, check-in button → `event_checkin` → badge + XP | T1 | 1–2 | | | ⬜ |
@@ -23,7 +23,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T15 | **Landing page** `/` polish: pricing section, "for organisations" (Tolk) section, screenshots | T1 | 1–2 | | | ⬜ |
 | T16 | **UX polish + demo path**: loading / empty / error states, mobile check on a real phone, `progressActions.reset()` button for demo, run the exact demo 5× | T2 T4 T5 | 2 | | | ⬜ |
 | T17 | (Optional) Supabase: real accounts + real tandem chat (Realtime) + progress in a DB (stops token replay). Only if everything above is done. | – | 3+ | | | ⬜ |
-| T18 | (Optional) Partner API: add `translate` scope (Tolk as an API for warehouses / robots / schools), API docs page | T8 | 2 | | | 🟡 |
+| T18 | (Optional) Partner API: add `translate` scope (Tolk as an API for warehouses / robots / schools), API docs page | T8 | 2 | | | ⬜ |
 
 ## Checkpoints
 | When | Must be true |
