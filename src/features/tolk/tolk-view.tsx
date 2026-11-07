@@ -91,7 +91,7 @@ export function TolkView() {
         <p className="text-sm font-semibold opacity-80">Tolk · interpreter</p>
         <h1 className="mt-1 text-3xl font-black leading-tight">Put the phone on the table. Talk.</h1>
         <p className="mt-2 text-sm opacity-90">
-          Tolk interprets both ways, out loud, so your kids don&apos;t have to translate at the parent-teacher meeting.
+          Tolk interprets both ways, out loud, in the everyday moments: at pickup, at the shop, with the neighbours. So your kids don&apos;t have to.
         </p>
       </section>
 
@@ -211,7 +211,7 @@ function LanguageSelect({ id, label, value, onChange }: { id: string; label: str
   );
 }
 
-/** Offline demo: plays the sample parent-teacher meeting, reading each translation aloud with the browser voice. */
+/** Offline demo: plays the sample chat with a teacher at pickup, reading each translation aloud with the browser voice. */
 function TolkDemo({ onEnd }: { onEnd: (turns: TolkTurn[]) => void }) {
   const [shown, setShown] = useState(0);
   const [speaking, setSpeaking] = useState(false);

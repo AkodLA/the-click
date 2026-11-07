@@ -2,34 +2,98 @@
 /**
  * The signature card of Snakk: a phrase WITH its context:
  * register tag · meaning · example · ✅ use when · 🚫 avoid when · 💡 say instead.
- * Owner: T7. Reused on Home ("phrase of the day") and in scenarios.
+ * Owner: T7. Reused on Home ("phrase of the day"), the phrasebook and in scenarios.
+ * Combines T7 (audio, context, scenario links), T16 (layout) and T5 (pronunciation check).
+ *
+ *   <PhraseCard phrase={p} />                 full card
+ *   <PhraseCard phrase={p} collapsible />     context hidden behind "When to use it" (phrasebook list)
+ *   <PhraseCard phrase={p} compact />         no context at all
  */
-import { Card, RegisterTag } from "@/components/ui";
-import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
+import Link from "next/link";
+import { useId, useState } from "react";
+import { Badge, Button, Card, RegisterTag } from "@/components/ui";
+import { scenarios } from "@/lib/content";
 import type { Phrase } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
+import { PlayButton } from "./play-button";
 
-export function PhraseCard({ phrase, compact = false }: { phrase: Phrase; compact?: boolean }) {
+export function PhraseCard({
+  phrase,
+  compact = false,
+  collapsible = false,
+  defaultOpen = false,
+  highlight = false,
+}: {
+  phrase: Phrase;
+  compact?: boolean;
+  collapsible?: boolean;
+  defaultOpen?: boolean;
+  /** Ring around the card, e.g. when another screen deep-linked to it (/phrases?id=digg). */
+  highlight?: boolean;
+}) {
   const p = useProgress();
   const learned = p.learnedPhraseIds.includes(phrase.id);
+  const [open, setOpen] = useState(defaultOpen || !collapsible);
+  const [saving, setSaving] = useState(false);
+  const detailsId = useId();
+  const usedIn = scenarios.filter((s) => s.keyPhraseIds.includes(phrase.id));
+  const showDetails = !compact && open;
+
+  async function markLearned() {
+    setSaving(true);
+    try {
+      await progressActions.send({ type: "phrase_learned", phraseId: phrase.id });
+    } catch {
+      // The store already showed a toast; let the learner try again.
+    } finally {
+      setSaving(false);
+    }
+  }
 
   return (
-    <Card className="flex flex-col gap-4">
-      <div className="flex items-start justify-between gap-3">
-        <div>
-          <p className="text-2xl font-black tracking-tight">{phrase.text}</p>
-          <p className="text-muted">{phrase.meaning}</p>
+    <Card id={`phrase-${phrase.id}`} className={`flex scroll-mt-24 flex-col gap-4 ${highlight ? "ring-4 ring-brand/40" : ""}`}>
+      {/* Layout matches T16's polish: tags on top, then the phrase. */}
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          <RegisterTag register={phrase.register} withHint={!collapsible} />
+          <Badge tone="muted">{phrase.level}</Badge>
+          {phrase.region && <span className="text-xs text-muted">📍 {phrase.region}</span>}
         </div>
-        <RegisterTag register={phrase.register} withHint />
+        <div className="mt-2 flex items-start gap-3">
+          <PlayButton phraseId={phrase.id} text={phrase.text} label={`Play «${phrase.text}»`} />
+          <div className="min-w-0">
+            <p className="text-2xl font-black tracking-tight">{phrase.text}</p>
+            <p className="text-muted">{phrase.meaning}</p>
+          </div>
+        </div>
       </div>
 
-      <div className="rounded-2xl bg-surface-2 p-3">
-        <p className="font-semibold">«{phrase.example.no}»</p>
-        <p className="text-sm text-muted">{phrase.example.en}</p>
+      <div className="flex items-center gap-3 rounded-2xl bg-surface-2 p-3">
+        <div className="min-w-0 flex-1">
+          <p className="font-semibold">«{phrase.example.no}»</p>
+          <p className="text-sm text-muted">{phrase.example.en}</p>
+        </div>
+        <PlayButton phraseId={phrase.id} text={phrase.example.no} part="example" size="sm" label="Play the example sentence" />
       </div>
 
-      {!compact && (
-        <dl className="grid gap-3 text-sm">
+      {!compact && collapsible && (
+        <button
+          type="button"
+          onClick={() => setOpen((o) => !o)}
+          aria-expanded={open}
+          aria-controls={detailsId}
+          className="-my-1 flex h-11 items-center justify-between rounded-2xl px-1 text-sm font-semibold text-brand"
+        >
+          {open ? "Hide context" : "When to use it (and when not)"}
+          <span aria-hidden className={`transition ${open ? "rotate-180" : ""}`}>
+            ▾
+          </span>
+        </button>
+      )}
+
+      {showDetails && (
+        <dl id={detailsId} className="grid gap-3 text-sm">
           <div className="rounded-2xl bg-success-soft p-3">
             <dt className="font-bold text-success">✅ Use it when</dt>
             <dd>{phrase.useWhen}</dd>
@@ -51,16 +115,35 @@ export function PhraseCard({ phrase, compact = false }: { phrase: Phrase; compac
         </dl>
       )}
 
-      {!compact && <PronunciationCheck sentence={phrase.example.no} target={phrase.id} label="Say the example" />}
+      {/* T5: say the example out loud (shown with the context, so long phrasebook lists stay short). */}
+      {showDetails && <PronunciationCheck sentence={phrase.example.no} target={phrase.id} label="Say the example" />}
 
-      <button
-        type="button"
-        onClick={() => progressActions.send({ type: "phrase_learned", phraseId: phrase.id }).catch(() => {})}
-        disabled={learned}
-        className="h-11 rounded-2xl border border-line font-semibold transition hover:bg-surface-2 disabled:border-success disabled:bg-success-soft disabled:text-success"
-      >
-        {learned ? "✓ In your vocabulary" : "I've got it (+5 XP)"}
-      </button>
+      {showDetails && usedIn.length > 0 && (
+        <div className="flex flex-col gap-2">
+          <p className="text-sm font-semibold text-muted">🎙️ Practise it out loud</p>
+          <div className="flex flex-wrap gap-2">
+            {usedIn.map((s) => (
+              <Link
+                key={s.id}
+                href={`/speak?scenario=${s.id}`}
+                className="inline-flex h-11 items-center gap-1.5 rounded-full border border-line bg-surface px-4 text-sm font-semibold transition hover:bg-surface-2"
+              >
+                <span aria-hidden>{s.emoji}</span> {s.title}
+              </Link>
+            ))}
+          </div>
+        </div>
+      )}
+
+      {learned ? (
+        <p className="flex h-11 items-center justify-center rounded-2xl border border-success bg-success-soft font-semibold text-success">
+          ✓ In your vocabulary
+        </p>
+      ) : (
+        <Button variant="secondary" onClick={markLearned} disabled={saving} aria-busy={saving}>
+          {saving ? "Saving…" : "👍 I've got it · +5 XP"}
+        </Button>
+      )}
     </Card>
   );
 }
