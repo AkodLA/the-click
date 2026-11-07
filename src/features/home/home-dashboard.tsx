@@ -77,7 +77,7 @@ export function HomeDashboard() {
             type="button"
             onClick={openLanguagePicker}
             aria-label={`Languages: you speak ${langOf(p.nativeLanguage).name}, learning ${langOf(p.targetLanguage).name}. Change`}
-            className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-sm font-bold transition hover:bg-white/30"
+            className="inline-flex min-h-11 items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-sm font-bold transition hover:bg-white/30"
           >
             {langOf(p.nativeLanguage).flag} → {langOf(p.targetLanguage).flag}
             <span className="font-semibold opacity-90">{langOf(p.targetLanguage).name}</span>

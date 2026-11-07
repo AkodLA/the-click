@@ -43,7 +43,7 @@ function TopBar() {
   return (
     <header className="sticky top-0 z-20 border-b-2 border-line bg-surface/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4 md:px-6 lg:max-w-5xl">
-        <Link href="/learn" className="flex items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-brand">
+        <Link href="/learn" className="flex h-11 items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-brand">
           <Mascot className="h-8 w-8" still />
           <span>
             snakk<span className="text-accent">.</span>
@@ -55,7 +55,7 @@ function TopBar() {
           ))}
         </nav>
         <div className="flex shrink-0 items-center gap-1.5">
-        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex shrink-0 items-center gap-1 whitespace-nowrap text-sm font-bold tabular-nums">
+        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex h-11 shrink-0 items-center gap-1 whitespace-nowrap text-sm font-bold tabular-nums">
           <span title="Day streak" className={`rounded-full px-2.5 py-1 ${p.streakDays > 0 ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted"}`}>
             🔥 {p.streakDays}
           </span>
