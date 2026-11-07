@@ -18,6 +18,7 @@ import type { Register, Scenario } from "@/lib/content/types";
 import { usePrefs } from "@/lib/personal/prefs";
 import { recordMistake } from "@/lib/personal/mistakes";
 import { useProgress } from "@/lib/progress/store";
+import { stripVoiceTags } from "@/lib/voice-text";
 
 export interface Correction {
   said: string;
@@ -94,9 +95,10 @@ function Session({
       conversationId.current = id;
     },
     onMessage: ({ message, source }) => {
-      if (!message?.trim()) return;
+      const text = stripVoiceTags(message ?? "");
+      if (!text) return;
       if (source === "user") learnerTurns.current += 1;
-      setLines((l) => [...l.slice(-30), { id: ++seq.current, from: source === "user" ? "me" : "tutor", text: message }]);
+      setLines((l) => [...l.slice(-30), { id: ++seq.current, from: source === "user" ? "me" : "tutor", text }]);
     },
     onError: (message) => {
       if (!finished.current) onFail(typeof message === "string" ? message : "The voice connection failed.");
