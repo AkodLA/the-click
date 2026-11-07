@@ -3,8 +3,10 @@
  * T24: word pictures.
  *  - <WordPicture word={w} />  the picture tile on word cards and in review (an emoji in a soft rounded tile,
  *    same look as the pack and scenario tiles; the English meaning is its accessible name).
- *  - <PictureQuiz pack={p} />  "What's this in Norwegian?": see a picture, pick the word, hear it. Practice only,
- *    no XP (XP comes from «I know it», which the server checks), nothing stored.
+ *  - <PictureQuiz pack={p} />  two modes, practice only (no XP: XP comes from «I know it», which the server
+ *    checks), nothing stored:
+ *      🖼️ "See it":  see a picture, pick the Norwegian word, hear it.
+ *      👂 "Hear it": hear a Norwegian word, pick the right picture (listening, no reading needed: good for A0).
  */
 import { useState } from "react";
 import { Button, Card, ProgressBar } from "@/components/ui";
@@ -56,26 +58,39 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
   const [i, setI] = useState(0);
   const [picked, setPicked] = useState<string | null>(null);
   const [right, setRight] = useState(0);
+  const [mode, setMode] = useState<"see" | "hear">("see");
 
   if (words.length < 4) return null;
 
-  function start() {
-    setRounds(makeRounds(words));
+  function say(w: VocabWord) {
+    speakNorwegian(bare(w.no), { slow: true });
+  }
+
+  function start(m: "see" | "hear" = mode) {
+    const r = makeRounds(words);
+    setMode(m);
+    setRounds(r);
     setI(0);
     setPicked(null);
     setRight(0);
+    if (m === "hear") say(r[0].word); // started by a tap, so the browser lets it play
   }
 
   if (!rounds) {
     return (
-      <Card className="flex items-center justify-between gap-3">
+      <Card className="flex flex-col gap-3">
         <div>
           <p className="font-bold">🖼️ Picture quiz</p>
-          <p className="text-sm text-muted">See a picture, pick the Norwegian word, hear it.</p>
+          <p className="text-sm text-muted">Match words and pictures. Two ways to play:</p>
         </div>
-        <Button variant="accent" onClick={start} className="shrink-0">
-          Play
-        </Button>
+        <div className="grid grid-cols-2 gap-2">
+          <Button variant="accent" onClick={() => start("see")}>
+            🖼️ See it
+          </Button>
+          <Button variant="secondary" onClick={() => start("hear")}>
+            👂 Hear it
+          </Button>
+        </div>
       </Card>
     );
   }
@@ -95,7 +110,7 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
           {perfect ? "Perfekt! Tap «I know it» on the words you're sure about." : "Look at the cards above once more, then play again."}
         </p>
         <div className="flex gap-2">
-          <Button onClick={start}>🔁 Play again</Button>
+          <Button onClick={() => start()}>🔁 Play again</Button>
           <Button variant="secondary" onClick={() => setRounds(null)}>
             Close
           </Button>
@@ -108,7 +123,14 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
     if (picked) return;
     setPicked(w.id);
     if (w.id === round.word.id) setRight((r) => r + 1);
-    speakNorwegian(bare(round.word.no), { slow: true });
+    say(round.word);
+  }
+
+  function next() {
+    setPicked(null);
+    setI((x) => x + 1);
+    const following = rounds?.[i + 1];
+    if (mode === "hear" && following) say(following.word);
   }
 
   const correct = picked === round.word.id;
@@ -117,7 +139,7 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
     <Card className="flex flex-col gap-4" aria-labelledby="quiz-title">
       <div className="flex items-center justify-between">
         <p id="quiz-title" className="font-bold">
-          🖼️ What&apos;s this in Norwegian?
+          {mode === "see" ? "🖼️ What's this in Norwegian?" : "👂 Which picture did you hear?"}
         </p>
         <span className="text-sm font-semibold text-muted">
           {i + 1} / {rounds.length}
@@ -125,11 +147,49 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
       </div>
       <ProgressBar value={i / rounds.length} tone="accent" label="Quiz progress" />
       <div className="flex justify-center py-2">
-        {/* The picture IS the question, so it has no text alternative that gives the answer away. */}
-        <span role="img" aria-label="Picture to name" className="flex h-32 w-32 items-center justify-center rounded-3xl border-2 border-line bg-brand-soft text-7xl shadow-[0_4px_0_var(--line)]">
-          {round.word.picture}
-        </span>
+        {mode === "see" ? (
+          /* The picture IS the question, so it has no text alternative that gives the answer away. */
+          <span role="img" aria-label="Picture to name" className="flex h-32 w-32 items-center justify-center rounded-3xl border-2 border-line bg-brand-soft text-7xl shadow-[0_4px_0_var(--line)]">
+            {round.word.picture}
+          </span>
+        ) : (
+          <button
+            type="button"
+            onClick={() => say(round.word)}
+            aria-label="Play the word again"
+            className="flex h-32 w-32 flex-col items-center justify-center gap-1 rounded-3xl border-2 border-brand bg-brand-soft text-6xl shadow-[0_4px_0_var(--line)] transition active:translate-y-1"
+          >
+            <span aria-hidden>🔊</span>
+            <span className="text-xs font-bold text-brand">Play again</span>
+          </button>
+        )}
       </div>
+      {mode === "hear" ? (
+        <div className="grid grid-cols-3 gap-2" role="group" aria-label="Pick the picture">
+          {round.options.map((o) => {
+            const isAnswer = o.id === round.word.id;
+            const state = !picked ? "idle" : isAnswer ? "right" : o.id === picked ? "wrong" : "idle";
+            return (
+              <button
+                key={o.id}
+                type="button"
+                onClick={() => choose(o)}
+                disabled={!!picked && state === "idle"}
+                aria-label={`${o.en}${state === "right" ? ", correct" : state === "wrong" ? ", wrong" : ""}`}
+                className={`flex aspect-square items-center justify-center rounded-2xl border-2 text-5xl transition ${
+                  state === "right"
+                    ? "border-success bg-success-soft"
+                    : state === "wrong"
+                      ? "border-danger bg-danger-soft"
+                      : "border-line bg-surface hover:bg-surface-2 disabled:opacity-50"
+                }`}
+              >
+                <span aria-hidden>{o.picture}</span>
+              </button>
+            );
+          })}
+        </div>
+      ) : (
       <div className="flex flex-col gap-2" role="group" aria-label="Pick the word">
         {round.options.map((o) => {
           const isAnswer = o.id === round.word.id;
@@ -156,6 +216,7 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
           );
         })}
       </div>
+      )}
       {picked && (
         <div className="flex flex-col gap-2" role="status">
           <p className="text-sm">
@@ -165,12 +226,7 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
             </span>{" "}
             = {round.word.en}
           </p>
-          <Button
-            onClick={() => {
-              setPicked(null);
-              setI((x) => x + 1);
-            }}
-          >
+          <Button onClick={next}>
             {i + 1 < rounds.length ? "Next →" : "See my score"}
           </Button>
         </div>

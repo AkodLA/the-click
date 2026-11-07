@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge"],
     xpReward: 40,
   },
   {
@@ -37,7 +37,7 @@ export const scenarios: Scenario[] = [
     goal: "Say yes to food politely, give a compliment, and thank the host the Norwegian way at the end.",
     agentRole: "a warm Norwegian host who invited you for Sunday dinner",
     openingLine: "Velkommen inn! Vil du ha noe å drikke?",
-    keyPhraseIds: ["gjerne", "kos", "takk-for-maten", "bare-hyggelig"],
+    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig"],
     xpReward: 40,
   },
   {
@@ -49,7 +49,7 @@ export const scenarios: Scenario[] = [
     goal: "Introduce yourself, talk about the weekend, use «takk for sist» naturally.",
     agentRole: "a friendly colleague at a Norwegian workplace lunch",
     openingLine: "Hei, du er ny her, ikke sant? Hvordan går det?",
-    keyPhraseIds: ["takk-for-sist", "kjempe", "uff", "kjipt", "god-helg", "snakkes"],
+    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes"],
     xpReward: 50,
   },
   {
@@ -61,7 +61,7 @@ export const scenarios: Scenario[] = [
     goal: "Ask how your child is doing, ask one follow-up question, ask the teacher to slow down if needed, thank them.",
     agentRole: "a kind primary-school teacher at a parent-teacher meeting",
     openingLine: "Velkommen! Fint at du kunne komme. Skal vi begynne?",
-    keyPhraseIds: ["du-not-de", "jeg-lurer-pa", "saktere", "en-gang-til"],
+    keyPhraseIds: ["du-not-de", "jeg-lurer-pa", "kunne-du", "saktere", "en-gang-til"],
     xpReward: 60,
   },
   {
@@ -85,7 +85,7 @@ export const scenarios: Scenario[] = [
     goal: "Present yourself and avoid slang. The tutor will catch it if you slip!",
     agentRole: "an HR manager interviewing you for a job",
     openingLine: "Velkommen. Kan du starte med å fortelle litt om deg selv?",
-    keyPhraseIds: ["hyggelig-a-mote", "jeg-lurer-pa", "du-not-de", "dessverre"],
+    keyPhraseIds: ["hyggelig-a-mote", "jeg-lurer-pa", "du-not-de", "dessverre", "jeg-gleder-meg"],
     xpReward: 80,
   },
   // ---- T20: work scenarios, recommended by the learner's field ----

@@ -114,9 +114,9 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 
 ### More words and phrases, with pictures (T24)
 - **Pictures are emoji**, by design: same style as the rest of Snakk's tiles, crisp in light and dark mode, no image files, no licences, nothing for the CSP to block. `src/lib/content/pictures.ts` maps every existing word id → emoji; everyday words carry their own. A word without an honest picture gets none (better than a misleading one).
-- **Everyday picture words** (`src/lib/content/everyday.ts`, kind `everyday`, ids `everyday-*`): 8 packs, 85 words, A0–A2. Shown first on `/words` for beginners (A0–A2 or no level yet), lower down for others. Learning one is the normal `word_learned` event (server XP, daily cap), and they flow into translation memory, pronunciation targets and notes automatically.
-- **Picture quiz** on every pack with 4+ unique pictures: picture → pick the Norwegian word → hear it. Practice only, no XP, nothing stored. Review cards show the picture together with the meaning.
-- **21 new phrases** (A0–B1, all with use when / avoid when / say instead), linked into tutor scenarios as key phrases.
+- **Everyday picture words** (`src/lib/content/everyday.ts`, kind `everyday`, ids `everyday-*`): 13 packs, 138 words, A0–B1. Shown first on `/words` for beginners (A0–A2 or no level yet), lower down for others. Learning one is the normal `word_learned` event (server XP, daily cap), and they flow into translation memory, pronunciation targets and notes automatically.
+- **Picture quiz** on every pack with 4+ unique pictures, two modes: 🖼️ *See it* (picture → pick the Norwegian word → hear it) and 👂 *Hear it* (hear the word → pick the picture; no reading needed, good for A0). Practice only, no XP, nothing stored. Review cards show the picture together with the meaning.
+- **37 new phrases** (A0–B2, all with use when / avoid when / say instead: everyday politeness, invitations, reactions like «Nei, så hyggelig!», slang like «Helt konge!», formal «Jeg viser til…»), linked into tutor scenarios as key phrases.
 - All new content was drafted with AI help: a native speaker must check it before the demo.
 
 ### Engagement pack (T21)
