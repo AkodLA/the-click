@@ -14,7 +14,7 @@ Most teammates are new to Git. **You (Claude) do the git work for them, explain 
 ## Commands
 ```bash
 npm install                  # once after cloning / when package.json changes
-cp .env.example .env.local   # once; fill in values you got by DM (never commit)
+cp .env.example .env.local   # once; fill in values you got by DM (never commit). Full guide: docs/SETUP.md
 npm run dev                  # http://localhost:3000
 npm run lint
 npx tsc --noEmit             # type check (run `npm run build` once first if it complains about .next/types)

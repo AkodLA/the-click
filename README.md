@@ -55,7 +55,7 @@ npm run dev                  # http://localhost:3000
 - Tandem is anonymous: nicknames and avatars, never real names or faces.
 
 ## Docs
-[`docs/PLAN.md`](docs/PLAN.md) (idea, pitch, scope) · [`docs/API.md`](docs/API.md) (data and API) · [`docs/TASKS.md`](docs/TASKS.md) (who builds what) · [`CLAUDE.md`](CLAUDE.md) (how we work) · [`docs/PARTNER-API.md`](docs/PARTNER-API.md) (API keys for other services) · [`GITHUB-QUICKSTART.md`](GITHUB-QUICKSTART.md) (GitHub for beginners)
+[`docs/PLAN.md`](docs/PLAN.md) (idea, pitch, scope) · [`docs/API.md`](docs/API.md) (data and API) · [`docs/TASKS.md`](docs/TASKS.md) (who builds what) · [`CLAUDE.md`](CLAUDE.md) (how we work) · [`docs/SETUP.md`](docs/SETUP.md) (keys, ElevenLabs, Vercel) · [`docs/PARTNER-API.md`](docs/PARTNER-API.md) (API keys for other services) · [`GITHUB-QUICKSTART.md`](GITHUB-QUICKSTART.md) (GitHub for beginners)
 
 ## Team
 Akram · Anis · Anas · Aden (**The Click**)
