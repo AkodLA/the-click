@@ -155,3 +155,10 @@ Checked against Opera's own Translator playground (next.opera.com/web-ai/transla
 - **Translation order:** (1) Snakk's checked translations (T22 memory, badge "✅ Checked by Snakk", with the phrase's register) → (2) the **Snakk Message agent** (`agent/message-prompt.md`, ElevenLabs, **text-only** session via signed URL `mode: "message"`, client tool `show_message {norwegian, register, literal?, tip?}`, 15 s limit) → (3) the on-device translator (T19/T22). Every result: tap-a-word explanations (`ExplainText`), glossary notes (NAV, fastlege…), register tag, copy, save to notes.
 - **Voice message:** `/api/say/voice` (ElevenLabs TTS, optional 🐢 slower version) or the device's own voice (🔊 Listen) when not configured.
 - Code: `src/features/say/` (`say-view.tsx`, `message-agent.ts`, `recorder.ts`), `src/server/say.ts`. Linked from Home, `/translator` and Tolk. Nothing is stored on a server.
+
+### Verbs, phrase pictures, parents (T25)
+- **3 new picture packs:** Everyday verbs (18: å være, å ha, å gå, å spise…), Question words (9: hva, hvor, når, hvem…), Opposites (12: stor/liten, åpen/stengt, full 🔋 / tom 🪫…). Beginners now see Food, Numbers, Verbs, Question words, Help & emergencies and Home first.
+- **Every phrase has a picture of the situation** (`Phrase.picture`, `PHRASE_PICTURES` in `pictures.ts`), shown as the same tile as word pictures on the phrase card. Grammar and filler phrases («ass», «typ», «du not De») have none on purpose.
+- **12 phrases for parents** (kindergarten and school): «… er syk i dag», «Kan jeg hente henne litt tidligere?», «Hvem henter i dag?», «Takk for at dere passer så godt på ham», «Kan jeg få en tolk?», «Står det på ukeplanen?»… Linked into the parent-meeting and doctor scenarios.
+- **Phrase card UX:** when a phrase is fine everywhere, the «Avoid it when» box is replaced by a neutral «👍 Safe everywhere» (it used to be a red warning box saying «Never wrong»).
+- AI-drafted: needs the same native-speaker check.

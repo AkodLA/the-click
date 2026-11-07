@@ -61,7 +61,7 @@ export const scenarios: Scenario[] = [
     goal: "Ask how your child is doing, ask one follow-up question, ask the teacher to slow down if needed, thank them.",
     agentRole: "a kind primary-school teacher at a parent-teacher meeting",
     openingLine: "Velkommen! Fint at du kunne komme. Skal vi begynne?",
-    keyPhraseIds: ["du-not-de", "jeg-lurer-pa", "kunne-du", "kan-du-sende-meg", "saktere", "en-gang-til"],
+    keyPhraseIds: ["du-not-de", "hvordan-har-dagen-vaert", "jeg-lurer-pa", "kunne-du", "kan-du-sende-meg", "saktere", "en-gang-til"],
     xpReward: 60,
   },
   {
@@ -73,7 +73,7 @@ export const scenarios: Scenario[] = [
     goal: "Book an appointment, explain what's wrong in 1–2 sentences, and confirm the day and time.",
     agentRole: "a receptionist at a Norwegian GP office",
     openingLine: "Legekontoret, hva kan jeg hjelpe deg med?",
-    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til"],
+    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "han-har-feber", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til"],
     xpReward: 70,
   },
   {

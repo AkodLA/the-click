@@ -46,6 +46,8 @@ export interface Phrase {
   /** Optional: where it's used (e.g. "Oslo, youth"). */
   region?: string;
   tags?: string[];
+  /** T25: a picture of the situation (one emoji), shown as a tile on the phrase card. See content/pictures.ts. */
+  picture?: string;
 }
 
 /** A real-life situation you practise speaking with the voice tutor. */

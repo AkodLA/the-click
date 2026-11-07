@@ -122,3 +122,28 @@ export const WORD_PICTURES: Record<string, string> = {
   "family-kusine": "👩‍👧",
   "family-onkel": "👨‍🦳",
 };
+
+/**
+ * T25: a picture for each phrase, shown as a small tile on the phrase card (same tile style as words).
+ * The picture shows the SITUATION, not the words. Grammar and filler words («ass», «typ», «du not De»)
+ * have no honest picture, so they get none.
+ */
+export const PHRASE_PICTURES: Record<string, string> = {
+  halla: "👋", "skjer-a": "🤙", digg: "😋", sykt: "🤯", kjempe: "💪", chille: "🛋️", laettis: "😂",
+  snakkes: "👋", "takk-for-sist": "🤗", "jeg-lurer-pa": "🤔", "gidder-ikke": "🥱", kos: "🕯️", "ha-det": "👋",
+  gjerne: "🙂", unnskyld: "🙇", "en-gang-til": "🔁", saktere: "🐢", greit: "👌", "bare-hyggelig": "😊",
+  "takk-for-maten": "🍽️", jo: "✅", uff: "😟", fett: "😎", kjipt: "😞", kompis: "🧑‍🤝‍🧑", "vil-gjerne": "🙋",
+  mvh: "✉️", dessverre: "📅", "hvordan-gar-det": "🙂", "bra-takk": "👍", "kan-jeg-fa": "☕", "vaer-sa-snill": "🙏",
+  "vaer-sa-god": "🤲", "takk-i-like-mate": "🔄", "god-helg": "🎉", "ha-en-fin-dag": "🌞", "beklager-sen": "⏰",
+  "jeg-forstar-ikke": "😕", "hva-betyr": "❓", "hvor-er": "🧭", "hva-koster": "🏷️", "jeg-heter": "📛",
+  "hyggelig-a-mote": "🤝", "det-gar-fint": "👌", "null-stress": "😌", "kos-deg": "🥳", "god-bedring": "🤒",
+  gratulerer: "🎂", "jeg-ringer-fordi": "📞", "jeg-gleder-meg": "🤩", "det-gjor-ikke-noe": "🙂", "det-ordner-seg": "🌈",
+  "har-du-lyst": "💬", "blir-du-med": "🙌", "hva-driver-du-med": "💼", "kjor-pa": "🚀", "helt-konge": "👑",
+  aesj: "🤢", "nei-sa-hyggelig": "😃", skal: "🥂", "lykke-til": "🍀", "takk-for-i-dag": "🏁", ses: "✌️",
+  "jeg-viser-til": "📄", "kunne-du": "🙏", "jeg-trenger-hjelp": "🆘", "jeg-har-vondt-i": "🤕", "har-dere": "🏪",
+  "jeg-bare-ser": "👀", "kan-jeg-betale-med-vipps": "📱", "jeg-er-pa-vei": "🏃", hae: "😮", "ikke-sant": "💯",
+  "sann-passe": "🤷", herlig: "😍", skikkelig: "⬆️", "jeg-skal-tenke-pa-det": "💭", "kan-du-sende-meg": "📧",
+  "vi-hores": "📞", "helt-enig": "🤝", "ga-rett-pa-sak": "🎯", "vann-over-hodet": "🌊", "to-fluer": "🪰",
+  "trakke-i-salaten": "🥗", "legge-seg-flat": "🙇", "midt-i-smoroyet": "🧈", "snakke-rett-fra-levra": "🗣️",
+  "det-sitter-langt-inne": "😣", "ikke-for-a-skryte": "😏", "na-snakker-vi": "🍕", "det-er-bare-a-sette-i-gang": "▶️",
+};
