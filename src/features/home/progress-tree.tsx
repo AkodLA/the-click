@@ -161,13 +161,13 @@ export function ProgressTree() {
       </div>
       <div className="w-full min-w-0 flex-1">
         <p className="text-sm font-semibold text-muted">Your tree</p>
-        <p className="text-xl font-black">
+        <p className="font-display text-2xl font-bold">
           {health === "healthy" ? current.emoji : health === "thirsty" ? "💧" : "🥀"} {current.name}
           {health !== "healthy" && <span className="ml-2 align-middle text-sm font-bold text-warn">{health === "thirsty" ? "Thirsty" : "Wilting"}</span>}
         </p>
         <p className={`text-sm ${health === "healthy" ? "text-muted" : "font-semibold text-warn"}`}>{hint}</p>
         <div className="mt-3">
-          <ProgressBar value={ratio} tone="brand" label={next ? `Growth to ${next.name}` : "Fully grown"} />
+          <ProgressBar value={ratio} tone="success" label={next ? `Growth to ${next.name}` : "Fully grown"} />
           <p className="mt-1 text-xs font-semibold text-muted">
             {next ? `${next.min - xp} XP until it becomes a ${next.name.toLowerCase()}` : "🌸 Fully grown"} · Stage {grown + 1} of {STAGES.length}
           </p>

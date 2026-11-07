@@ -1,64 +1,75 @@
 @import "tailwindcss";
 
 /*
- * Snakk design tokens. Use these Tailwind colors everywhere instead of raw hex:
- *   bg-bg, bg-surface, bg-surface-2, text-ink, text-muted, border-line,
- *   bg-brand / text-brand (fjord blue), bg-accent (coral: XP, rewards),
+ * Snakk design tokens: cozy, playful, light blue. Use these Tailwind colors everywhere instead of raw hex:
+ *   bg-bg (sky), bg-surface, bg-surface-2, text-ink, text-muted, border-line,
+ *   bg-brand / text-brand (sky blue), bg-accent (coral: XP, rewards), bg-sun (sunny yellow, decoration),
  *   bg-success, bg-warn, bg-danger, plus *-soft variants for tinted backgrounds.
+ *   *-deep colors are the "pressed" bottom edge of chunky buttons and cards.
  * Register colors (slang/informal/neutral/formal) are used on every phrase card.
+ * Fonts: headings use Fredoka (font-display), body text Nunito (font-sans).
  */
 :root {
-  --bg: #f6f7fb;
+  --bg: #dfeffc;
   --surface: #ffffff;
-  --surface-2: #eef1f8;
-  --ink: #101828;
-  --muted: #5b6475;
-  --line: #e2e6ef;
+  --surface-2: #eef7ff;
+  --ink: #1b2a41;
+  --muted: #56677f;
+  --line: #c3def3;
+  --dot: #c9e2f6;
 
-  --brand: #1f4fd8;
+  --brand: #1f7acc;
   --brand-ink: #ffffff;
-  --brand-soft: #e6edff;
-  --accent: #ff6b4a;
-  --accent-soft: #ffece7;
-  --success: #12a46b;
-  --success-soft: #e3f7ee;
-  --warn: #e59a0b;
-  --warn-soft: #fff4dc;
-  --danger: #d93a3a;
-  --danger-soft: #fde8e8;
+  --brand-soft: #d4ebfd;
+  --brand-deep: #165c9c;
+  --accent: #e0522b;
+  --accent-soft: #ffe6dc;
+  --accent-deep: #b03c1b;
+  --sun: #ffd15c;
+  --success: #15995f;
+  --success-soft: #dcf5e8;
+  --warn: #c98204;
+  --warn-soft: #fff1d1;
+  --danger: #d23f3f;
+  --danger-soft: #fde5e5;
   --wood: #8a5a3b;
-  --leaf: #5aaee8;
-  --leaf-soft: #e3f2fd;
+  --leaf: #3aa865;
+  --leaf-soft: #e0f5e7;
 
   --reg-slang: #c026d3;
-  --reg-informal: #f97316;
-  --reg-neutral: #0ea5e9;
+  --reg-informal: #ea6a0c;
+  --reg-neutral: #0b8fcb;
   --reg-formal: #4f46e5;
 }
 
+/* Cozy night: deep fjord blue instead of black. */
 @media (prefers-color-scheme: dark) {
   :root {
-    --bg: #0b1020;
-    --surface: #131a2e;
-    --surface-2: #1b2440;
-    --ink: #eef2ff;
-    --muted: #9aa4bd;
-    --line: #26304d;
+    --bg: #0e1b2c;
+    --surface: #152740;
+    --surface-2: #1c3352;
+    --ink: #eaf4ff;
+    --muted: #9db3cc;
+    --line: #28446a;
+    --dot: #1a3150;
 
-    --brand: #6b8cff;
-    --brand-ink: #0b1020;
-    --brand-soft: #1c2a55;
-    --accent: #ff7f62;
-    --accent-soft: #3a2220;
-    --success: #34d399;
-    --success-soft: #0f2e25;
+    --brand: #6cb8ff;
+    --brand-ink: #0b1a2b;
+    --brand-soft: #1b3a5e;
+    --brand-deep: #3c82c4;
+    --accent: #ff8a65;
+    --accent-soft: #3b2420;
+    --accent-deep: #c45d3c;
+    --sun: #ffd15c;
+    --success: #4ad991;
+    --success-soft: #12342a;
     --warn: #fbbf24;
     --warn-soft: #33290f;
     --danger: #f87171;
     --danger-soft: #3a1717;
-    --wood: #b98a62;
-    --leaf: #8ccfff;
-    --leaf-soft: #13263d;
+    --wood: #c08d63;
+    --leaf: #5fd08a;
+    --leaf-soft: #15382a;
   }
 }
 
@@ -72,8 +83,11 @@
   --color-brand: var(--brand);
   --color-brand-ink: var(--brand-ink);
   --color-brand-soft: var(--brand-soft);
+  --color-brand-deep: var(--brand-deep);
   --color-accent: var(--accent);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-deep: var(--accent-deep);
+  --color-sun: var(--sun);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
   --color-warn: var(--warn);
@@ -87,7 +101,8 @@
   --color-reg-informal: var(--reg-informal);
   --color-reg-neutral: var(--reg-neutral);
   --color-reg-formal: var(--reg-formal);
-  --font-sans: var(--font-geist-sans);
+  --font-sans: var(--font-nunito);
+  --font-display: var(--font-fredoka);
   --font-mono: var(--font-geist-mono);
 
   /* Reward toasts slide in from the top bar. */
@@ -98,11 +113,30 @@
       transform: translateY(-12px) scale(0.96);
     }
   }
+
+  /* Gentle bobbing for the mascot and decorations. */
+  --animate-float: float 4s ease-in-out infinite;
+  @keyframes float {
+    50% {
+      transform: translateY(-6px);
+    }
+  }
 }
 
 body {
-  background: var(--bg);
+  /* Soft dotted "notebook" texture on a sky-blue background. */
+  background-color: var(--bg);
+  background-image: radial-gradient(var(--dot) 1.2px, transparent 1.2px);
+  background-size: 22px 22px;
   color: var(--ink);
+}
+
+/* Headings everywhere get the rounded, friendly display font. */
+h1,
+h2,
+h3 {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
 }
 
 /* Visible keyboard focus everywhere (accessibility). */
