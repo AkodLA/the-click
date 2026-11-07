@@ -2,6 +2,7 @@ import { z } from "zod";
 import { fail, ok, parseBody } from "@/lib/api";
 import { progressEventSchema } from "@/lib/progress/events";
 import { DEFAULT_PROGRESS } from "@/lib/progress/defaults";
+import { checkTutorConversation } from "@/server/conversation-check";
 import { applyEvent, RuleError } from "@/server/progress-rules";
 import { decodeProgress, encodeProgress } from "@/server/progress-token";
 import { clientIp, rateLimit } from "@/server/rate-limit";
@@ -23,9 +24,17 @@ export async function POST(req: Request) {
   const body = await parseBody(req, bodySchema);
   if (!body.success) return body.response;
 
-  const { token, event } = body.data;
+  const { token } = body.data;
+  let { event } = body.data;
   const current = token ? decodeProgress(token) : DEFAULT_PROGRESS;
   if (!current) return fail("invalid_token", "Progress token is invalid or was modified", 400);
+
+  // T13: scenario XP only for a real tutor conversation (checked with ElevenLabs, not trusted from the browser).
+  if (event.type === "scenario_completed") {
+    const check = await checkTutorConversation(event.conversationId, event.scenarioId);
+    if (!check.ok) return fail(check.code, check.message, check.status);
+    if (check.verified) event = { ...event, slangFlags: check.slangFlags };
+  }
 
   try {
     const { progress, rewards } = applyEvent(current, event);

@@ -79,7 +79,7 @@ docs/                      PLAN.md · API.md · TASKS.md · PITCH.md
 1. Always start from fresh main: `git checkout main && git pull`, then create a branch.
 2. **Branch names:** `feat/T4-placement-test` · `fix/T2-mic-permission` · `docs/T14-pitch` · `chore/T13-security`. Always include the task id.
 3. **Commits:** small and often, conventional style: `feat(onboarding): add level reveal`.
-4. Before pushing: `npm run lint && npx tsc --noEmit && npm run build`.
+4. Before pushing: `npm run lint && npx tsc --noEmit && npm run build && npm run secret-scan`.
 5. Push the branch and open a PR with `gh pr create` (template fills in). Title: `T4: Placement test`. Akram reviews and squash-merges.
 6. To get teammates' work: `git fetch origin && git merge origin/main` (merge, **not** rebase).
 7. **Merge conflicts:** explain both sides in plain words, keep both people's work when possible, **ask before deleting anyone's code**.

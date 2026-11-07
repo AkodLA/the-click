@@ -1,10 +1,6 @@
-import { ComingSoon } from "@/components/ui";
+import { LeagueView } from "@/features/league/league-view";
 
-// Owner: T9. Build the feature in src/features/ and render it here.
+// Owner: T9. The real UI lives in src/features/league/.
 export default function Page() {
-  return (
-    <ComingSoon task="T9" title="League" emoji="🏆">
-      Weekly and monthly competitions against learners at your level.
-    </ComingSoon>
-  );
+  return <LeagueView />;
 }

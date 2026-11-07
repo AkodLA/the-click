@@ -1,10 +1,6 @@
-import { ComingSoon } from "@/components/ui";
+import { WriteView } from "@/features/write/write-view";
 
-// Owner: T12. Build the feature in src/features/ and render it here.
+// Owner: T12. The real UI lives in src/features/write/.
 export default function Page() {
-  return (
-    <ComingSoon task="T12" title="Write" emoji="✍️">
-      Trace æ, ø, å and new words with your finger.
-    </ComingSoon>
-  );
+  return <WriteView />;
 }
