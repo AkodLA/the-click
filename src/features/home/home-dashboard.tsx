@@ -27,8 +27,11 @@ const TILES = [
   { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk", text: "Live interpreter for real meetings" },
   { href: "/tandem", emoji: "🤝", title: "Tandem", text: "Swap languages with a buddy, anonymously" },
   { href: "/events", emoji: "🧇", title: "Språkkafé", text: "Practise in real life, earn XP" },
-  { href: "/write", emoji: "✍️", title: "Write & notes", text: "Trace A to Å step by step, and keep your own notes" },
+  { href: "/write", emoji: "✍️", title: "Write", text: "Trace A to Å step by step" },
+  { href: "/notes", emoji: "📒", title: "My notes", text: "Your saved words, sorted into notebooks" },
+  { href: "/resources", emoji: "🎓", title: "Exams & resources", text: "Official tests and free help to learn" },
   { href: "/words", emoji: "🧠", title: "My words", text: "Words for your work and interests" }, // T20
+  { href: "/mistakes", emoji: "📓", title: "Mistakes", text: "Practise the corrections you got" }, // T21
 ];
 
 export function HomeDashboard() {

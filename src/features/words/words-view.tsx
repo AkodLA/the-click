@@ -177,8 +177,8 @@ export function WordsView() {
           </section>
 
           <p className="text-center text-xs text-muted">
-            <Link href="/notebook" className="font-semibold text-brand">
-              📓 Mistake notebook
+            <Link href="/mistakes" className="font-semibold text-brand">
+              📓 Mistakes
             </Link>
             {" · "}Want the slang and the polite forms too?{" "}
             <Link href="/phrases" className="font-semibold text-brand">

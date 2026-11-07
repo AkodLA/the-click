@@ -56,6 +56,8 @@ export function downloadCertificate(o: { nickname: string; title: string; emoji:
   ctx.fillStyle = cssVar("--muted", "#5b6475");
   ctx.font = `500 30px ${FONT}`;
   ctx.fillText(`${o.score} of ${o.total} right · ${o.day}`, w / 2, 500);
+  ctx.font = `500 22px ${FONT}`;
+  ctx.fillText("Snakk practice certificate · not an official exam", w / 2, 548);
   download(c, `snakk-certificate-${o.title.toLowerCase().replace(/[^a-z]+/g, "-")}.png`);
 }
 

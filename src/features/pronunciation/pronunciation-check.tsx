@@ -159,7 +159,7 @@ export function PronunciationCheck({ sentence, target, label = "Say it out loud"
     try {
       const data = await progressActions.run((token) => upload(audio, target, token));
       setStatus({ kind: "done", result: data.result });
-      // T21: words the check didn't hear go to the mistake notebook.
+      // T21: words the check didn't hear go to Mistakes (/mistakes).
       const missed = data.result.words.filter((w) => !w.ok).map((w) => w.word);
       if (missed.length) recordMistake({ source: "pronunciation", said: data.result.heard || "(nothing heard)", better: data.result.target, note: `Say clearly: ${missed.join(", ")}` });
     } catch (err) {

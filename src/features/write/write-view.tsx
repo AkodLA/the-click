@@ -4,12 +4,11 @@
  * Letters show a worksheet guide: numbered start dots and arrows. Tools: pen, eraser, undo, clear.
  * A good trace sends `writing_done`; the SERVER gives the XP (3 each, max 10 per day).
  * Which items you've traced is a per-device convenience in localStorage (display only, no XP).
- * Below the canvas: My notes (also only on this device).
  */
 import Link from "next/link";
 import { useRef, useState, useSyncExternalStore } from "react";
 import { Badge, Button, Card, ProgressBar } from "@/components/ui";
-import { NotesBoard } from "@/features/notes/notes-board";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { TraceCanvas, type TraceHandle, type TraceTool } from "./trace-canvas";
 import { usePrefs } from "@/lib/personal/prefs";
@@ -206,6 +205,7 @@ export function WriteView() {
               <Badge tone={item.kind === "letter" ? "brand" : "accent"}>{item.kind === "letter" ? "Letter" : "Word"}</Badge>
             </div>
             <p className="text-muted">{item.meaning}</p>
+            {item.kind === "word" && <SaveToNotes size="sm" className="mt-2" text={item.text} meaning={item.meaning} source="write" href="/write" />}
           </div>
           <button
             type="button"
@@ -288,8 +288,6 @@ export function WriteView() {
           <Button href="/speak">🎙️ Speak with the tutor</Button>
         </Card>
       )}
-
-      <NotesBoard />
     </div>
   );
 }

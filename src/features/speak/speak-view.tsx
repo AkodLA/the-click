@@ -9,6 +9,7 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Badge, Button, Card, RegisterTag, SectionTitle } from "@/components/ui";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { CEFR_LEVELS, getPack, getPhrase, getScenario, REGISTER_STYLE, scenarios } from "@/lib/content";
 import type { Scenario } from "@/lib/content/types";
 import { usePrefs } from "@/lib/personal/prefs";
@@ -143,13 +144,15 @@ export function SpeakView() {
                 <SectionTitle>Phrases to use</SectionTitle>
                 <div className="flex flex-wrap gap-2">
                   {keyPhrases.map((ph) => (
-                    <Link
-                      key={ph.id}
-                      href={`/phrases?id=${ph.id}`}
-                      className={`inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-sm font-semibold ${REGISTER_STYLE[ph.register].className}`}
-                    >
-                      {ph.text}
-                    </Link>
+                    <span key={ph.id} className="inline-flex items-center gap-1.5">
+                      <Link
+                        href={`/phrases?id=${ph.id}`}
+                        className={`inline-flex h-11 items-center gap-1.5 rounded-full px-4 text-sm font-semibold ${REGISTER_STYLE[ph.register].className}`}
+                      >
+                        {ph.text}
+                      </Link>
+                      <SaveToNotes size="sm" text={ph.text} meaning={ph.meaning} soundsLike={ph.soundsLike} register={ph.register} source="speak" href={`/phrases?id=${ph.id}`} />
+                    </span>
                   ))}
                 </div>
               </section>
@@ -281,8 +284,8 @@ function ResultView({
           {outcome.corrections.map((c, i) => (
             <CorrectionCard key={i} c={c} />
           ))}
-          <Link href="/notebook" className="text-sm font-semibold text-brand">
-            📓 Saved to your mistake notebook: practise them later →
+          <Link href="/mistakes" className="text-sm font-semibold text-brand">
+            📓 Saved to your Mistakes automatically: practise them later →
           </Link>
         </section>
       )}

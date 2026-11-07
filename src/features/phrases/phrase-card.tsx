@@ -15,6 +15,7 @@ import { Badge, Button, Card, RegisterTag } from "@/components/ui";
 import { scenarios } from "@/lib/content";
 import type { Phrase } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
 import { PlayButton } from "./play-button";
 import { ExplainText } from "@/features/explain/explain-text";
@@ -60,6 +61,16 @@ export function PhraseCard({
           <RegisterTag register={phrase.register} withHint={!collapsible} />
           <Badge tone="muted">{phrase.level}</Badge>
           {phrase.region && <span className="text-xs text-muted">📍 {phrase.region}</span>}
+          <SaveToNotes
+            size="sm"
+            className="ml-auto"
+            text={phrase.text}
+            meaning={phrase.meaning}
+            soundsLike={phrase.soundsLike}
+            register={phrase.register}
+            source="phrasebook"
+            href={`/phrases?id=${phrase.id}`}
+          />
         </div>
         <div className="mt-2 flex items-start gap-3">
           <PlayButton phraseId={phrase.id} text={phrase.text} label={`Play «${phrase.text}»`} />

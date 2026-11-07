@@ -10,6 +10,7 @@ import { useEffect, useMemo, useRef, useState, type FormEvent } from "react";
 import { Badge, Button, Card, SectionTitle } from "@/components/ui";
 import { LANGUAGE_NAMES, tandemPartners } from "@/lib/content";
 import type { TandemPartner } from "@/lib/content/types";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { recordMistake } from "@/lib/personal/mistakes";
 import { TranslateButton } from "@/features/translate/translate-button";
@@ -384,6 +385,7 @@ function Message({ m, myLanguage, showEn, onToggleEn }: { m: ChatMessage; myLang
             <p className="font-bold text-success">✏️ Small fix</p>
             <p className="font-semibold">«{m.correction.corrected}»</p>
             <p className="text-xs text-muted">{m.correction.why}</p>
+            <SaveToNotes size="sm" className="mt-1.5" text={m.correction.corrected} meaning={m.correction.why} source="tandem" href="/tandem" />
           </div>
         )}
       </div>

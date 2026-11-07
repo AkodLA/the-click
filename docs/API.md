@@ -114,7 +114,8 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 ### Engagement pack (T21)
 - **Why this level?** `placement_submitted` now stores `progress.placement` (right answers per level, from `scorePlacement().byLevel`). Shown on `/profile#why-level`.
 - **Weekly summary**: the server counts `stats` (lifetime) and `weekStats` (this Oslo week) for words, phrases, scenarios, writing, tandem, pronunciation, events, slangFlags, tests. `/profile#week`, with the most common mistake from the notebook.
-- **Mistake notebook** (`/notebook`, `src/lib/personal/mistakes.ts`): tutor corrections, Tandem fixes and missed pronunciation words, device-only, practice on the 1-3-7-14-30 rhythm. No XP.
+- **Mistakes** (`/mistakes`, `src/lib/personal/mistakes.ts`): tutor corrections, Tandem fixes and missed pronunciation words, collected automatically, device-only, practice on the 1-3-7-14-30 rhythm. No XP. Each one can be 📒 saved to **My notes** (`/notes`, T16: words saved on purpose, sorted into notebooks).
+- **Certificates vs official tests**: field-test certificates are Snakk practice certificates and say so; official exams are on `/resources` (T16).
 - **Explain-a-word** (`<ExplainText text />`, `src/features/explain/`): tap any word in tutor lines, Tandem messages and examples → meaning, register, level, example from our content (simple suffix matching), listen, on-device translation, link to learn it.
 - **Daily quests** (`questsForDay(day)` in `src/lib/content/engagement.ts`): 3 per Oslo day, same for everyone. The server checks the daily counters `d:<stat>` after every event, gives the bonus XP once (`quest:<id>`) and unlocks `quest-master` when all 3 are done.
 - **Streak freeze**: earned every 7 streak days (max 2), used automatically for exactly one missed day (`touchStreak`). `progress.streakFreezes`.
