@@ -79,12 +79,22 @@ export function TreeArt({ xp, health = "healthy", className }: { xp: number; hea
   // A thirsty or wilted tree leans over a little.
   const lean = health === "wilted" ? -8 : health === "thirsty" ? -3 : 0;
   const grow = { transformBox: "view-box", transformOrigin: "60px 108px", transform: `rotate(${lean}deg) scale(${scale})` } as const;
-  const leaf = health === "wilted" ? "fill-warn" : "fill-success";
+  const leaf = health === "wilted" ? "fill-warn" : "fill-leaf";
   const leafOpacity = health === "thirsty" ? "opacity-60" : "";
 
   return (
     <svg viewBox="0 0 120 120" className={className} aria-hidden>
-      <ellipse cx="60" cy="109" rx="34" ry="5" className={health === "healthy" ? "fill-success-soft" : "fill-warn-soft"} />
+      <ellipse cx="60" cy="109" rx="34" ry="5" className={health === "healthy" ? "fill-leaf-soft" : "fill-warn-soft"} />
+
+      {/* Faint outline of the fully grown tree: shows what you're growing towards, even as a seed. */}
+      {stage < STAGES.length - 1 && (
+        <g className="opacity-15" strokeDasharray="3 3">
+          <path d="M55 108 C57 90 57 75 58 56 L62 56 C63 75 63 90 65 108 Z" className="fill-none stroke-leaf" strokeWidth="1" />
+          {CANOPY.map((c, i) => (
+            <circle key={i} cx={c.cx} cy={c.cy} r={c.r} className="fill-leaf stroke-leaf" strokeWidth="1" />
+          ))}
+        </g>
+      )}
 
       {stage === 0 && (
         <g style={{ ...grow, transform: "scale(1.7)" }}>
@@ -95,7 +105,7 @@ export function TreeArt({ xp, health = "healthy", className }: { xp: number; hea
 
       {stage === 1 && (
         <g style={{ ...grow, transform: `rotate(${lean * 2}deg) scale(1.6)` }} className={`transition-transform duration-700 ${leafOpacity}`}>
-          <path d="M60 108 C60 102 60 97 60 92" className={health === "wilted" ? "stroke-warn" : "stroke-success"} strokeWidth="2.5" strokeLinecap="round" fill="none" />
+          <path d="M60 108 C60 102 60 97 60 92" className={health === "wilted" ? "stroke-warn" : "stroke-leaf"} strokeWidth="2.5" strokeLinecap="round" fill="none" />
           <path d="M60 97 C54 95 50 91 50 86 C56 86 60 90 60 97 Z" className={leaf} />
           <path d="M60 94 C66 92 70 88 70 83 C64 83 60 87 60 94 Z" className={`${leaf} opacity-80`} />
         </g>
@@ -146,7 +156,7 @@ export function ProgressTree() {
 
   return (
     <Card className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left lg:flex-col lg:text-center">
-      <div className={`flex h-32 w-32 shrink-0 items-end justify-center rounded-2xl md:h-36 md:w-36 ${health === "healthy" ? "bg-success-soft/60" : "bg-warn-soft/60"}`}>
+      <div className={`flex h-32 w-32 shrink-0 items-end justify-center rounded-2xl md:h-36 md:w-36 ${health === "healthy" ? "bg-leaf-soft" : "bg-warn-soft/60"}`}>
         <TreeArt xp={shownXp} health={health} className="h-full w-full" />
       </div>
       <div className="w-full min-w-0 flex-1">
@@ -157,7 +167,7 @@ export function ProgressTree() {
         </p>
         <p className={`text-sm ${health === "healthy" ? "text-muted" : "font-semibold text-warn"}`}>{hint}</p>
         <div className="mt-3">
-          <ProgressBar value={ratio} tone="success" label={next ? `Growth to ${next.name}` : "Fully grown"} />
+          <ProgressBar value={ratio} tone="brand" label={next ? `Growth to ${next.name}` : "Fully grown"} />
           <p className="mt-1 text-xs font-semibold text-muted">
             {next ? `${next.min - xp} XP until it becomes a ${next.name.toLowerCase()}` : "🌸 Fully grown"} · Stage {grown + 1} of {STAGES.length}
           </p>
