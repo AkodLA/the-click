@@ -53,6 +53,8 @@ export function PhraseCard({
     }
   }
 
+  const safe = safeEverywhere(phrase.avoidWhen);
+
   return (
     <Card id={`phrase-${phrase.id}`} className={`flex scroll-mt-24 flex-col gap-4 ${highlight ? "ring-4 ring-brand/40" : ""}`}>
       {/* Layout matches T16's polish: tags on top, then the phrase. */}
@@ -74,11 +76,21 @@ export function PhraseCard({
         </div>
         <div className="mt-2 flex items-start gap-3">
           <PlayButton phraseId={phrase.id} text={phrase.text} label={`Play «${phrase.text}»`} />
-          <div className="min-w-0">
+          <div className="min-w-0 flex-1">
             <p className="text-2xl font-black tracking-tight">{phrase.text}</p>
             {phrase.soundsLike && <SoundsLike text={phrase.soundsLike} />}
             <p className="text-muted">{phrase.meaning}</p>
           </div>
+          {/* T25: the situation as a picture, same tile style as the word cards. */}
+          {phrase.picture && (
+            <span
+              role="img"
+              aria-label={`Picture: ${phrase.meaning}`}
+              className="flex h-14 w-14 shrink-0 select-none items-center justify-center rounded-2xl border-2 border-line bg-brand-soft text-3xl shadow-[0_3px_0_var(--line)] font-[family-name:var(--font-emoji)]"
+            >
+              {phrase.picture}
+            </span>
+          )}
         </div>
       </div>
 
@@ -114,10 +126,18 @@ export function PhraseCard({
             <dt className="font-bold text-success">✅ Use it when</dt>
             <dd>{phrase.useWhen}</dd>
           </div>
-          <div className="rounded-2xl bg-danger-soft p-3">
-            <dt className="font-bold text-danger">🚫 Avoid it when</dt>
-            <dd>{phrase.avoidWhen}</dd>
-          </div>
+          {safe ? (
+            // A phrase that's fine everywhere shouldn't look like a warning (red «avoid» box saying «Never wrong»).
+            <div className="rounded-2xl border border-line bg-surface-2 p-3">
+              <dt className="font-bold">👍 {safe.title}</dt>
+              {safe.rest && <dd>{safe.rest}</dd>}
+            </div>
+          ) : (
+            <div className="rounded-2xl bg-danger-soft p-3">
+              <dt className="font-bold text-danger">🚫 Avoid it when</dt>
+              <dd>{phrase.avoidWhen}</dd>
+            </div>
+          )}
           <div className="rounded-2xl bg-brand-soft p-3">
             <dt className="font-bold text-brand">💡 Say instead</dt>
             <dd className="mt-1 flex flex-wrap gap-2">
@@ -180,4 +200,13 @@ function SoundsLike({ text, small = false }: { text: string; small?: boolean }) 
       {text}
     </p>
   );
+}
+
+/** «Never wrong. Add …» → { title: "Safe everywhere", rest: "Add …" }; null when there's a real «avoid». */
+function safeEverywhere(avoidWhen: string): { title: string; rest: string } | null {
+  const m = avoidWhen.match(/^(Never wrong|Never rude|Rarely wrong|Fine everywhere|Fine almost everywhere)[.!;]?\s*([\s\S]*)$/);
+  if (!m) return null;
+  const almost = m[1] === "Rarely wrong" || m[1] === "Fine almost everywhere";
+  const rest = m[2].trim();
+  return { title: almost ? "Safe almost everywhere" : "Safe everywhere", rest: rest && rest[0].toUpperCase() + rest.slice(1) };
 }

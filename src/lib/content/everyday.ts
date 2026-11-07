@@ -270,6 +270,72 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-verbs",
+    kind: "everyday",
+    title: "Everyday verbs",
+    titleNo: "Hverdagsverb",
+    emoji: "🏃",
+    words: [
+      p("vaere", "🧍", "å være", "to be", "A0", "Jeg er fra Syria, og jeg er sykepleier.", "I'm from Syria, and I'm a nurse."),
+      p("ha", "🤲", "å ha", "to have", "A0", "Har du tid nå?", "Do you have time now?"),
+      p("ga", "🚶", "å gå", "to walk / to go", "A0", "Jeg går til jobben.", "I walk to work."),
+      p("spise", "🍴", "å spise", "to eat", "A0", "Skal vi spise sammen?", "Shall we eat together?"),
+      p("drikke", "🥤", "å drikke", "to drink", "A0", "Husk å drikke vann.", "Remember to drink water."),
+      p("sove", "😴", "å sove", "to sleep", "A0", "Babyen sover endelig.", "The baby is finally sleeping."),
+      p("lese", "📖", "å lese", "to read", "A0", "Jeg leser for barna hver kveld.", "I read to the kids every evening."),
+      p("skrive", "✍️", "å skrive", "to write", "A0", "Kan du skrive det ned?", "Can you write it down?"),
+      p("snakke", "🗣️", "å snakke", "to speak / to talk", "A0", "Snakker du norsk?", "Do you speak Norwegian?"),
+      p("hore", "👂", "å høre", "to hear / to listen", "A0", "Jeg hører ikke hva du sier.", "I can't hear what you're saying."),
+      p("se", "👁️", "å se", "to see / to watch", "A0", "Har du sett den nye serien?", "Have you seen the new series?"),
+      p("kjope", "🛒", "å kjøpe", "to buy", "A0", "Jeg må kjøpe melk.", "I have to buy milk."),
+      p("jobbe", "💼", "å jobbe", "to work", "A0", "Hun jobber på sykehuset.", "She works at the hospital."),
+      p("vente", "⏳", "å vente", "to wait", "A1", "Kan du vente litt?", "Can you wait a moment?"),
+      p("hjelpe", "🤝", "å hjelpe", "to help", "A0", "Kan jeg hjelpe deg?", "Can I help you?"),
+      p("ringe", "📞", "å ringe", "to call (phone)", "A1", "Jeg ringer deg i kveld.", "I'll call you tonight."),
+      p("lage-mat", "🍳", "å lage mat", "to cook", "A1", "Hvem lager mat i dag?", "Who's cooking today?"),
+      p("vaske", "🧼", "å vaske", "to wash", "A1", "Vask hendene!", "Wash your hands!"),
+    ],
+  },
+  {
+    id: "everyday-opposites",
+    kind: "everyday",
+    title: "Opposites",
+    titleNo: "Motsetninger",
+    emoji: "↕️",
+    words: [
+      p("stor", "🐘", "stor", "big", "A0", "Det er en stor leilighet.", "It's a big flat."),
+      p("liten", "🐭", "liten", "small", "A0", "Vi har en liten hund.", "We have a small dog."),
+      p("ny", "✨", "ny", "new", "A0", "Jeg har ny jobb!", "I have a new job!"),
+      p("gammel", "🏚️", "gammel", "old", "A0", "Huset er over hundre år gammelt.", "The house is over a hundred years old."),
+      p("apen", "🔓", "åpen", "open", "A0", "Er butikken åpen på søndag?", "Is the shop open on Sunday?"),
+      p("stengt", "🔒", "stengt", "closed", "A1", "Banken er stengt i dag.", "The bank is closed today."),
+      p("fort", "🐇", "fort", "fast", "A1", "Ikke kjør så fort!", "Don't drive so fast!"),
+      p("sakte", "🐌", "sakte", "slow / slowly", "A1", "Kan du snakke litt saktere?", "Can you speak a little slower?"),
+      p("lett", "🪶", "lett", "easy / light", "A1", "Den første testen var lett.", "The first test was easy."),
+      p("vanskelig", "🧗", "vanskelig", "difficult", "A1", "Norsk uttale er vanskelig.", "Norwegian pronunciation is difficult."),
+      p("full", "🔋", "full", "full", "A1", "Bussen er helt full.", "The bus is completely full."),
+      p("tom", "🪫", "tom", "empty", "A1", "Kjøleskapet er tomt.", "The fridge is empty."),
+    ],
+  },
+  {
+    id: "everyday-questions",
+    kind: "everyday",
+    title: "Question words",
+    titleNo: "Spørreord",
+    emoji: "❓",
+    words: [
+      p("hva", "❓", "hva", "what", "A0", "Hva heter du?", "What's your name?"),
+      p("hvor", "📍", "hvor", "where", "A0", "Hvor bor du?", "Where do you live?"),
+      p("nar", "⏰", "når", "when", "A0", "Når kommer bussen?", "When does the bus come?"),
+      p("hvem", "👤", "hvem", "who", "A0", "Hvem er det?", "Who is it?"),
+      p("hvorfor", "🤔", "hvorfor", "why", "A0", "Hvorfor lærer du norsk?", "Why are you learning Norwegian?"),
+      p("hvordan", "🛠️", "hvordan", "how", "A0", "Hvordan sier man «thank you» på norsk?", "How do you say «thank you» in Norwegian?"),
+      p("hvor-mange", "🔢", "hvor mange", "how many", "A0", "Hvor mange barn har du?", "How many children do you have?"),
+      p("hvor-mye", "💰", "hvor mye", "how much", "A0", "Hvor mye koster det?", "How much does it cost?"),
+      p("hvilken", "👉", "hvilken / hvilket", "which", "A1", "Hvilken buss går til sentrum?", "Which bus goes to the city centre?"),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -370,7 +436,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "colours", "home", "town", "emergency", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
