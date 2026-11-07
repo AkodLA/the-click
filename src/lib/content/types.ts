@@ -25,12 +25,18 @@ export interface Phrase {
   id: string;
   /** The Norwegian phrase, e.g. "Digg!" */
   text: string;
+  /**
+   * How to say it, spelled with plain English letters so anyone can read it out.
+   * Syllables split by "-", the stressed one in CAPS: «kjærlighet» → "SHAR-li-hayt".
+   * Shown faintly under the phrase as a last-resort hint.
+   */
+  soundsLike?: string;
   /** Meaning in English. */
   meaning: string;
   register: Register;
   level: CefrLevel;
-  /** Example sentence in Norwegian + English translation. */
-  example: { no: string; en: string };
+  /** Example sentence in Norwegian + English translation (+ optional sounds-like spelling, see soundsLike). */
+  example: { no: string; en: string; soundsLike?: string };
   /** When it's natural to say it. */
   useWhen: string;
   /** When NOT to say it, and why. */
