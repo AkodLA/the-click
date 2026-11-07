@@ -47,6 +47,14 @@ export default function ManagerPage() {
     };
   }, []);
 
+  // Reset before a demo run. If DEMO_RESET_TOKEN is set on the server, open /leder?token=XYZ.
+  const reset = async () => {
+    const token = new URLSearchParams(window.location.search).get("token") ?? "";
+    await fetch("/api/events", { method: "DELETE", headers: { "x-reset-token": token } });
+    setAnswered(new Set());
+    setEvents([]);
+  };
+
   const questions = useMemo(
     () => events.filter((e) => e.kind === "question" && !answered.has(e.id)),
     [events, answered],
@@ -70,9 +78,18 @@ export default function ManagerPage() {
           <p className="text-sm uppercase tracking-widest text-sky-300">The Click · Lederoversikt</p>
           <h1 className="text-3xl font-bold">{WAREHOUSE_NAME}</h1>
         </div>
-        <span className={`text-sm ${online ? "text-emerald-400" : "text-red-400"}`}>
-          ● {online ? "Live" : "Frakoblet"}
-        </span>
+        <div className="flex items-center gap-4">
+          <button
+            onClick={reset}
+            className="rounded-lg bg-slate-800 px-3 py-1 text-sm text-slate-400 hover:text-slate-100"
+            title="Tøm feeden før en demo"
+          >
+            Nullstill
+          </button>
+          <span className={`text-sm ${online ? "text-emerald-400" : "text-red-400"}`}>
+            ● {online ? "Live" : "Frakoblet"}
+          </span>
+        </div>
       </header>
 
       <section className="mb-6 grid grid-cols-2 gap-4 md:grid-cols-4">
