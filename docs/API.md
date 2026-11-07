@@ -167,3 +167,7 @@ Checked against Opera's own Translator playground (next.opera.com/web-ai/transla
 - **3 picture packs for newcomer life:** 🏦 Bank & papers (konto, BankID, skjema, skattekort, regning…), 🔑 Housing & renting (husleie, depositum, utleier, strøm, vaskekjeller, postkasse…), 🍽️ Kitchen (tallerken, skje, oppvaskmaskin, komfyr, ostehøvel…). Microwave and coffee maker have no honest emoji, so no picture.
 - **8 workplace phrases** (A1–B1): «Har du et øyeblikk?», «Kan du vise meg hvordan…?», «Jeg er ferdig med…», «Jeg må melde meg syk», «Kan jeg få fri på fredag?», «Jeg er ikke sikker», «Det skal jeg finne ut av», «Jeg tar det!». Linked into the 5 work scenarios.
 - **4 dialect phrases to RECOGNISE** (with region): «Ka du sei?», «Æ e…», «Kor e du?», «ikkje / eg». Each card tells learners to understand them but speak standard Bokmål themselves.
+
+### Culture and small talk (T27)
+- **2 picture packs:** 🇳🇴 Norwegian culture (dugnad, friluftsliv, fredagstaco, pålegg, brunost, janteloven, hyttetur, påskekrim, julebord, lørdagsgodt, allemannsretten…), 📚 School subjects (matte, norsk, gym, naturfag, samfunnsfag, kunst og håndverk, mat og helse…).
+- **12 small-talk and social phrases:** weather («For et vær!», «Nydelig vær i dag!», «Det er meldt regn», «Det blåser!»), weekend («Hva skjer i helga?», «Hva gjorde du i helga?»), evenings out («Takk for en fin kveld!», «Kom deg hjem trygt!», «Kos dere!»), «Jeg er glad i deg» vs «Jeg elsker deg», texting «hehe / haha», and «Ut på tur, aldri sur!». Linked into party, dinner, work lunch and kiosk scenarios.

@@ -393,6 +393,45 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-culture",
+    kind: "everyday",
+    title: "Norwegian culture",
+    titleNo: "Norsk kultur",
+    emoji: "🇳🇴",
+    words: [
+      p("dugnad", "🧹", "en dugnad", "voluntary group work", "A2", "Det er dugnad i borettslaget på lørdag.", "There's a community clean-up in the housing co-op on Saturday."),
+      p("friluftsliv", "🏕️", "friluftsliv", "outdoor life", "B1", "Friluftsliv er en stor del av norsk kultur.", "Outdoor life is a big part of Norwegian culture."),
+      p("fredagstaco", "🌮", "fredagstaco", "Friday tacos", "A2", "Fredag betyr taco i nesten alle norske hjem.", "Friday means tacos in almost every Norwegian home."),
+      p("palegg", "🥪", "pålegg", "sandwich toppings", "A2", "Hva vil du ha som pålegg? Ost eller leverpostei?", "What topping do you want? Cheese or liver pâté?"),
+      p("brunost", "🧀", "brunost", "brown cheese", "A1", "Brunost på vafler er en klassiker.", "Brown cheese on waffles is a classic."),
+      p("janteloven", "🤫", "janteloven", "the Law of Jante (don't think you're better)", "B2", "Janteloven gjør at mange ikke liker å skryte.", "The Law of Jante means many people don't like to brag."),
+      p("hyttetur", "🛖", "en hyttetur", "a trip to the cabin", "A2", "Vi skal på hyttetur i påsken.", "We're going to the cabin at Easter."),
+      p("sondagstur", "🥾", "en søndagstur", "a Sunday walk", "A2", "Etter frokost tar vi en søndagstur i skogen.", "After breakfast we take a Sunday walk in the forest."),
+      p("paskekrim", "🔍", "påskekrim", "Easter crime stories", "B1", "Om påsken leser alle påskekrim.", "At Easter everyone reads crime novels."),
+      p("julebord", "🎄", "et julebord", "a Christmas party (work)", "B1", "Firmaet har julebord i desember.", "The company has its Christmas party in December."),
+      p("lordagsgodt", "🍬", "lørdagsgodt", "Saturday sweets", "A2", "Barna får lørdagsgodt hver lørdag.", "The kids get sweets every Saturday."),
+      p("allemannsretten", "🗺️", "allemannsretten", "the right to roam", "B2", "Allemannsretten lar deg gå tur nesten overalt.", "The right to roam lets you walk almost anywhere."),
+    ],
+  },
+  {
+    id: "everyday-school-subjects",
+    kind: "everyday",
+    title: "School subjects",
+    titleNo: "Skolefag",
+    emoji: "📚",
+    words: [
+      p("matte", "➗", "matte", "maths", "A1", "Vi har matte i første time.", "We have maths in the first lesson.", "informal"),
+      p("norsk", "🇳🇴", "norsk", "Norwegian (subject)", "A0", "Hun er flink i norsk.", "She's good at Norwegian."),
+      p("engelsk", "🇬🇧", "engelsk", "English (subject)", "A0", "Engelsk er favorittfaget mitt.", "English is my favourite subject."),
+      p("gym", "🤸", "gym", "PE (physical education)", "A1", "Husk gymtøy i morgen!", "Remember your PE clothes tomorrow!", "informal"),
+      p("naturfag", "🔬", "naturfag", "science", "A2", "I naturfag lærer vi om planter.", "In science we learn about plants."),
+      p("samfunnsfag", "🌍", "samfunnsfag", "social studies", "B1", "I samfunnsfag snakker vi om demokrati.", "In social studies we talk about democracy."),
+      p("kunst", "🎨", "kunst og håndverk", "arts and crafts", "A2", "I kunst og håndverk lager de juletrepynt.", "In arts and crafts they make Christmas decorations."),
+      p("mat-og-helse", "🥗", "mat og helse", "food and health (home economics)", "A2", "I mat og helse bakte vi brød.", "In food and health we baked bread."),
+      p("musikk", "🎵", "musikk", "music (subject)", "A1", "Vi synger mye i musikk.", "We sing a lot in music."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -493,7 +532,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;

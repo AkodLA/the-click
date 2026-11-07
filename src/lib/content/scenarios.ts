@@ -13,7 +13,7 @@ export const scenarios: Scenario[] = [
     goal: "Order a coffee and a bun, ask the price, say thanks.",
     agentRole: "a friendly kiosk worker in Oslo",
     openingLine: "Hei! Hva skal det være?",
-    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det"],
+    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det", "nydelig-vaer"],
     xpReward: 30,
   },
   {
@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt"],
     xpReward: 40,
   },
   {
@@ -37,7 +37,7 @@ export const scenarios: Scenario[] = [
     goal: "Say yes to food politely, give a compliment, and thank the host the Norwegian way at the end.",
     agentRole: "a warm Norwegian host who invited you for Sunday dinner",
     openingLine: "Velkommen inn! Vil du ha noe å drikke?",
-    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig"],
+    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig", "takk-for-en-fin-kveld"],
     xpReward: 40,
   },
   {
@@ -49,7 +49,7 @@ export const scenarios: Scenario[] = [
     goal: "Introduce yourself, talk about the weekend, use «takk for sist» naturally.",
     agentRole: "a friendly colleague at a Norwegian workplace lunch",
     openingLine: "Hei, du er ny her, ikke sant? Hvordan går det?",
-    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes", "kan-jeg-fa-fri"],
+    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes", "kan-jeg-fa-fri", "hva-gjorde-du-i-helga", "for-et-vaer"],
     xpReward: 50,
   },
   {
