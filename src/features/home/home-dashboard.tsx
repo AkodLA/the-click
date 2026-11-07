@@ -37,19 +37,19 @@ export function HomeDashboard() {
   const goalRatio = Math.min(1, todayXp / DAILY_GOAL_XP);
   const goalDone = todayXp >= DAILY_GOAL_XP;
 
+  const startSteps = [
+    { emoji: "🧭", title: "Find your level", text: "3-minute test, A0 to C2", href: "/onboarding", done: p.cefr !== null },
+    { emoji: "💬", title: "Learn your first phrase", text: "Real Norwegian, with when to use it", href: "#phrase", done: p.learnedPhraseIds.length > 0 },
+    { emoji: "🎙️", title: "Have your first conversation", text: "Talk out loud with your AI tutor", href: `/speak?scenario=${nextScenario.id}`, done: p.unlocked.includes("first-talk") },
+  ];
+
   return (
     <div className="flex flex-col gap-6">
       {/* Greeting + level */}
       <section className="rounded-3xl bg-brand p-6 text-brand-ink shadow-md">
         <p className="text-sm font-semibold opacity-80">Hei{p.nickname ? `, ${p.nickname}` : ""}! 👋</p>
         <h1 className="mt-1 text-3xl font-black leading-tight">Let&apos;s speak some real Norwegian today.</h1>
-        {p.cefr ? (
-          <span className="mt-5 inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>
-        ) : (
-          <Link href="/onboarding" className="mt-5 inline-flex h-11 items-center gap-2 whitespace-nowrap rounded-2xl bg-white px-5 text-sm font-bold text-brand shadow-sm transition hover:brightness-95 active:scale-[0.98]">
-            🧭 Find your level · 3 min →
-          </Link>
-        )}
+        {p.cefr && <span className="mt-4 inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>}
         <div className="mt-5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs font-semibold">
             <span>Player level {level}</span>
@@ -60,6 +60,41 @@ export function HomeDashboard() {
           </div>
         </div>
       </section>
+
+      {/* First-time guide: tells a new learner exactly what to do, then disappears. */}
+      {startSteps.some((s) => !s.done) && (
+        <section aria-labelledby="start-here">
+          <SectionTitle action={<span className="text-sm font-semibold text-muted">{startSteps.filter((s) => s.done).length} of {startSteps.length} done</span>}>
+            <span id="start-here">Start here</span>
+          </SectionTitle>
+          <ol className="flex flex-col gap-2">
+            {startSteps.map((s, i) => {
+              const next = !s.done && startSteps.slice(0, i).every((x) => x.done);
+              return (
+                <li key={s.title}>
+                  <Link
+                    href={s.href}
+                    className={`flex min-h-16 items-center gap-4 rounded-2xl border p-4 transition ${s.done ? "border-line bg-surface-2" : next ? "border-brand bg-surface shadow-sm hover:shadow-md" : "border-line bg-surface hover:bg-surface-2"}`}
+                  >
+                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg font-black ${s.done ? "bg-success text-white" : next ? "bg-brand text-brand-ink" : "bg-surface-2 text-muted"}`} aria-hidden>
+                      {s.done ? "✓" : i + 1}
+                    </span>
+                    <span className="min-w-0 flex-1">
+                      <span className={`block font-bold ${s.done ? "text-muted line-through" : ""}`}>
+                        <span className="mr-1.5" aria-hidden>{s.emoji}</span>
+                        {s.title}
+                        <span className="sr-only">{s.done ? " (done)" : ""}</span>
+                      </span>
+                      {!s.done && <span className="block text-sm text-muted">{s.text}</span>}
+                    </span>
+                    {!s.done && <span className={`text-xl ${next ? "text-brand" : "text-muted"}`} aria-hidden>→</span>}
+                  </Link>
+                </li>
+              );
+            })}
+          </ol>
+        </section>
+      )}
 
       {/* Daily goal + streak */}
       <div className="grid grid-cols-2 gap-3">
@@ -104,7 +139,7 @@ export function HomeDashboard() {
       </section>
 
       {/* Phrase of the moment */}
-      <section>
+      <section id="phrase" className="scroll-mt-20">
         <SectionTitle action={<Link href="/phrases" className="text-sm font-semibold text-brand">Phrasebook →</Link>}>
           Say it like a local
         </SectionTitle>
