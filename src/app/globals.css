@@ -26,6 +26,7 @@
   --warn-soft: #fff4dc;
   --danger: #d93a3a;
   --danger-soft: #fde8e8;
+  --wood: #8a5a3b;
 
   --reg-slang: #c026d3;
   --reg-informal: #f97316;
@@ -53,6 +54,7 @@
     --warn-soft: #33290f;
     --danger: #f87171;
     --danger-soft: #3a1717;
+    --wood: #b98a62;
   }
 }
 
@@ -74,6 +76,7 @@
   --color-warn-soft: var(--warn-soft);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --color-wood: var(--wood);
   --color-reg-slang: var(--reg-slang);
   --color-reg-informal: var(--reg-informal);
   --color-reg-neutral: var(--reg-neutral);

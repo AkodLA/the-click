@@ -5,6 +5,7 @@
  */
 import Link from "next/link";
 import { Badge, Button, Card, ProgressBar, SectionTitle } from "@/components/ui";
+import { ProgressTree } from "@/features/home/progress-tree";
 import { PhraseCard } from "@/features/phrases/phrase-card";
 import { CEFR_LEVELS, phrases, scenarios } from "@/lib/content";
 import { levelProgress } from "@/lib/progress/levels";
@@ -95,6 +96,9 @@ export function HomeDashboard() {
           </ol>
         </section>
       )}
+
+      {/* Grows with total XP: a visible reward for every bit of practice. */}
+      <ProgressTree />
 
       {/* Daily goal + streak */}
       <div className="grid grid-cols-2 gap-3">
