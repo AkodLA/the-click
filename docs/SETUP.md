@@ -36,12 +36,12 @@ The owner's account holds the agents and the key. Everyone else uses the owner's
 2. **Language:** Norwegian as default. Add English as an additional language (learners can fall back).
 3. **Voice:** pick a natural Norwegian-capable voice. Test it in the dashboard.
 4. **System prompt:** paste from `agent/tutor-prompt.md` (T2 writes it; Aden's first draft is in git history at `3694677:agent/tutor/system-prompt.md`).
-5. **Dynamic variables:** the app sends `scenario_title`, `agent_role`, `goal`, `register`, `learner_level`, `opening_line`. Use them in the prompt as `{{scenario_title}}` etc.
+5. **Dynamic variables:** the app sends `scenario_id`, `scenario_title`, `agent_role`, `goal`, `register`, `learner_level`, `opening_line`, `nickname`, `native_language`, `key_phrases`, and (T20) `age_group`, `field`, `interests`. Add them all in the dashboard; the prompt in `agent/tutor-prompt.md` already uses them. Also add the two **client tools** listed there (`flag_register`, `scenario_complete`).
 6. **Security tab:** turn **authentication ON** (only signed URLs can start a session) and add our Vercel domain + `localhost` to the allowlist.
 7. Copy the **Agent ID** (not secret) → `ELEVENLABS_TUTOR_AGENT_ID`.
 
 ### B3. Tolk agent (T8)
-Same steps, name it `Snakk Tolk`, prompt from `agent/tolk-prompt.md` → `ELEVENLABS_TOLK_AGENT_ID`.
+Same steps, name it `Snakk Tolk`, prompt from `agent/tolk-prompt.md` (incl. the `show_translation` client tool and its dynamic variables) → `ELEVENLABS_TOLK_AGENT_ID`.
 
 ### ElevenLabs MCP?
 ElevenLabs also has an MCP server that lets Claude call ElevenLabs while you code. **We don't need it.** The product talks to ElevenLabs through our API routes with the key above. Skip it to save credits and avoid putting the key into more places.
