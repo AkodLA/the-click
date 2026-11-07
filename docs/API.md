@@ -162,3 +162,8 @@ Checked against Opera's own Translator playground (next.opera.com/web-ai/transla
 - **12 phrases for parents** (kindergarten and school): «… er syk i dag», «Kan jeg hente henne litt tidligere?», «Hvem henter i dag?», «Takk for at dere passer så godt på ham», «Kan jeg få en tolk?», «Står det på ukeplanen?»… Linked into the parent-meeting and doctor scenarios.
 - **Phrase card UX:** when a phrase is fine everywhere, the «Avoid it when» box is replaced by a neutral «👍 Safe everywhere» (it used to be a red warning box saying «Never wrong»).
 - AI-drafted: needs the same native-speaker check.
+
+### Newcomer life, work and dialects (T26)
+- **3 picture packs for newcomer life:** 🏦 Bank & papers (konto, BankID, skjema, skattekort, regning…), 🔑 Housing & renting (husleie, depositum, utleier, strøm, vaskekjeller, postkasse…), 🍽️ Kitchen (tallerken, skje, oppvaskmaskin, komfyr, ostehøvel…). Microwave and coffee maker have no honest emoji, so no picture.
+- **8 workplace phrases** (A1–B1): «Har du et øyeblikk?», «Kan du vise meg hvordan…?», «Jeg er ferdig med…», «Jeg må melde meg syk», «Kan jeg få fri på fredag?», «Jeg er ikke sikker», «Det skal jeg finne ut av», «Jeg tar det!». Linked into the 5 work scenarios.
+- **4 dialect phrases to RECOGNISE** (with region): «Ka du sei?», «Æ e…», «Kor e du?», «ikkje / eg». Each card tells learners to understand them but speak standard Bokmål themselves.

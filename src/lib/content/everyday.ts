@@ -15,7 +15,7 @@ const p = (
   exNo: string,
   exEn: string,
   register: VocabWord["register"] = "neutral",
-): VocabWord => ({ id: `everyday-${id}`, no, en, level, register, picture, example: { no: exNo, en: exEn } });
+): VocabWord => ({ id: `everyday-${id}`, no, en, level, register, picture: picture || undefined, example: { no: exNo, en: exEn } });
 
 const packs: VocabPack[] = [
   {
@@ -336,6 +336,63 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-official",
+    kind: "everyday",
+    title: "Bank & papers",
+    titleNo: "Bank og papirer",
+    emoji: "🏦",
+    words: [
+      p("bank", "🏦", "en bank", "a bank", "A1", "Jeg må åpne en konto i banken.", "I have to open an account at the bank."),
+      p("konto", "💳", "en konto", "a (bank) account", "A2", "Lønna kommer inn på kontoen den tjuende.", "The salary comes into the account on the twentieth."),
+      p("bankid", "🔐", "BankID", "BankID (digital ID)", "A2", "Du logger inn med BankID.", "You log in with BankID."),
+      p("skjema", "📝", "et skjema", "a form", "A2", "Fyll ut skjemaet og skriv under.", "Fill in the form and sign."),
+      p("signatur", "✍️", "å skrive under", "to sign", "A2", "Skriv under her, takk.", "Sign here, please."),
+      p("brev", "✉️", "et brev", "a letter", "A1", "Jeg fikk et brev fra NAV.", "I got a letter from NAV."),
+      p("pakke", "📦", "en pakke", "a parcel", "A1", "Pakka kan hentes på butikken.", "The parcel can be collected at the shop."),
+      p("regning", "🧾", "en regning", "a bill / an invoice", "A2", "Husk å betale regningen før fristen.", "Remember to pay the bill before the deadline."),
+      p("skattekort", "🗂️", "et skattekort", "a tax card", "B1", "Du må ha skattekort før du begynner å jobbe.", "You need a tax card before you start working."),
+      p("time", "🗓️", "en time", "an appointment", "A2", "Jeg har bestilt time på servicetorget.", "I've booked an appointment at the service centre."),
+    ],
+  },
+  {
+    id: "everyday-housing",
+    kind: "everyday",
+    title: "Housing & renting",
+    titleNo: "Bolig og leie",
+    emoji: "🔑",
+    words: [
+      p("leie", "🏠", "å leie", "to rent", "A2", "Vi leier en leilighet på Grønland.", "We rent a flat in Grønland."),
+      p("husleie", "💸", "husleie", "rent (the payment)", "A2", "Husleia er 12 000 i måneden.", "The rent is 12,000 a month."),
+      p("depositum", "🏧", "et depositum", "a deposit", "B1", "Depositumet står på en egen konto.", "The deposit is in a separate account."),
+      p("utleier", "🧑‍💼", "en utleier", "a landlord", "B1", "Jeg sendte en melding til utleieren om vasken.", "I messaged the landlord about the sink."),
+      p("nokkel", "🔑", "en nøkkel", "a key", "A1", "Har du fått nøkkelen?", "Have you got the key?"),
+      p("strom", "💡", "strøm", "electricity", "A2", "Strømmen er dyr om vinteren.", "Electricity is expensive in winter."),
+      p("vaskeri", "🧺", "en vaskekjeller", "a shared laundry room", "B1", "Vaskekjelleren kan bookes på lista ved døra.", "The laundry room can be booked on the list by the door."),
+      p("postkasse", "📬", "en postkasse", "a mailbox", "A1", "Navnet ditt må stå på postkassa.", "Your name must be on the mailbox."),
+      p("flytte", "🚚", "å flytte", "to move (house)", "A1", "Vi flytter i mars.", "We're moving in March."),
+      p("heis", "🛗", "en heis", "a lift / an elevator", "A1", "Heisen er ute av drift.", "The lift is out of order."),
+    ],
+  },
+  {
+    id: "everyday-kitchen",
+    kind: "everyday",
+    title: "Kitchen",
+    titleNo: "Kjøkkenet",
+    emoji: "🍽️",
+    words: [
+      p("tallerken", "🍽️", "en tallerken", "a plate", "A1", "Sett tallerkenene på bordet.", "Put the plates on the table."),
+      p("kopp", "☕", "en kopp", "a cup / mug", "A0", "Vil du ha en kopp te?", "Would you like a cup of tea?"),
+      p("glass", "🥛", "et glass", "a glass", "A0", "Kan jeg få et glass vann?", "Can I have a glass of water?"),
+      p("gaffel", "🍴", "en gaffel", "a fork", "A1", "Mangler det en gaffel?", "Is a fork missing?"),
+      p("skje", "🥄", "en skje", "a spoon", "A1", "Suppen spises med skje.", "Soup is eaten with a spoon."),
+      p("oppvaskmaskin", "🫧", "en oppvaskmaskin", "a dishwasher", "A2", "Kan du tømme oppvaskmaskinen?", "Can you empty the dishwasher?"),
+      p("komfyr", "🔥", "en komfyr", "a stove / cooker", "A2", "Husk å slå av komfyren!", "Remember to turn off the stove!"),
+      p("mikro", "", "en mikro", "a microwave", "A2", "Varm maten i mikroen i to minutter.", "Heat the food in the microwave for two minutes.", "informal"),
+      p("kaffetrakter", "", "en kaffetrakter", "a coffee maker", "B1", "Kaffetrakteren på jobben er alltid i gang.", "The coffee maker at work is always on."),
+      p("ostehovel", "🧀", "en ostehøvel", "a cheese slicer", "A2", "Ostehøvelen er en norsk oppfinnelse!", "The cheese slicer is a Norwegian invention!"),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -436,7 +493,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
