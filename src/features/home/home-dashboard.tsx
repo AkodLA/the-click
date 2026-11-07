@@ -24,6 +24,7 @@ function osloToday() {
 }
 
 const TILES = [
+  { href: "/say", emoji: "🗣️", title: "Say it in Norwegian", text: "English in, Norwegian text or voice message out" }, // T23
   { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk", text: "Live interpreter for real meetings" },
   { href: "/tandem", emoji: "🤝", title: "Tandem", text: "Swap languages with a buddy, anonymously" },
   { href: "/events", emoji: "🧇", title: "Språkkafé", text: "Practise in real life, earn XP" },

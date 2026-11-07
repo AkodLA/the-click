@@ -37,7 +37,8 @@ BASE_URL=https://<our-app>.vercel.app npm run security-check   # same attacks ag
   The **slang count** for the "Right word, right room" badge is counted from the tutor's own `flag_register` tool calls, not
   taken from the browser. Local dev without ElevenLabs keys skips the check; production without keys refuses scenario XP.
 - **Money routes**: `/api/agent/signed-url` (10/min), `/api/pronunciation` (12/min, 2 MB, our sentences only), `/api/tts`
-  (30/min, our phrases only). Keys only on the server (`env()`), never `NEXT_PUBLIC_*`.
+  (30/min, our phrases only), `/api/say/transcribe` (6/min + 40/day, 2 MB, audio not stored), `/api/say/voice` (10/min + 40/day,
+  ≤300 chars, plain text only: no markup or links, so it isn't a free TTS proxy). Keys only on the server (`env()`), never `NEXT_PUBLIC_*`.
 - **Input**: zod on every route, body size limits (`parseBody`, 32 KB default).
 
 ## Headers (`next.config.ts`)

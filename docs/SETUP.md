@@ -32,12 +32,12 @@ The owner's account holds the agents and the key. Everyone else uses the owner's
 4. Copy the key **once**, then DM it to Akram (for Vercel) and to teammates who test voice locally.
 
 ### B2. Fastest way: sync both agents from the repo (recommended)
-`agent/tutor-prompt.md` and `agent/tolk-prompt.md` are the **source of truth**. One command sets up both agents exactly as the app expects (prompt, first message, Norwegian + extra languages, client tools with the right names, dynamic-variable placeholders, authentication ON, allowlist `localhost` + our Vercel domain):
+`agent/tutor-prompt.md`, `agent/tolk-prompt.md` and `agent/message-prompt.md` are the **source of truth**. One command sets up all three agents exactly as the app expects (prompt, first message, Norwegian + extra languages, client tools with the right names, dynamic-variable placeholders, authentication ON, allowlist `localhost` + our Vercel domain):
 ```bash
 npm run agents:sync      # create/update both agents (needs ELEVENLABS_API_KEY with ElevenAgents: Write)
 npm run agents:check     # read-only: ✅/❌ per field, live agent vs. repo
 ```
-If `ELEVENLABS_TOLK_AGENT_ID` is empty, the Tolk agent is **created** and its id printed: add it to `.env.local` and Vercel.
+If `ELEVENLABS_TOLK_AGENT_ID` or `ELEVENLABS_MESSAGE_AGENT_ID` is empty, that agent is **created** and its id printed: add it to `.env.local` and Vercel.
 **Changed a prompt in `agent/*.md`?** Run `npm run agents:sync` after the PR is merged, or the live agent keeps the old prompt. The voice and LLM chosen in the dashboard are left alone.
 
 ### B2b. Tutor agent by hand (only if the script can't be used)
@@ -51,6 +51,9 @@ If `ELEVENLABS_TOLK_AGENT_ID` is empty, the Tolk agent is **created** and its id
 
 ### B3. Tolk agent (T8)
 Same steps, name it `Snakk Tolk`, prompt from `agent/tolk-prompt.md` (incl. the `show_translation` client tool and its dynamic variables) → `ELEVENLABS_TOLK_AGENT_ID`.
+
+### B4. Message agent (T23, "Say it in Norwegian")
+`npm run agents:sync -- message` creates the **text-only** `Snakk Message` agent from `agent/message-prompt.md` (client tool `show_message`) → `ELEVENLABS_MESSAGE_AGENT_ID`. Optional: without it, `/say` still works with Snakk's checked translations and the on-device translator. The key also needs **Speech to Text** and **Text to Speech** for spoken input and voice messages.
 
 ### ElevenLabs MCP?
 ElevenLabs also has an MCP server that lets Claude call ElevenLabs while you code. **We don't need it.** The product talks to ElevenLabs through our API routes with the key above. Skip it to save credits and avoid putting the key into more places.
@@ -70,6 +73,7 @@ Do this **after PR #2 is merged**, so the first deploy is the new setup.
    | `ELEVENLABS_API_KEY` | from the agent owner (DM) |
    | `ELEVENLABS_TUTOR_AGENT_ID` | from the agent owner |
    | `ELEVENLABS_TOLK_AGENT_ID` | from the agent owner (can be added later) |
+   | `ELEVENLABS_MESSAGE_AGENT_ID` | T23 message agent, optional (can be added later) |
 5. **Deploy.** You get the live URL `https://the-click-….vercel.app`. Post it in the team Discord and add it to the README.
 6. **Let teammates open previews:** Project → **Settings → Deployment Protection → Vercel Authentication → off**. (On the free plan teammates can't be added to Vercel, so protected previews would ask them to log in. Previews contain no secrets.)
 7. **Check:** Project → Settings → Git → Production Branch = `main`.

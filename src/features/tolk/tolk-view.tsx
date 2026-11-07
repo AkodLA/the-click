@@ -194,6 +194,9 @@ export function TolkView() {
         <Link href="/translator" className="-mt-1 flex h-11 items-center justify-center text-sm font-semibold text-brand">
           🌐 Check this browser&apos;s translator
         </Link>
+        <Link href="/say" className="-mt-2 flex h-11 items-center justify-center text-sm font-semibold text-brand">
+          🗣️ Just one message? Say it in Norwegian
+        </Link>
         <Button variant="secondary" onClick={() => { setError(null); setStage("demo"); }}>
           ▶️ Watch a demo
         </Button>

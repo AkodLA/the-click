@@ -59,9 +59,12 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 |---|---|---|---|
 | `GET /api/health` | – | `{ status, time }` | T1 ✅ |
 | `POST /api/progress/event` | `{ token: string \| null, event: ProgressEvent }` | `{ token, progress, rewards[] }` | T1 ✅ |
-| `POST /api/agent/signed-url` | `{ mode: "tutor" \| "tolk", scenarioId? }` | `{ signedUrl }`. `503 not_configured` if the key/agent id is missing. 10/min per IP. Built in T8, T2 reuses it for `mode: "tutor"`. | T2 (tutor) / T8 (tolk) ✅ |
+| `POST /api/agent/signed-url` | `{ mode: "tutor" \| "tolk" \| "message", scenarioId? }` | `{ signedUrl }`. `503 not_configured` if the key/agent id is missing. 10/min per IP. Built in T8, T2 reuses it for `mode: "tutor"`. | T2 (tutor) / T8 (tolk) / T23 (message) ✅ |
 | `POST /api/pronunciation` | `multipart/form-data`: `audio` (webm/mp4, max 2 MB / 15 s), `target` (must be a known phrase/sentence id or text from our content), `token` | `{ result: PronunciationResult, token, progress, rewards }` | T5 |
 | `POST /api/tts` | `{ phraseId, part?: "text" \| "example" }` (only phrases from our content, no free text) | `audio/mpeg` (ElevenLabs TTS). `503 not_configured` without a key: the browser falls back to its own voice. 30/min per IP. | T7 |
+| `GET /api/say/config` | – | `{ listen, voice, agent }` booleans: which T23 helpers this server has (never a key or id) | T23 |
+| `POST /api/say/transcribe` | `multipart/form-data`: `audio` (max 2 MB / 15 s) | `{ text }` English speech-to-text (ElevenLabs Scribe, audio not stored). 6/min + 40/day per IP. `422 nothing_heard`, `503 not_configured` | T23 |
+| `POST /api/say/voice` | `{ text (≤300 chars, plain text, no markup/links), slow?: boolean }` | `audio/mpeg` voice message (ElevenLabs TTS, same voice as T7). 10/min + 40/day per IP. `503 not_configured` → device voice | T23 |
 | `GET /api/v1/*` | partner API, see `docs/PARTNER-API.md` | | ✅ foundation |
 
 ### ElevenLabs details (check the current docs, these are from memory)
@@ -133,3 +136,11 @@ Checked against Opera's own Translator playground (next.opera.com/web-ai/transla
 - **Robustness**: long text is translated sentence by sentence (respects `inputQuota` when the browser reports it), calls can be aborted, translators are destroyed on `pagehide`, every call has a time limit.
 - **`/translator`**: browser status per language pair, a self-test (Norwegian → your language → back, with timing) and a free translation box. Linked from Tolk and from translation errors.
 - The model itself can't be retrained (it's the browser's); the memory and glossary are how Snakk "teaches" it.
+
+### Say it in Norwegian (T23)
+`/say`: the learner says or types something in **English** and gets the natural **Norwegian**, as text or as a **voice message** (play, download mp3, send via the phone's share sheet). Then: "say it yourself, twice".
+- **Who is it for?** Friend / neighbour (friendly) or work / school / office like NAV (polite). Sets the tone and gives the agent context.
+- **Input:** 🎙️ speak (server Scribe via `/api/say/transcribe`; without a key, the browser's own speech recognition with a privacy note; otherwise typing) or ⌨️ type.
+- **Translation order:** (1) Snakk's checked translations (T22 memory, badge "✅ Checked by Snakk", with the phrase's register) → (2) the **Snakk Message agent** (`agent/message-prompt.md`, ElevenLabs, **text-only** session via signed URL `mode: "message"`, client tool `show_message {norwegian, register, literal?, tip?}`, 15 s limit) → (3) the on-device translator (T19/T22). Every result: tap-a-word explanations (`ExplainText`), glossary notes (NAV, fastlege…), register tag, copy, save to notes.
+- **Voice message:** `/api/say/voice` (ElevenLabs TTS, optional 🐢 slower version) or the device's own voice (🔊 Listen) when not configured.
+- Code: `src/features/say/` (`say-view.tsx`, `message-agent.ts`, `recorder.ts`), `src/server/say.ts`. Linked from Home, `/translator` and Tolk. Nothing is stored on a server.
