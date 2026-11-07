@@ -59,7 +59,7 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 |---|---|---|---|
 | `GET /api/health` | – | `{ status, time }` | T1 ✅ |
 | `POST /api/progress/event` | `{ token: string \| null, event: ProgressEvent }` | `{ token, progress, rewards[] }` | T1 ✅ |
-| `POST /api/agent/signed-url` | `{ mode: "tutor" \| "tolk", scenarioId? }` | `{ signedUrl }` | T2 (tutor) / T8 (tolk) |
+| `POST /api/agent/signed-url` | `{ mode: "tutor" \| "tolk", scenarioId? }` | `{ signedUrl }`. `503 not_configured` if the key/agent id is missing. 10/min per IP. Built in T8, T2 reuses it for `mode: "tutor"`. | T2 (tutor) / T8 (tolk) ✅ |
 | `POST /api/pronunciation` | `multipart/form-data`: `audio` (webm/mp4, max 2 MB / 15 s), `target` (must be a known phrase/sentence id or text from our content), `token` | `{ result: PronunciationResult, token, progress, rewards }` | T5 |
 | `GET /api/v1/*` | partner API, see `docs/PARTNER-API.md` | | ✅ foundation |
 
@@ -89,3 +89,9 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 | `/events` | Språkkafé events + check-in | T11 |
 | `/tolk` | Interpreter | T8 |
 | `/write` | Letter drawing | T12 |
+
+### Tolk (T8)
+- Agent prompt + dashboard settings: `agent/tolk-prompt.md`. Dynamic variables: `lang_a`, `lang_a_name`, `lang_b`, `lang_b_name`, `setting`.
+- Client tool `show_translation({ spoken_language: "a" | "b", original, translation })` puts each turn on the right side of the table. If the agent doesn't call it, the app falls back to pairing the user/agent messages.
+- No ElevenLabs key? `/tolk` offers an offline demo (sample parent-teacher meeting, browser voice), also usable as the stage backup.
+- After a session, the summary links phrases heard in the meeting to `/phrases?id=…` and the matching scenario to `/speak?scenario=…`. Nothing is stored.
