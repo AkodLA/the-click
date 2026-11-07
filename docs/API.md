@@ -96,3 +96,9 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 - Client tool `show_translation({ spoken_language: "a" | "b", original, translation })` puts each turn on the right side of the table. If the agent doesn't call it, the app falls back to pairing the user/agent messages.
 - No ElevenLabs key? `/tolk` offers an offline demo (sample parent-teacher meeting, browser voice), also usable as the stage backup.
 - After a session, the summary links phrases heard in the meeting to `/phrases?id=…` and the matching scenario to `/speak?scenario=…`. Nothing is stored.
+
+### On-device translation (T19): Opera Web AI / Chrome Translator API
+- `src/lib/web-ai/translator.ts`: `translateText(text, from, to, onProgress?)` → `{ ok, text }` or `{ ok: false, reason, message }` (never throws), `translationAvailability(from, to)`, `detectLanguage(text, options)`, `translatorSupported()`, `HOW_TO_ENABLE`.
+- Uses the browser's **built-in** `Translator` / `LanguageDetector` (Opera: Settings → Opera AI → «Enable Web AI API»; also Chrome). The model runs **on the device**: no API route, no key, nothing sent to our server or ElevenLabs. First use of a language pair may download a model (progress callback), so call it from a click.
+- UI: `<TranslateButton text from to />` (`src/features/translate/translate-button.tsx`). Used in Tolk (⌨️ typing mode), Tandem (translate partner messages; "make it Norwegian" for your draft) and the voice tutor transcript.
+- Browsers without it get a clear message (`HOW_TO_ENABLE`) and keep every other feature.

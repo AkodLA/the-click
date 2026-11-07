@@ -10,6 +10,8 @@ import { useProgress } from "@/lib/progress/store";
 import { DEMO_TURNS, TOLK_LANGUAGES, TOLK_SETTINGS, tolkLanguage, tolkSetting, type TolkTurn } from "./tolk-data";
 import { TolkSummary } from "./tolk-summary";
 import { TolkTable } from "./tolk-table";
+import { TolkTyped } from "./tolk-typed";
+import { HOW_TO_ENABLE, translationAvailability, translatorSupported } from "@/lib/web-ai/translator";
 
 // The voice SDK is only loaded when a live session starts.
 const TolkLive = dynamic(() => import("./tolk-live").then((m) => m.TolkLive), {
@@ -19,7 +21,7 @@ const TolkLive = dynamic(() => import("./tolk-live").then((m) => m.TolkLive), {
   ),
 });
 
-type Stage = "setup" | "live" | "demo" | "summary";
+type Stage = "setup" | "live" | "demo" | "typed" | "summary";
 
 export function TolkView() {
   const p = useProgress();
@@ -30,6 +32,7 @@ export function TolkView() {
   const [turns, setTurns] = useState<TolkTurn[]>([]);
   const [error, setError] = useState<{ message: string; code?: string } | null>(null);
   const [wasDemo, setWasDemo] = useState(false);
+  const [checkingTyped, setCheckingTyped] = useState(false);
 
   // Default "my language" = the learner's native language from their profile (if Tolk supports it).
   const defaultA = TOLK_LANGUAGES.some((l) => l.code === p.nativeLanguage) && p.nativeLanguage !== "nb" ? p.nativeLanguage : "en";
@@ -37,6 +40,21 @@ export function TolkView() {
   const langB = tolkLanguage(langBCode);
   const setting = tolkSetting(settingId);
   const sameLanguage = langA.code === langB.code;
+
+  /** T19: only open typing mode if this browser can really translate the pair on the device. */
+  async function startTyped() {
+    setError(null);
+    if (!translatorSupported()) {
+      setError({ message: HOW_TO_ENABLE, code: "web_ai_missing" });
+      return;
+    }
+    setCheckingTyped(true);
+    const a = await translationAvailability(langA.code, langB.code);
+    setCheckingTyped(false);
+    if (a === "unsupported" || a === "unavailable") {
+      setError({ message: `This browser can't translate ${langA.name} ↔ ${langB.name} on the device right now. ${HOW_TO_ENABLE}`, code: "web_ai_missing" });
+    } else setStage("typed");
+  }
 
   function swap() {
     setLangACode(langB.code);
@@ -63,6 +81,10 @@ export function TolkView() {
         }}
       />
     );
+  }
+
+  if (stage === "typed") {
+    return <TolkTyped langA={langA} langB={langB} onEnd={(t) => finish(t, false)} />;
   }
 
   if (stage === "demo") {
@@ -104,8 +126,13 @@ export function TolkView() {
                 ▶️ Watch the demo instead
               </Button>
             )}
-            {error.code !== "not_configured" && (
-              <Button onClick={() => { setError(null); setStage("live"); }}>Try again</Button>
+            {error.code === "web_ai_missing" ? (
+              <Button onClick={() => { setError(null); setStage("live"); }}>🎙️ Use voice Tolk</Button>
+            ) : (
+              error.code !== "not_configured" && <Button onClick={() => { setError(null); setStage("live"); }}>Try again</Button>
+            )}
+            {error.code === "not_configured" && translatorSupported() && (
+              <Button onClick={startTyped}>⌨️ Type instead (on-device)</Button>
             )}
           </div>
         </Card>
@@ -159,6 +186,9 @@ export function TolkView() {
       <div className="flex flex-col gap-3">
         <Button size="lg" disabled={sameLanguage} onClick={() => { setError(null); setStage("live"); }}>
           🎙️ Start interpreting
+        </Button>
+        <Button variant="secondary" disabled={sameLanguage || checkingTyped} onClick={startTyped}>
+          {checkingTyped ? "Checking your browser…" : "⌨️ Type instead (on-device, private)"}
         </Button>
         <Button variant="secondary" onClick={() => { setError(null); setStage("demo"); }}>
           ▶️ Watch a demo

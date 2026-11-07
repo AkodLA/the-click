@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
+import { Mascot } from "@/components/mascot";
 import { levelProgress } from "@/lib/progress/levels";
 import { onReward, useProgress, type Reward } from "@/lib/progress/store";
 
@@ -36,10 +37,13 @@ function TopBar() {
   const p = useProgress();
   const { level } = levelProgress(p.xp);
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
+    <header className="sticky top-0 z-20 border-b-2 border-line bg-surface/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4 md:px-6 lg:max-w-5xl">
-        <Link href="/learn" className="text-xl font-black tracking-tight text-brand">
-          snakk<span className="text-accent">.</span>
+        <Link href="/learn" className="flex items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-brand">
+          <Mascot className="h-8 w-8" still />
+          <span>
+            snakk<span className="text-accent">.</span>
+          </span>
         </Link>
         <nav className="hidden gap-1 md:flex" aria-label="Main">
           {NAV.map((n) => (
@@ -67,7 +71,7 @@ function NavLink({ href, label, icon, compact = false }: { href: string; label: 
   const active = path === href || path.startsWith(`${href}/`);
   if (compact) {
     return (
-      <Link href={href} aria-current={active ? "page" : undefined} className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${active ? "bg-brand-soft text-brand" : "text-muted hover:text-ink"}`}>
+      <Link href={href} aria-current={active ? "page" : undefined} className={`rounded-full px-3.5 py-1.5 font-display font-medium ${active ? "bg-brand-soft text-brand" : "text-muted hover:text-ink"}`}>
         {label}
       </Link>
     );
@@ -84,7 +88,7 @@ function NavLink({ href, label, icon, compact = false }: { href: string; label: 
 
 function BottomNav() {
   return (
-    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
       <div className="mx-auto flex max-w-2xl">
         {NAV.map((n) => (
           <NavLink key={n.href} {...n} />

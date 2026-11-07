@@ -15,10 +15,12 @@ function cx(...classes: (string | false | null | undefined)[]) {
 type Variant = "primary" | "secondary" | "ghost" | "accent";
 type Size = "md" | "lg";
 
+// Chunky "toy" buttons: a solid bottom edge that presses down when tapped.
+const PRESS = "-translate-y-0 hover:-translate-y-0.5 active:translate-y-1 active:shadow-none";
 const VARIANTS: Record<Variant, string> = {
-  primary: "bg-brand text-brand-ink hover:brightness-110 shadow-sm",
-  accent: "bg-accent text-white hover:brightness-110 shadow-sm",
-  secondary: "bg-surface text-ink border border-line hover:bg-surface-2",
+  primary: `bg-brand text-brand-ink shadow-[0_4px_0_var(--brand-deep)] hover:brightness-105 ${PRESS}`,
+  accent: `bg-accent text-white shadow-[0_4px_0_var(--accent-deep)] hover:brightness-105 ${PRESS}`,
+  secondary: `bg-surface text-ink border-2 border-line shadow-[0_4px_0_var(--line)] hover:bg-surface-2 ${PRESS}`,
   ghost: "text-brand hover:bg-brand-soft",
 };
 const SIZES: Record<Size, string> = {
@@ -42,7 +44,7 @@ export function Button({
   ...rest
 }: ButtonBase & ({ href: string } | ({ href?: undefined } & ComponentProps<"button">))) {
   const classes = cx(
-    "inline-flex items-center justify-center gap-2 rounded-2xl font-semibold transition active:scale-[0.98] disabled:opacity-50 disabled:pointer-events-none",
+    "inline-flex items-center justify-center gap-2 rounded-full font-display font-semibold tracking-wide transition-all duration-150 disabled:opacity-50 disabled:pointer-events-none",
     VARIANTS[variant],
     SIZES[size],
     className,
@@ -63,7 +65,7 @@ export function Button({
 
 export function Card({ className, children, ...rest }: ComponentProps<"div">) {
   return (
-    <div className={cx("rounded-3xl border border-line bg-surface p-5 shadow-sm", className)} {...rest}>
+    <div className={cx("rounded-3xl border-2 border-line bg-surface p-5 shadow-[0_4px_0_var(--line)]", className)} {...rest}>
       {children}
     </div>
   );
@@ -101,8 +103,11 @@ export function ProgressBar({ value, tone = "brand", label }: { value: number; t
   const pct = Math.round(Math.min(1, Math.max(0, value)) * 100);
   const fill = { brand: "bg-brand", accent: "bg-accent", success: "bg-success" }[tone];
   return (
-    <div className="h-3 w-full overflow-hidden rounded-full bg-surface-2" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
-      <div className={cx("h-full rounded-full transition-all duration-500", fill)} style={{ width: `${pct}%` }} />
+    <div className="h-3.5 w-full overflow-hidden rounded-full border-2 border-line bg-surface-2" role="progressbar" aria-valuenow={pct} aria-valuemin={0} aria-valuemax={100} aria-label={label}>
+      <div className={cx("relative h-full rounded-full transition-all duration-500", fill)} style={{ width: `${pct}%` }}>
+        {/* Glossy highlight, like a candy bar. */}
+        <span className="absolute inset-x-1.5 top-0.5 h-0.5 rounded-full bg-white/40" />
+      </div>
     </div>
   );
 }
@@ -110,7 +115,7 @@ export function ProgressBar({ value, tone = "brand", label }: { value: number; t
 export function SectionTitle({ children, action }: { children: ReactNode; action?: ReactNode }) {
   return (
     <div className="mb-3 flex items-end justify-between">
-      <h2 className="text-lg font-bold">{children}</h2>
+      <h2 className="text-xl font-semibold">{children}</h2>
       {action}
     </div>
   );

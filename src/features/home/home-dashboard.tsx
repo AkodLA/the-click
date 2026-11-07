@@ -4,6 +4,7 @@
  * Owner: T1 (Akram). It shows what good Snakk UI looks like, so copy its patterns.
  */
 import Link from "next/link";
+import { Cloud, Mascot } from "@/components/mascot";
 import { Badge, Button, Card, ProgressBar, SectionTitle } from "@/components/ui";
 import { ProgressTree } from "@/features/home/progress-tree";
 import { PhraseCard } from "@/features/phrases/phrase-card";
@@ -50,11 +51,20 @@ export function HomeDashboard() {
     <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-8">
       <div className="contents lg:flex lg:flex-col lg:gap-6">
       {/* Greeting + level */}
-      <section className="order-1 rounded-3xl bg-brand p-6 text-brand-ink shadow-md lg:order-none">
-        <p className="text-sm font-semibold opacity-80">Hei{p.nickname ? `, ${p.nickname}` : ""}! 👋</p>
-        <h1 className="mt-1 text-3xl font-black leading-tight">Let&apos;s speak some real Norwegian today.</h1>
-        {p.cefr && <span className="mt-4 inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>}
-        <div className="mt-5">
+      <section className="relative order-1 overflow-hidden rounded-[2rem] border-2 border-brand-deep bg-brand p-6 text-brand-ink shadow-[0_5px_0_var(--brand-deep)] lg:order-none">
+        <Cloud className="pointer-events-none absolute -right-4 -top-2 w-24 opacity-25" />
+        <Cloud className="pointer-events-none absolute bottom-10 right-28 w-14 opacity-20" />
+        <div className="relative flex items-start gap-3">
+          <div className="min-w-0 flex-1">
+            <p className="font-display text-lg font-medium opacity-90">Hei{p.nickname ? `, ${p.nickname}` : ""}! 👋</p>
+            <h1 className="mt-1 text-3xl font-bold leading-tight sm:text-4xl">Let&apos;s speak some real Norwegian today.</h1>
+          </div>
+          <span className="flex h-20 w-20 shrink-0 items-center justify-center rounded-full border-2 border-brand-deep bg-surface shadow-[0_4px_0_var(--brand-deep)] sm:h-24 sm:w-24">
+            <Mascot className="h-14 w-14 sm:h-16 sm:w-16" />
+          </span>
+        </div>
+        {p.cefr && <span className="relative mt-4 inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>}
+        <div className="relative mt-5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs font-semibold">
             <span>Player level {level}</span>
             <span className="opacity-80">{toNext} XP to level {level + 1}</span>
@@ -78,9 +88,9 @@ export function HomeDashboard() {
                 <li key={s.title}>
                   <Link
                     href={s.href}
-                    className={`flex min-h-16 items-center gap-4 rounded-2xl border p-4 transition ${s.done ? "border-line bg-surface-2" : next ? "border-brand bg-surface shadow-sm hover:shadow-md" : "border-line bg-surface hover:bg-surface-2"}`}
+                    className={`flex min-h-16 items-center gap-4 rounded-2xl border-2 p-4 transition ${s.done ? "border-line bg-surface-2" : next ? "border-brand bg-surface shadow-[0_4px_0_var(--brand-deep)] hover:-translate-y-0.5" : "border-line bg-surface shadow-[0_4px_0_var(--line)] hover:bg-surface-2"}`}
                   >
-                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-lg font-black ${s.done ? "bg-success text-white" : next ? "bg-brand text-brand-ink" : "bg-surface-2 text-muted"}`} aria-hidden>
+                    <span className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full font-display text-lg font-bold ${s.done ? "bg-success text-white" : next ? "bg-brand text-brand-ink" : "bg-surface-2 text-muted"}`} aria-hidden>
                       {s.done ? "✓" : i + 1}
                     </span>
                     <span className="min-w-0 flex-1">
@@ -138,11 +148,11 @@ export function HomeDashboard() {
         <SectionTitle>More ways to practise</SectionTitle>
         <div className="grid grid-cols-2 gap-3">
           {TILES.map((t) => (
-            <Link key={t.href} href={t.href} className="rounded-3xl border border-line bg-surface p-4 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md">
+            <Link key={t.href} href={t.href} className="rounded-3xl border-2 border-line bg-surface p-4 shadow-[0_4px_0_var(--line)] transition hover:-translate-y-1 hover:-rotate-1">
               <div className="text-3xl" aria-hidden>
                 {t.emoji}
               </div>
-              <p className="mt-2 font-bold">{t.title}</p>
+              <p className="mt-2 font-display text-lg font-semibold">{t.title}</p>
               <p className="text-sm text-muted">{t.text}</p>
             </Link>
           ))}
@@ -161,7 +171,7 @@ export function HomeDashboard() {
       <div className="order-4 grid grid-cols-2 gap-3 lg:order-none">
         <Card className="flex flex-col gap-2">
           <p className="text-sm font-semibold text-muted">Daily goal</p>
-          <p className="text-2xl font-black tabular-nums">
+          <p className="font-display text-3xl font-bold tabular-nums">
             {Math.min(todayXp, DAILY_GOAL_XP)}/{DAILY_GOAL_XP} <span className="text-base font-semibold text-muted">XP</span>
           </p>
           <ProgressBar value={goalRatio} tone={goalDone ? "success" : "accent"} label="Daily goal" />
@@ -169,7 +179,7 @@ export function HomeDashboard() {
         </Card>
         <Card className="flex flex-col gap-2">
           <p className="text-sm font-semibold text-muted">Streak</p>
-          <p className="text-2xl font-black">🔥 {p.streakDays} {p.streakDays === 1 ? "day" : "days"}</p>
+          <p className="font-display text-3xl font-bold">🔥 {p.streakDays} {p.streakDays === 1 ? "day" : "days"}</p>
           <p className="text-xs text-muted">{p.streakDays === 0 ? "Practise today to start one." : "Practise every day to keep it."}</p>
         </Card>
       </div>
