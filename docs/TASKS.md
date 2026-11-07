@@ -11,10 +11,10 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | ★T3 | **Content**: more phrases (aim for 30, real spoken Norwegian, every card checked by a native speaker), scenario goals, placement questions; **pitch facts with sources** in `docs/PITCH.md` | T1 | 2–3 | Anas | | ⬜ |
 | ★T4 | **Placement test** `/onboarding`: nickname + native language → 9 questions (tap / listen / speak) → send `placement_submitted` (the **server** scores it) → animated level reveal (A0–C2) → go to `/learn`. Smooth, one question per screen, progress bar. | T1 | 2–3 | Aden | | ⬜ |
 | T5 | **Pronunciation check**: record a sentence in the browser → `POST /api/pronunciation` (ElevenLabs speech-to-text) → words highlighted green/red + score + tip. The route applies `pronunciation_scored` itself (server-only event). Limit audio size/length. Used inside `/speak` and phrase cards. | T2 | 2–3 | | | ⬜ |
-| T6 | **Gamification** `/profile`: level ring, XP, streak, achievement grid (locked/unlocked), weekly XP; tune `RULES` in `src/server/progress-rules.ts` | T1 | 2 | | | 🟡 |
+| T6 | **Gamification** `/profile`: level ring, XP, streak, achievement grid (locked/unlocked), weekly XP; tune `RULES` in `src/server/progress-rules.ts` | T1 | 2 | | | ⬜ |
 | T7 | **Phrasebook** `/phrases`: register filter chips (slang / informal / neutral / formal), level filter, search, `PhraseCard` list, "play audio" (ElevenLabs TTS, optional) | T1 | 2 | | | ⬜ |
 | T8 | **Tolk** `/tolk`: pick the two languages → big two-sided "table" layout (phone lies between two people) → interpreter agent (`agent/tolk-prompt.md`) translates both ways; transcript in both languages | T2 | 2–3 | | | ⬜ |
-| T9 | **League** `/league`: week/month toggle, grouped by your CEFR level, you inserted with your `weekXp`, podium for the top 3, "promotion zone" | T6 | 1–2 | | | 🟡 |
+| T9 | **League** `/league`: week/month toggle, grouped by your CEFR level, you inserted with your `weekXp`, podium for the top 3, "promotion zone" | T6 | 1–2 | | | ⬜ |
 | T10 | **Tandem** `/tandem`: "I speak X, I want Y" → matching cards (nickname + avatar only) → chat screen with the scripted partner + correction bubbles; privacy note. Avatar calls = "coming soon" button. | T1 | 2–3 | | | ⬜ |
 | T11 | **Events** `/events`: språkkafé list (sample data badge), filter by level, check-in button → `event_checkin` → badge + XP | T1 | 1–2 | | | ⬜ |
 | T12 | **Write** `/write`: canvas with a faint letter (æ ø å, then short words) to trace with finger or mouse, "done" → XP | T1 | 1–2 | | | ⬜ |
