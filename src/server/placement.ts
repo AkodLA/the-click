@@ -10,6 +10,7 @@ const ANSWER_KEY: Record<string, number> = {
   q1: 2,
   q2: 1,
   q3: 3,
+  q10: 0,
   q5: 2,
   q6: 1,
   q7: 3,
