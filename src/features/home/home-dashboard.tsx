@@ -26,7 +26,7 @@ const TILES = [
   { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk", text: "Live interpreter for real meetings" },
   { href: "/tandem", emoji: "🤝", title: "Tandem", text: "Swap languages with a buddy, anonymously" },
   { href: "/events", emoji: "🧇", title: "Språkkafé", text: "Practise in real life, earn XP" },
-  { href: "/write", emoji: "✍️", title: "Write", text: "Draw æ, ø, å and new words" },
+  { href: "/write", emoji: "✍️", title: "Write & notes", text: "Trace A to Å step by step, and keep your own notes" },
   { href: "/words", emoji: "🧠", title: "My words", text: "Words for your work and interests" }, // T20
 ];
 

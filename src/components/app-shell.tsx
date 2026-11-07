@@ -52,7 +52,7 @@ function TopBar() {
             <NavLink key={n.href} {...n} compact />
           ))}
         </nav>
-        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex items-center gap-1.5 text-sm font-bold tabular-nums">
+        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-bold tabular-nums">
           <span title="Day streak" className={`rounded-full px-2.5 py-1 ${p.streakDays > 0 ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted"}`}>
             🔥 {p.streakDays}
           </span>
