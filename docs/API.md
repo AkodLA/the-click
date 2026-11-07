@@ -118,7 +118,8 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 - **Picture quiz** on every pack with 4+ unique pictures, two modes: 🖼️ *See it* (picture → pick the Norwegian word → hear it) and 👂 *Hear it* (hear the word → pick the picture; no reading needed, good for A0). Practice only, no XP, nothing stored. Review cards show the picture together with the meaning.
 - **Same pictures on every device:** picture tiles use the Noto Color Emoji font (self-hosted by `next/font`, split by character, not preloaded), so newer emoji never show as empty boxes on older Android or Windows 10. A pack page loads roughly 60–470 KB of it once; other pages load none.
 - **Explain a word** shows the picture too, and punctuation now stays on the same line as its word.
-- **51 new phrases** (A0–B2, all with use when / avoid when / say instead: everyday politeness, invitations, reactions like «Nei, så hyggelig!», slang like «Helt konge!», formal «Jeg viser til…»), linked into tutor scenarios as key phrases.
+- **Work and interest packs** got 4 more words each (60 words, all with pictures: blodtrykk, stige, skanner, passord, ukeplan, rundkjøring, kompass…). No two words in a pack share a picture.
+- **63 new phrases** (A0–B2, all with use when / avoid when / say instead: everyday politeness, invitations, reactions like «Nei, så hyggelig!», slang like «Helt konge!», formal «Jeg viser til…»; B2–C1 idioms like «å ta seg vann over hodet», «midt i smørøyet», «det sitter langt inne»), linked into tutor scenarios as key phrases.
 - All new content was drafted with AI help: a native speaker must check it before the demo.
 
 ### Engagement pack (T21)
