@@ -20,6 +20,8 @@ export const progressEventSchema = z.discriminatedUnion("type", [
     answers: z.record(id, z.number().int().min(0).max(9)),
   }),
   z.object({ type: z.literal("phrase_learned"), phraseId: id }),
+  /** T20: a vocabulary word from the personal packs. */
+  z.object({ type: z.literal("word_learned"), wordId: id }),
   z.object({
     type: z.literal("scenario_completed"),
     scenarioId: id,

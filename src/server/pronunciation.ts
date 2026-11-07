@@ -1,5 +1,5 @@
 import "server-only";
-import { phrases, placementQuestions, scenarios } from "@/lib/content";
+import { phrases, placementQuestions, scenarios, vocabWords } from "@/lib/content";
 import { env } from "./env";
 import { normalizeWord } from "./pronunciation-compare";
 
@@ -34,6 +34,8 @@ for (const p of phrases) {
 }
 for (const q of placementQuestions) if (q.type === "speak") add(q.norwegian);
 for (const s of scenarios) add(s.openingLine);
+// T20: vocabulary example sentences can be practised out loud too.
+for (const w of vocabWords) add(w.example.no);
 
 /**
  * `target` may be a phrase id ("digg" → its example sentence), "phrase:<id>" (the phrase itself),

@@ -102,3 +102,11 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 - Uses the browser's **built-in** `Translator` / `LanguageDetector` (Opera: Settings → Opera AI → «Enable Web AI API»; also Chrome). The model runs **on the device**: no API route, no key, nothing sent to our server or ElevenLabs. First use of a language pair may download a model (progress callback), so call it from a click.
 - UI: `<TranslateButton text from to />` (`src/features/translate/translate-button.tsx`). Used in Tolk (⌨️ typing mode), Tandem (translate partner messages; "make it Norwegian" for your draft) and the voice tutor transcript.
 - Browsers without it get a clear message (`HOW_TO_ENABLE`) and keep every other feature.
+
+### Personal learning (T20): age group, field, interests
+- **About you** (`src/lib/personal/prefs.ts`, `usePrefs()` / `savePrefs()`): `ageGroup` (teen / young / adult / senior, never an exact age), `field` (9 fields), up to 3 `interests`. Stored only in the browser (`snakk.prefs.v1`); it never affects XP.
+- **Vocabulary** (`src/lib/content/vocab.ts`): `fieldPacks`, `interestPacks`, `vocabWords`, `getVocabWord`, `packFitsAge`. Each word: level, register, example sentence. Packs can be limited to age groups (e.g. «School & student life» for 13–29).
+- **Event** `word_learned { wordId }`: the server checks the word exists, gives `RULES.wordXp` once per word (max `wordsPerDay` per day), unlocks `words-25` and `field-ready`.
+- **Review** (`src/lib/personal/review.ts`): Leitner boxes 1-3-7-14-30 days, browser only, no XP.
+- **Scenarios** can have `fields`; `/speak` puts the learner's field first (`/speak?field=logistics` also works). The tutor gets `age_group`, `field`, `interests` (see `agent/tutor-prompt.md`).
+- Pages: `/words`, `/words?pack=<id>`, `/words?review=1`; "About you" on `/profile#about-you`.

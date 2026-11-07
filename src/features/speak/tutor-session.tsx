@@ -11,8 +11,9 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Card, RegisterTag } from "@/components/ui";
 import { TranslateButton } from "@/features/translate/translate-button";
 import { apiFetch } from "@/lib/api-client";
-import { getPhrase, LANGUAGE_NAMES } from "@/lib/content";
+import { getPack, getPhrase, LANGUAGE_NAMES } from "@/lib/content";
 import type { Register, Scenario } from "@/lib/content/types";
+import { usePrefs } from "@/lib/personal/prefs";
 import { useProgress } from "@/lib/progress/store";
 
 export interface Correction {
@@ -63,6 +64,7 @@ function Session({
   onFail: (message: string, code?: string) => void;
 }) {
   const p = useProgress();
+  const prefs = usePrefs();
   const [lines, setLines] = useState<Line[]>([]);
   const [corrections, setCorrections] = useState<Correction[]>([]);
   const seq = useRef(0);
@@ -159,6 +161,10 @@ function Session({
             nickname: p.nickname || "friend",
             native_language: LANGUAGE_NAMES[p.nativeLanguage] ?? "English",
             key_phrases: keyPhrases || "none",
+            // T20: talk about the learner's world (device-only settings; group, never an exact age).
+            age_group: prefs.ageGroup ?? "unknown",
+            field: (prefs.field && getPack(prefs.field)?.title) || "unknown",
+            interests: prefs.interests.map((i) => getPack(i)?.title ?? i).join(", ") || "unknown",
           },
         });
       } catch (err) {

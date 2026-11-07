@@ -69,7 +69,7 @@ export const TOLK_SETTINGS: TolkSetting[] = [
     emoji: "📦",
     title: "Workplace",
     agentContext: "a conversation at work between a manager and an employee (e.g. in a warehouse)",
-    practiseScenarioId: "work-lunch",
+    practiseScenarioId: "warehouse-first-day",
   },
   {
     id: "everyday",

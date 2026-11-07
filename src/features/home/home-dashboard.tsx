@@ -24,6 +24,7 @@ const TILES = [
   { href: "/tandem", emoji: "🤝", title: "Tandem", text: "Swap languages with a buddy, anonymously" },
   { href: "/events", emoji: "🧇", title: "Språkkafé", text: "Practise in real life, earn XP" },
   { href: "/write", emoji: "✍️", title: "Write", text: "Draw æ, ø, å and new words" },
+  { href: "/words", emoji: "🧠", title: "My words", text: "Words for your work and interests" }, // T20
 ];
 
 export function HomeDashboard() {

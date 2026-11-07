@@ -65,6 +65,8 @@ export interface Scenario {
   /** Phrase ids worth using in this scenario. */
   keyPhraseIds: string[];
   xpReward: number;
+  /** T20: work fields this scenario is for (recommended to learners in that field). */
+  fields?: FieldId[];
 }
 
 export type PlacementQuestionType = "choice" | "listen" | "speak";
@@ -166,9 +168,46 @@ export interface Progress {
   lastActiveDay: string | null;
   unlocked: string[];
   learnedPhraseIds: string[];
+  /** T20: vocabulary words the learner marked as known (server-checked, once per word). */
+  learnedWordIds?: string[];
   checkedInEventIds: string[];
   /** ISO week id of weekXp, e.g. "2026-W45" (server resets weekXp each week). */
   weekId: string | null;
   /** Per-day counters for anti-abuse caps, e.g. { "scenario:kiosk": 1, xp: 120 }. */
   daily: { day: string | null; counts: Record<string, number> };
+}
+
+// ---------- T20: personal learning (age group, field, interests) ----------
+
+/** Age GROUP only, never an exact age (data minimisation). Changes tone and which packs are suggested. */
+export type AgeGroup = "teen" | "young" | "adult" | "senior";
+
+/** Field of work or study. */
+export type FieldId = "health" | "construction" | "logistics" | "hospitality" | "it" | "education" | "cleaning" | "transport" | "student";
+
+export type InterestId = "football" | "cooking" | "music" | "gaming" | "outdoors" | "family";
+
+/** One word to learn, always with an example sentence (real spoken Norwegian). */
+export interface VocabWord {
+  /** Stable id, also the `word_learned` event id, e.g. "health-vakt". */
+  id: string;
+  /** The Norwegian word, with article for nouns where it helps: "en vakt". */
+  no: string;
+  /** English meaning. */
+  en: string;
+  level: CefrLevel;
+  register: Register;
+  example: { no: string; en: string };
+}
+
+export interface VocabPack {
+  id: FieldId | InterestId;
+  kind: "field" | "interest";
+  title: string;
+  /** Norwegian name of the pack, shown small. */
+  titleNo: string;
+  emoji: string;
+  /** Only suggested to these age groups (undefined = everyone). */
+  ageGroups?: AgeGroup[];
+  words: VocabWord[];
 }

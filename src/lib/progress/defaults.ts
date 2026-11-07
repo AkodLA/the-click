@@ -12,6 +12,7 @@ export const DEFAULT_PROGRESS: Progress = {
   lastActiveDay: null,
   unlocked: [],
   learnedPhraseIds: [],
+  learnedWordIds: [],
   checkedInEventIds: [],
   weekId: null,
   daily: { day: null, counts: {} },

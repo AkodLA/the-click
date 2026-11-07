@@ -16,6 +16,9 @@ export const achievements: Achievement[] = [
   { id: "tandem-first", title: "New buddy", description: "Send your first tandem message.", emoji: "🤝", xp: 30 },
   { id: "sprakkafe", title: "Café regular", description: "Check in at a språkkafé.", emoji: "🧇", xp: 80 },
   { id: "league-top3", title: "Podium", description: "Finish a week in the top 3 of your league.", emoji: "🏆", xp: 100 },
+  // T20: personal vocabulary
+  { id: "words-25", title: "Word collector", description: "Learn 25 words from your packs.", emoji: "🧺", xp: 50 },
+  { id: "field-ready", title: "Ready for work", description: "Learn every word in one field pack.", emoji: "🧰", xp: 80 },
 ];
 
 /** Weekly league, grouped by level so beginners compete with beginners. */

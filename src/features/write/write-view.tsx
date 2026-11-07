@@ -9,7 +9,8 @@ import { useRef, useState, useSyncExternalStore } from "react";
 import { Badge, Button, Card, ProgressBar } from "@/components/ui";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { TraceCanvas, type TraceHandle } from "./trace-canvas";
-import { WRITE_ITEMS, type WriteItem } from "./write-items";
+import { usePrefs } from "@/lib/personal/prefs";
+import { WRITE_ITEMS as ALL_ITEMS, type WriteItem } from "./write-items";
 
 /** Mirrors RULES.writingPerDay / writingXp on the server (display only). */
 const PER_DAY = 10;
@@ -69,6 +70,9 @@ function speak(text: string) {
 type Result = { ok: boolean; stars: number; message: string } | null;
 
 export function WriteView() {
+  // T20: age-appropriate items (no alcohol words for 13–17).
+  const prefs = usePrefs();
+  const WRITE_ITEMS = ALL_ITEMS.filter((w) => !(w.adultOnly && prefs.ageGroup === "teen"));
   const p = useProgress();
   const done = useDone();
   const [index, setIndex] = useState(() => 0);
@@ -76,7 +80,7 @@ export function WriteView() {
   const [result, setResult] = useState<Result>(null);
   const [saving, setSaving] = useState(false);
   const canvas = useRef<TraceHandle>(null);
-  const item = WRITE_ITEMS[index];
+  const item = WRITE_ITEMS[index] ?? WRITE_ITEMS[0];
 
   // XP-earning traces left today (the server enforces it; this only explains it).
   const usedToday = p.daily.day && p.daily.counts.writing ? (p.daily.day === osloToday() ? p.daily.counts.writing : 0) : 0;

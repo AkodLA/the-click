@@ -9,8 +9,9 @@ import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import { Badge, Button, Card, RegisterTag, SectionTitle } from "@/components/ui";
-import { CEFR_LEVELS, getPhrase, getScenario, REGISTER_STYLE, scenarios } from "@/lib/content";
+import { CEFR_LEVELS, getPack, getPhrase, getScenario, REGISTER_STYLE, scenarios } from "@/lib/content";
 import type { Scenario } from "@/lib/content/types";
+import { usePrefs } from "@/lib/personal/prefs";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { CorrectionCard, type SessionOutcome } from "./tutor-session";
 
@@ -37,6 +38,11 @@ export function SpeakView() {
 
   const selected = getScenario(params.get("scenario") ?? "") ?? null;
   const myIndex = p.cefr ? CEFR_LEVELS.indexOf(p.cefr) : -1;
+  // T20: your field (from "About you", or ?field= from a word pack) puts its work scenarios first.
+  const prefs = usePrefs();
+  const field = params.get("field") ?? prefs.field;
+  const forWork = (s: Scenario) => Boolean(field && s.fields?.includes(field as never));
+  const ordered = [...scenarios.filter(forWork), ...scenarios.filter((s) => !forWork(s))];
   const doneToday = (id: string) => (p.daily.day && p.daily.counts[`scenario:${id}`] ? p.daily.day === osloToday() : false);
 
   function choose(id: string | null) {
@@ -177,8 +183,22 @@ export function SpeakView() {
         </Card>
       )}
 
+      {field && getPack(field) && (
+        <Link
+          href={`/words?pack=${field}`}
+          className="flex min-h-11 items-center justify-between gap-3 rounded-3xl border border-line bg-surface p-4 text-sm font-semibold shadow-sm transition hover:bg-surface-2"
+        >
+          <span>
+            {getPack(field)!.emoji} Learn the words for {getPack(field)!.title.toLowerCase()} first
+          </span>
+          <span className="text-brand" aria-hidden>
+            →
+          </span>
+        </Link>
+      )}
+
       <ul className="flex flex-col gap-3">
-        {scenarios.map((s) => {
+        {ordered.map((s) => {
           const idx = CEFR_LEVELS.indexOf(s.level);
           const fits = myIndex >= 0 && Math.abs(idx - myIndex) <= 1;
           return (
@@ -195,6 +215,7 @@ export function SpeakView() {
                   <span className="flex flex-wrap items-center gap-2">
                     <span className="font-bold">{s.title}</span>
                     <Badge tone="brand">{s.level}</Badge>
+                    {forWork(s) && <Badge tone="accent">💼 For your work</Badge>}
                     {fits && <Badge tone="success">For you</Badge>}
                     {doneToday(s.id) && <Badge tone="muted">✓ Today</Badge>}
                   </span>
