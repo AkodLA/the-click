@@ -42,6 +42,11 @@ const AGENTS = {
     firstMessage: "{{opening_line}}",
     language: "no",
     extraLanguages: ["en"],
+    llm: "claude-haiku-5-5",
+    temperature: 0.3,
+    speed: 0.9, // a bit slower for learners
+    // Helps speech recognition hear slang correctly (that's what the tutor corrects).
+    keywords: ["halla", "skjer'a", "digg", "sykt", "ass", "chille", "lættis", "kebabnorsk", "snakkes", "takk for sist", "koselig", "gidder"],
     placeholders: {
       scenario_id: "party",
       scenario_title: "Small talk at a party",
@@ -85,6 +90,10 @@ const AGENTS = {
     firstMessage: "",
     language: "no",
     extraLanguages: ["en", "uk", "ar", "pl", "es", "fr", "tr"],
+    llm: "claude-haiku-5-5",
+    temperature: 0,
+    speed: 1,
+    keywords: [],
     placeholders: { lang_a: "nb", lang_a_name: "Norwegian", lang_b: "uk", lang_b_name: "Ukrainian", setting: "parent-teacher meeting" },
     tools: [
       {
@@ -147,9 +156,23 @@ function agentBody(spec, prompt, toolIds) {
         first_message: spec.firstMessage,
         language: spec.language,
         dynamic_variables: { dynamic_variable_placeholders: spec.placeholders },
-        prompt: { prompt, tool_ids: toolIds },
+        prompt: { prompt, tool_ids: toolIds, llm: spec.llm, temperature: spec.temperature },
       },
-      turn: { turn_eagerness: "patient" },
+      turn: {
+        turn_eagerness: "patient",
+        // Learners need time to think before the agent takes the turn.
+        turn_timeout: 10,
+        // Hesitations never count as an answer or an interruption.
+        interruption_ignore_terms: ["eh", "ehh", "øh", "øhm", "hmm", "mm", "ja", "ok", "uh", "um"],
+        merge_with_default_ignore_terms: true,
+      },
+      // Noisy venues: ignore voices in the background.
+      vad: { background_voice_detection: true },
+      asr: { keywords: spec.keywords },
+      tts: { speed: spec.speed },
+      // No "interruption" event: the agent always finishes its short turn (1–2 sentences),
+      // so a cough, an "ehh" or room noise can't cut it off mid-word.
+      conversation: { client_events: ["audio", "user_transcript", "agent_response", "agent_response_correction"] },
       language_presets: Object.fromEntries(
         spec.extraLanguages.map((code) => [code, { overrides: { agent: { language: code } } }]),
       ),
@@ -176,6 +199,10 @@ async function check(key, agentId) {
     [(ag.prompt?.prompt ?? "").trim() === prompt, "system prompt matches repo", `${(ag.prompt?.prompt ?? "").length} chars`],
     [spec.tools.every((t) => toolNames.includes(t.name)), "client tools", toolNames.join(", ") || "none"],
     [a.platform_settings?.auth?.enable_auth === true, "authentication", String(a.platform_settings?.auth?.enable_auth)],
+    [ag.prompt?.llm === spec.llm, "model", ag.prompt?.llm],
+    [!(a.conversation_config?.conversation?.client_events ?? []).includes("interruption"), "interruptions off", String(!(a.conversation_config?.conversation?.client_events ?? []).includes("interruption"))],
+    [a.conversation_config?.vad?.background_voice_detection === true, "background voice filter", String(a.conversation_config?.vad?.background_voice_detection)],
+    [a.conversation_config?.turn?.turn_timeout === 10, "turn timeout 10 s", String(a.conversation_config?.turn?.turn_timeout)],
   ];
   console.log(`\n${spec.name} (${agentId})`);
   for (const [ok, label, value] of rows) console.log(`  ${ok ? "✅" : "❌"} ${label}: ${value}`);

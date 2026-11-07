@@ -5,6 +5,7 @@
  * the API key never reaches the browser. Nothing is stored: the transcript lives in this tab only.
  */
 import { ConversationProvider, useConversation, useConversationClientTool } from "@elevenlabs/react";
+import { stripVoiceTags } from "@/lib/voice-text";
 import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui";
 import { apiFetch } from "@/lib/api-client";
@@ -57,9 +58,10 @@ function LiveSession({
   }
 
   const conversation = useConversation({
-    onMessage: ({ message, source }) => {
+    onMessage: ({ message: raw, source }) => {
+      const message = stripVoiceTags(raw ?? "");
       // Fallback when the agent doesn't call show_translation: pair "what was said" with "the translation".
-      if (toolUsed.current || !message?.trim()) return;
+      if (toolUsed.current || !message) return;
       if (source === "user") pendingOriginal.current = message;
       else if (pendingOriginal.current) {
         addTurn({ speaker: "unknown", original: pendingOriginal.current, translation: message });
