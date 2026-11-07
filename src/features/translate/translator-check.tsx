@@ -84,6 +84,9 @@ export function TranslatorCheck() {
           For the {mem.nbToEn} Norwegian sentences and words in Snakk you get our own checked translations; everything else is machine translation made
           by your browser (Opera Web AI or Chrome), and it never leaves your device.
         </p>
+        <Link href="/say" className="mt-3 inline-flex h-11 items-center rounded-full bg-white/20 px-4 text-sm font-bold">
+          🗣️ Need to reply in Norwegian? Say it in English →
+        </Link>
       </section>
 
       <section>

@@ -2,12 +2,12 @@
 /**
  * Sync our ElevenLabs agents from the repo: agent/*.md is the SOURCE OF TRUTH.
  *
- *   npm run agents:sync            # tutor + tolk
+ *   npm run agents:sync            # tutor + tolk + message
  *   npm run agents:sync -- tutor   # only one
  *   npm run agents:check           # read-only: compare live agents with the repo
  *
  * Needs ELEVENLABS_API_KEY (ElevenAgents: Write) in .env.local. Never prints the key.
- * If ELEVENLABS_TOLK_AGENT_ID is empty, the Tolk agent is CREATED and its id printed
+ * If ELEVENLABS_TOLK_AGENT_ID (or ELEVENLABS_MESSAGE_AGENT_ID) is empty, that agent is CREATED and its id printed
  * (agent ids are not secret: add it to .env.local and Vercel).
  */
 import { readFileSync } from "node:fs";
@@ -117,6 +117,34 @@ const AGENTS = {
       },
     ],
   },
+  // T23 "Say it in Norwegian": text-only (no audio), English in -> natural Norwegian out via show_message.
+  message: {
+    name: "Snakk Message",
+    envVar: "ELEVENLABS_MESSAGE_AGENT_ID",
+    promptFile: "message-prompt.md",
+    firstMessage: "",
+    language: "en",
+    extraLanguages: [],
+    llm: "claude-haiku-5-5",
+    temperature: 0.2,
+    speed: 1,
+    keywords: [],
+    textOnly: true,
+    placeholders: { tone: "friendly", learner_level: "A2", context: "none" },
+    tools: [
+      {
+        name: "show_message",
+        description: "Show the Norwegian version of the learner's message. Call it exactly once per message.",
+        properties: {
+          norwegian: str("The message in natural Norwegian Bokmål"),
+          register: str("The register you used", { enum: ["slang", "informal", "neutral", "formal"] }),
+          literal: str("A short word-for-word English gloss of the Norwegian"),
+          tip: str("One short tip in English, max 20 words (optional)"),
+        },
+        required: ["norwegian", "register"],
+      },
+    ],
+  },
 };
 
 async function call(method, path, body) {
@@ -181,7 +209,11 @@ function agentBody(spec, prompt, toolIds) {
       tts: { speed: spec.speed },
       // No "interruption" event: the agent always finishes its short turn (1–2 sentences),
       // so a cough, an "ehh" or room noise can't cut it off mid-word.
-      conversation: { client_events: ["audio", "user_transcript", "agent_response", "agent_response_correction"] },
+      conversation: {
+        client_events: ["audio", "user_transcript", "agent_response", "agent_response_correction"],
+        // T23 message agent: text only (no audio, cheaper). Other agents are unchanged.
+        ...(spec.textOnly ? { text_only: true } : {}),
+      },
       language_presets: Object.fromEntries(
         spec.extraLanguages.map((code) => [code, { overrides: { agent: { language: code } } }]),
       ),
@@ -213,6 +245,7 @@ async function check(key, agentId) {
     [!(a.conversation_config?.conversation?.client_events ?? []).includes("interruption"), "interruptions off", String(!(a.conversation_config?.conversation?.client_events ?? []).includes("interruption"))],
     [a.conversation_config?.vad?.background_voice_detection === true, "background voice filter", String(a.conversation_config?.vad?.background_voice_detection)],
     [a.conversation_config?.turn?.turn_timeout === 10, "turn timeout 10 s", String(a.conversation_config?.turn?.turn_timeout)],
+    ...(spec.textOnly ? [[a.conversation_config?.conversation?.text_only === true, "text only", String(a.conversation_config?.conversation?.text_only)]] : []),
   ];
   console.log(`\n${spec.name} (${agentId})`);
   for (const [ok, label, value] of rows) console.log(`  ${ok ? "✅" : "❌"} ${label}: ${value}`);
