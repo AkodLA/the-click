@@ -29,6 +29,25 @@ export const leagueWeek: LeagueEntry[] = [
   { nickname: "SkiSkiSara", avatar: "🎿", level: "B1", xp: 820 },
   { nickname: "TrollTalk", avatar: "🧌", level: "B1", xp: 610 },
   { nickname: "KanelKarl", avatar: "🥐", level: "B1", xp: 455 },
+  // More test players (T9), so every level has a league and a new learner can climb past someone.
+  { nickname: "PolarPia", avatar: "🐻‍❄️", level: "A2", xp: 140 },
+  { nickname: "KaffeKoffi", avatar: "☕", level: "A2", xp: 65 },
+  { nickname: "LuffeLiv", avatar: "🧇", level: "B1", xp: 210 },
+  { nickname: "FyrtårnFred", avatar: "🗼", level: "B1", xp: 90 },
+  { nickname: "HeiHamid", avatar: "👋", level: "A0", xp: 120 },
+  { nickname: "SnøSofia", avatar: "❄️", level: "A0", xp: 70 },
+  { nickname: "BåtBo", avatar: "🚤", level: "A0", xp: 25 },
+  { nickname: "TrikkTina", avatar: "🚋", level: "A1", xp: 310 },
+  { nickname: "ElgElias", avatar: "🫎", level: "A1", xp: 220 },
+  { nickname: "BolleBea", avatar: "🧁", level: "A1", xp: 150 },
+  { nickname: "PinnePeder", avatar: "🌲", level: "A1", xp: 80 },
+  { nickname: "RegnRami", avatar: "🌧️", level: "A1", xp: 35 },
+  { nickname: "FjelletFarah", avatar: "🏔️", level: "B2", xp: 930 },
+  { nickname: "GeitGeir", avatar: "🐐", level: "B2", xp: 540 },
+  { nickname: "SildSiri", avatar: "🐟", level: "B2", xp: 260 },
+  { nickname: "OperaOla", avatar: "🎭", level: "C1", xp: 700 },
+  { nickname: "BokBashir", avatar: "📚", level: "C1", xp: 380 },
+  { nickname: "MidnattMia", avatar: "🌞", level: "C2", xp: 450 },
 ];
 
 export const leagueMonth: LeagueEntry[] = leagueWeek.map((e) => ({ ...e, xp: e.xp * 4 - 120 }));
@@ -68,6 +87,40 @@ export const languageEvents: LanguageEvent[] = [
     description: "Learn the words you actually need to win.",
     isSample: true,
   },
+  // More sample events (T11). ev-4 is on pitch day, so the live check-in can be shown in the demo.
+  {
+    id: "ev-4",
+    title: "Sunday språkkafé: first words",
+    place: "Community house (example)",
+    area: "Sentrum",
+    startsAt: "2026-11-08T11:00:00+01:00",
+    levels: ["A0", "A1", "A2"],
+    xpReward: 80,
+    description: "For total beginners. Volunteers help you say hello, order a coffee and talk about yourself.",
+    isSample: true,
+  },
+  {
+    id: "ev-5",
+    title: "Lunch chat for job seekers",
+    place: "Volunteer centre (example)",
+    area: "Grønland",
+    startsAt: "2026-11-12T11:30:00+01:00",
+    levels: ["A2", "B1", "B2"],
+    xpReward: 60,
+    description: "Practise small talk and interview phrases with people who work in Norway.",
+    isSample: true,
+  },
+  {
+    id: "ev-6",
+    title: "Debate night: Norwegian news",
+    place: "Student house (example)",
+    area: "Blindern",
+    startsAt: "2026-11-16T19:00:00+01:00",
+    levels: ["B2", "C1", "C2"],
+    xpReward: 70,
+    description: "Read a short news story, then discuss it. Advanced learners and native speakers.",
+    isSample: true,
+  },
 ];
 
 /** Anonymous tandem partners: nickname + avatar only. */
@@ -76,6 +129,14 @@ export const tandemPartners: TandemPartner[] = [
   { id: "tp-2", nickname: "Nordkapp", avatar: "🧭", offers: "nb", wants: "es", level: "B1", online: true, interests: ["hiking", "music"] },
   { id: "tp-3", nickname: "KaffeKatt", avatar: "🐈", offers: "nb", wants: "en", level: "B2", online: false, interests: ["films", "coffee"] },
   { id: "tp-4", nickname: "Lumi", avatar: "❄️", offers: "en", wants: "nb", level: "A1", online: true, interests: ["gaming", "travel"] },
+  // More test partners (T10), so every app language has a Norwegian match.
+  { id: "tp-5", nickname: "Kvikklunsj", avatar: "🍫", offers: "nb", wants: "en", level: "C1", online: true, interests: ["skiing", "podcasts"] },
+  { id: "tp-6", nickname: "Bølgen", avatar: "🌊", offers: "nb", wants: "ar", level: "C2", online: true, interests: ["surfing", "food"] },
+  { id: "tp-7", nickname: "Granskog", avatar: "🌲", offers: "nb", wants: "uk", level: "C2", online: true, interests: ["chess", "hiking"] },
+  { id: "tp-8", nickname: "Pepperkake", avatar: "🍪", offers: "nb", wants: "pl", level: "C2", online: false, interests: ["baking", "football"] },
+  { id: "tp-9", nickname: "Tindetur", avatar: "⛰️", offers: "nb", wants: "so", level: "C2", online: true, interests: ["running", "music"] },
+  { id: "tp-10", nickname: "Lysløype", avatar: "🔦", offers: "nb", wants: "fr", level: "C2", online: true, interests: ["books", "cycling"] },
+  { id: "tp-11", nickname: "Fjellrev", avatar: "🦊", offers: "nb", wants: "es", level: "C2", online: false, interests: ["photography", "dogs"] },
 ];
 
 export const tandemDemoChat: TandemMessage[] = [

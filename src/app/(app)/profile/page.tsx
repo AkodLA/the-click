@@ -1,10 +1,6 @@
-import { ComingSoon } from "@/components/ui";
+import { ProfileView } from "@/features/profile/profile-view";
 
-// Owner: T6. Build the feature in src/features/ and render it here.
+// Owner: T6. The real UI lives in src/features/profile/.
 export default function Page() {
-  return (
-    <ComingSoon task="T6" title="Your progress" emoji="🙂">
-      Level, XP, streak and all your achievements.
-    </ComingSoon>
-  );
+  return <ProfileView />;
 }
