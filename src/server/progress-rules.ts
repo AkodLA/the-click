@@ -114,6 +114,13 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
       break;
     }
 
+    case "languages_set": {
+      // A preference, not practice: no XP, no streak.
+      if (event.nativeLanguage === event.targetLanguage) throw new RuleError("invalid", "Pick two different languages");
+      ctx.p = { ...ctx.p, nativeLanguage: event.nativeLanguage, targetLanguage: event.targetLanguage };
+      break;
+    }
+
     case "placement_submitted": {
       const { level, correct, total } = scorePlacement(event.answers);
       ctx.p = { ...ctx.p, cefr: level };

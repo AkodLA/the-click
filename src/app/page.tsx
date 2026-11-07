@@ -1,5 +1,6 @@
 import { Cloud, Mascot, Squiggle } from "@/components/mascot";
 import { Button, RegisterTag } from "@/components/ui";
+import { LanguageWelcome } from "@/features/languages/language-picker";
 import { scenarios } from "@/lib/content";
 import { ForOrganisations, LandingScreens, Pricing } from "@/features/landing/landing-extras";
 
@@ -196,6 +197,8 @@ export default function Landing() {
           </Button>
         </section>
       </main>
+
+      <LanguageWelcome />
 
       <footer className="border-t-2 border-line bg-surface/70 py-8 text-center text-sm font-semibold text-muted">
         Made with ☕ and 💙 by The Click at Oslo Sprint 2026 · No accounts, no personal data on our servers
