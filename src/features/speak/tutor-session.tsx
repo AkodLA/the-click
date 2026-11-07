@@ -9,6 +9,7 @@
 import { ConversationProvider, useConversation, useConversationClientTool } from "@elevenlabs/react";
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, RegisterTag } from "@/components/ui";
+import { TranslateButton } from "@/features/translate/translate-button";
 import { apiFetch } from "@/lib/api-client";
 import { getPhrase, LANGUAGE_NAMES } from "@/lib/content";
 import type { Register, Scenario } from "@/lib/content/types";
@@ -217,7 +218,7 @@ function Session({
       <div className="flex min-h-48 flex-col gap-3" aria-label="Conversation" aria-live="polite">
         {lines.length === 0 && <p className="py-8 text-center text-muted">The tutor starts. Then just talk, like in real life.</p>}
         {lines.map((l) => (
-          <div key={l.id} className={`flex ${l.from === "me" ? "justify-end" : "justify-start"}`}>
+          <div key={l.id} className={`flex flex-col ${l.from === "me" ? "items-end" : "items-start"}`}>
             <p
               lang="nb"
               className={`max-w-[85%] rounded-3xl px-4 py-3 ${
@@ -226,6 +227,8 @@ function Session({
             >
               {l.text}
             </p>
+            {/* T19: on-device translation of what the tutor said, into the learner's language. */}
+            {l.from === "tutor" && <TranslateButton text={l.text} from="nb" to={p.nativeLanguage} />}
           </div>
         ))}
         {corrections.length > 0 && <CorrectionCard c={corrections[corrections.length - 1]} />}

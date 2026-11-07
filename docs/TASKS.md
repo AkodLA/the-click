@@ -24,6 +24,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T16 | **UX polish + demo path**: loading / empty / error states, mobile check on a real phone, `progressActions.reset()` button for demo, run the exact demo 5× | T2 T4 T5 | 2 | | | ⬜ |
 | T17 | (Optional) Supabase: real accounts + real tandem chat (Realtime) + progress in a DB (stops token replay). Only if everything above is done. | – | 3+ | | | ⬜ |
 | T18 | (Optional) Partner API: add `translate` scope (Tolk as an API for warehouses / robots / schools), API docs page | T8 | 2 | | | ⬜ |
+| T19 | **On-device translation** (Opera Web AI / Chrome Translator API): shared helper + `TranslateButton`; Tolk typing mode, Tandem translate, tutor transcript translate. No server, no key. | T8 T10 T2 | 1–2 | | | 🔵 |
 
 ## Checkpoints
 | When | Must be true |
