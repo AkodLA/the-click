@@ -10,6 +10,7 @@ export const placementQuestions: PlacementQuestion[] = [
   { id: "q1", level: "A1", type: "choice", prompt: "What does «Hei» mean?", options: ["Goodbye", "Thanks", "Hello", "Sorry"] },
   { id: "q2", level: "A1", type: "listen", prompt: "Listen. What did you hear?", norwegian: "Jeg heter Sara.", options: ["I live in Sara.", "My name is Sara.", "I like Sara.", "Sara is here."] },
   { id: "q3", level: "A2", type: "choice", prompt: "A friend asks «Skal vi ta en kaffe?». What's a natural answer?", options: ["De er velkommen.", "Jeg lurer på om kaffe.", "Ha det bra.", "Gjerne!"] },
+  { id: "q10", level: "A2", type: "choice", prompt: "After dinner at a friend's, you say «Takk for maten!». What does the host usually answer?", options: ["Velbekomme!", "Unnskyld!", "Ha det!", "Gjerne!"] },
   { id: "q4", level: "A2", type: "speak", prompt: "Say this out loud:", norwegian: "Jeg kommer fra Spania, men jeg bor i Oslo." },
   { id: "q5", level: "B1", type: "choice", prompt: "You meet your neighbour again after their dinner party. What do Norwegians say first?", options: ["Halla, skjer'a?", "God natt!", "Takk for sist!", "Unnskyld meg."] },
   { id: "q6", level: "B1", type: "choice", prompt: "Which one is best in an email to your child's teacher?", options: ["Skjer'a, kan vi snakke?", "Jeg lurer på om vi kan ta en prat.", "Gidder du å ringe?", "Det er sykt viktig, ass."] },
