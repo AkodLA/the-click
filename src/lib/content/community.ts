@@ -29,6 +29,25 @@ export const leagueWeek: LeagueEntry[] = [
   { nickname: "SkiSkiSara", avatar: "🎿", level: "B1", xp: 820 },
   { nickname: "TrollTalk", avatar: "🧌", level: "B1", xp: 610 },
   { nickname: "KanelKarl", avatar: "🥐", level: "B1", xp: 455 },
+  // More test players (T9), so every level has a league and a new learner can climb past someone.
+  { nickname: "PolarPia", avatar: "🐻‍❄️", level: "A2", xp: 140 },
+  { nickname: "KaffeKoffi", avatar: "☕", level: "A2", xp: 65 },
+  { nickname: "LuffeLiv", avatar: "🧇", level: "B1", xp: 210 },
+  { nickname: "FyrtårnFred", avatar: "🗼", level: "B1", xp: 90 },
+  { nickname: "HeiHamid", avatar: "👋", level: "A0", xp: 120 },
+  { nickname: "SnøSofia", avatar: "❄️", level: "A0", xp: 70 },
+  { nickname: "BåtBo", avatar: "🚤", level: "A0", xp: 25 },
+  { nickname: "TrikkTina", avatar: "🚋", level: "A1", xp: 310 },
+  { nickname: "ElgElias", avatar: "🫎", level: "A1", xp: 220 },
+  { nickname: "BolleBea", avatar: "🧁", level: "A1", xp: 150 },
+  { nickname: "PinnePeder", avatar: "🌲", level: "A1", xp: 80 },
+  { nickname: "RegnRami", avatar: "🌧️", level: "A1", xp: 35 },
+  { nickname: "FjelletFarah", avatar: "🏔️", level: "B2", xp: 930 },
+  { nickname: "GeitGeir", avatar: "🐐", level: "B2", xp: 540 },
+  { nickname: "SildSiri", avatar: "🐟", level: "B2", xp: 260 },
+  { nickname: "OperaOla", avatar: "🎭", level: "C1", xp: 700 },
+  { nickname: "BokBashir", avatar: "📚", level: "C1", xp: 380 },
+  { nickname: "MidnattMia", avatar: "🌞", level: "C2", xp: 450 },
 ];
 
 export const leagueMonth: LeagueEntry[] = leagueWeek.map((e) => ({ ...e, xp: e.xp * 4 - 120 }));
