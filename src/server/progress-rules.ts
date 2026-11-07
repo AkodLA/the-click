@@ -1,5 +1,5 @@
 import "server-only";
-import { achievements, getPhrase, getScenario, languageEvents } from "@/lib/content";
+import { achievements, getPhrase, getScenario, getVocabWord, languageEvents, packOfWord } from "@/lib/content";
 import type { Progress } from "@/lib/content/types";
 import type { ProgressEvent, RewardNotice } from "@/lib/progress/events";
 import { scorePlacement } from "./placement";
@@ -15,6 +15,10 @@ export const RULES = {
   /** Max XP per learner per day, from all sources. Stops scripted farming. */
   dailyXpCap: 600,
   phraseXp: 5,
+  /** T20: XP per vocabulary word (once per word, ever), max words with XP per day. */
+  wordXp: 3,
+  wordsPerDay: 30,
+  wordCollector: 25,
   writingXp: 3,
   writingPerDay: 10,
   tandemMessageXp: 2,
@@ -129,6 +133,23 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
         return reg === "slang" || reg === "informal";
       }).length;
       if (street >= RULES.streetPhrases) unlock(ctx, "slang-5");
+      break;
+    }
+
+    case "word_learned": {
+      const word = getVocabWord(event.wordId);
+      if (!word) throw new RuleError("not_found", "Unknown word");
+      const known = ctx.p.learnedWordIds ?? [];
+      if (known.includes(word.id)) break; // idempotent
+      ctx.p = { ...ctx.p, learnedWordIds: [...known, word.id] };
+      if (count(ctx, "words") < RULES.wordsPerDay) {
+        bump(ctx, "words");
+        addXp(ctx, RULES.wordXp, `New word: «${word.no}»`, "🧠");
+      }
+      const learned = ctx.p.learnedWordIds ?? [];
+      if (learned.length >= RULES.wordCollector) unlock(ctx, "words-25");
+      const pack = packOfWord(word.id);
+      if (pack?.kind === "field" && pack.words.every((x) => learned.includes(x.id))) unlock(ctx, "field-ready");
       break;
     }
 

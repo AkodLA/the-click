@@ -13,6 +13,8 @@ export interface WriteItem {
   sound: string;
   /** Optional phrasebook card to open afterwards. */
   phraseId?: string;
+  /** T20: not shown to the 13–17 age group (e.g. alcohol). */
+  adultOnly?: boolean;
 }
 
 export const WRITE_ITEMS: WriteItem[] = [
@@ -25,7 +27,7 @@ export const WRITE_ITEMS: WriteItem[] = [
   { id: "w-hei", text: "hei", kind: "word", meaning: "hi", sound: "Like «hay»." },
   { id: "w-takk", text: "takk", kind: "word", meaning: "thanks", sound: "Short «a», hard «kk»." },
   { id: "w-blaa", text: "blå", kind: "word", meaning: "blue", sound: "«blaw», with the å sound." },
-  { id: "w-oel", text: "øl", kind: "word", meaning: "beer", sound: "The ø sound, then «l»." },
+  { id: "w-oel", text: "øl", kind: "word", meaning: "beer", sound: "The ø sound, then «l».", adultOnly: true },
   { id: "w-kos", text: "kos", kind: "word", meaning: "cosiness", sound: "«koos», long o.", phraseId: "kos" },
   { id: "w-digg", text: "digg", kind: "word", meaning: "nice / tasty", sound: "Short «i», hard «gg».", phraseId: "digg" },
   { id: "w-vaer", text: "vær", kind: "word", meaning: "weather", sound: "«vær» with the æ sound." },

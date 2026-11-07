@@ -17,6 +17,7 @@ import {
   type StreakState,
 } from "@/lib/progress/display";
 import { levelProgress } from "@/lib/progress/levels";
+import { AboutYou } from "@/features/personal/about-you";
 import { progressActions, useProgress } from "@/lib/progress/store";
 
 const STREAK_COPY: Record<StreakState, string> = {
@@ -113,10 +114,11 @@ export function ProfileView() {
       </Card>
 
       {/* Quick stats */}
-      <div className="grid grid-cols-3 gap-3">
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat emoji="💬" value={p.learnedPhraseIds.length} label="Phrases" href="/phrases?show=learned" />
         <Stat emoji="🏅" value={unlockedCount} label="Badges" href="#achievements" />
         <Stat emoji="🧇" value={p.checkedInEventIds.length} label="Cafés" href="/events" />
+        <Stat emoji="🧠" value={(p.learnedWordIds ?? []).length} label="Words" href="/words" />
       </div>
 
       {/* Achievements */}
@@ -129,6 +131,12 @@ export function ProfileView() {
             <AchievementTile key={achievement.id} a={achievement} unlocked={unlocked} progress={progress} />
           ))}
         </ul>
+      </section>
+
+      {/* T20: age group, field and interests (device-only) shape words, scenarios and the tutor. */}
+      <section id="about-you" className="scroll-mt-20">
+        <SectionTitle action={<Link href="/words" className="text-sm font-semibold text-brand">My words →</Link>}>About you</SectionTitle>
+        <AboutYou compact />
       </section>
 
       {!isNew && <StartOver />}

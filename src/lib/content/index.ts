@@ -7,6 +7,7 @@ export * from "./phrases";
 export * from "./scenarios";
 export * from "./placement";
 export * from "./community";
+export * from "./vocab";
 
 import type { Register } from "./types";
 

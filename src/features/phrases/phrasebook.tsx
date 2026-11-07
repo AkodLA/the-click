@@ -7,6 +7,7 @@
  *   /phrases?register=slang      /phrases?level=A2      /phrases?show=learned
  *   /phrases?q=hei               /phrases?id=digg   (opens and highlights one phrase)
  */
+import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Button, Card } from "@/components/ui";
@@ -113,6 +114,9 @@ export function Phrasebook() {
         <p className="text-sm font-semibold opacity-80">Phrasebook</p>
         <h1 className="mt-1 text-3xl font-black leading-tight">Say it like a local.</h1>
         <p className="mt-2 text-sm opacity-90">Real spoken Norwegian, with when to use it, when not to, and what to say instead.</p>
+        <Link href="/words" className="mt-3 inline-flex h-11 items-center rounded-full bg-white/20 px-4 text-sm font-bold">
+          🧠 Words for your work and interests →
+        </Link>
         <div className="mt-4">
           <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/25">
             <div className="h-full rounded-full bg-white transition-all duration-500" style={{ width: `${Math.round((learnedCount / phrases.length) * 100)}%` }} />
