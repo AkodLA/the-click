@@ -47,6 +47,7 @@ progressActions.reset();   // demo reset
 - Events: `src/lib/progress/events.ts` (zod schema, shared). Rules and every XP number: `src/server/progress-rules.ts` (`RULES`).
 - Toasts come back from the server as `rewards` and are shown automatically.
 - Anti-abuse: daily XP cap (600), each scenario's XP once per day, phrases once ever, per-day caps on writing/tandem/pronunciation, rate limit 60 events/min per IP. Day and week use Oslo time **on the server**.
+- **`scenario_completed` needs a real tutor conversation** (T13): send the ElevenLabs `conversationId` from `onConnect`. The server checks it with ElevenLabs (our tutor agent, finished, recent, learner spoke, not reused) and counts `flag_register` tool calls itself, so the browser's `slangFlags` is ignored when verified. T2: also pass `scenario_id` as a dynamic variable so the server can match it. Errors: `unverified`, `too_short`, `already_used` (show the message), `verify_unavailable` (retry). See `docs/SECURITY.md`.
 - `pronunciation_scored` is **internal only**: `/api/pronunciation` (T5) computes the score and applies it itself; the browser can't send it.
 - Player level from XP: `levelProgress(xp)` in `src/lib/progress/levels.ts` (display only).
 
