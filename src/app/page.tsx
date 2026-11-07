@@ -1,5 +1,6 @@
 import { Badge, Button, RegisterTag } from "@/components/ui";
 import { scenarios } from "@/lib/content";
+import { ForOrganisations, LandingScreens, Pricing } from "@/features/landing/landing-extras";
 
 // Public landing page: the first thing the jury sees. Owner: T15 (polish + pricing).
 // Rule for this page: a visitor should get "app to SPEAK everyday Norwegian" within 5 seconds.
@@ -33,6 +34,8 @@ export default function Landing() {
             <a href="#how" className="hover:text-ink">How it works</a>
             <a href="#situations" className="hover:text-ink">Situations</a>
             <a href="#features" className="hover:text-ink">Features</a>
+            <a href="#organisations" className="hover:text-ink">For organisations</a>
+            <a href="#pricing" className="hover:text-ink">Pricing</a>
           </nav>
           <Button href="/learn" className="h-10 px-4 text-sm">
             Open app
@@ -151,6 +154,11 @@ export default function Landing() {
             ))}
           </div>
         </section>
+
+        {/* T15: screenshots, organisations, pricing (src/features/landing/landing-extras.tsx) */}
+        <LandingScreens />
+        <ForOrganisations />
+        <Pricing />
 
         {/* Final call to action */}
         <section className="mb-16 rounded-[2rem] bg-brand px-6 py-12 text-center text-brand-ink shadow-md">
