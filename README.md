@@ -1,36 +1,37 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# The Click
 
-## Getting Started
+Voice assistant for new warehouse workers – in their own language. Built at Oslo Sprint 2026 for the Holio challenge (#9 Training, partly #8 Returns) and the ElevenLabs challenge.
 
-First, run the development server:
+- `/` – worker app (phone): pick name + language, talk. The agent guides tasks step by step and drives the screen via client tools.
+- `/leder` – manager dashboard (projector): live feed in Norwegian, open questions the agent could not answer, problems on the floor.
+
+## Run locally
 
 ```bash
+npm install
+cp .env.example .env.local   # fill in ElevenLabs keys
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open http://localhost:3000 (worker) and http://localhost:3000/leder (manager).
+The phone needs HTTPS for the microphone → use the Vercel deploy for phone testing.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Set up the ElevenLabs agent
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Create an agent in ElevenLabs → Agents.
+2. Paste `agent/system-prompt.md` as the system prompt.
+3. Upload `agent/kunnskapsbase/lager-rutiner.md` to the knowledge base.
+4. Add the client tools in `agent/client-tools.md`, and the settings listed there.
+5. Put the agent ID and API key in `.env.local` (and in Vercel env vars).
 
-## Learn More
+## Deploy
 
-To learn more about Next.js, take a look at the following resources:
+1. Supabase: run `supabase/schema.sql`, add `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`.
+2. Vercel: import the repo, add all env vars from `.env.example`.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Security and privacy
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- The ElevenLabs API key stays on the server; the browser gets a short-lived signed URL.
+- API input is validated and length-limited.
+- We store no audio. The feed stores short task events only, and no individual performance scores.
+- All warehouse data is fictional test data.
