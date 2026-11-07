@@ -3,6 +3,7 @@
  * The signature card of Snakk: a phrase WITH its context:
  * register tag · meaning · example · ✅ use when · 🚫 avoid when · 💡 say instead.
  * Owner: T7. Reused on Home ("phrase of the day"), the phrasebook and in scenarios.
+ * Combines T7 (audio, context, scenario links), T16 (layout) and T5 (pronunciation check).
  *
  *   <PhraseCard phrase={p} />                 full card
  *   <PhraseCard phrase={p} collapsible />     context hidden behind "When to use it" (phrasebook list)
@@ -14,6 +15,7 @@ import { Badge, Button, Card, RegisterTag } from "@/components/ui";
 import { scenarios } from "@/lib/content";
 import type { Phrase } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
 import { PlayButton } from "./play-button";
 
 export function PhraseCard({
@@ -112,6 +114,9 @@ export function PhraseCard({
           </div>
         </dl>
       )}
+
+      {/* T5: say the example out loud (shown with the context, so long phrasebook lists stay short). */}
+      {showDetails && <PronunciationCheck sentence={phrase.example.no} target={phrase.id} label="Say the example" />}
 
       {showDetails && usedIn.length > 0 && (
         <div className="flex flex-col gap-2">
