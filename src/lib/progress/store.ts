@@ -104,42 +104,55 @@ function emitReward(notice: RewardNotice) {
 }
 
 // ---------- actions ----------
-interface EventResult {
+export interface EventResult {
   token: string;
   progress: Progress;
   rewards: RewardNotice[];
 }
 
-// Events are sent one at a time so each uses the latest token.
 let queue: Promise<unknown> = Promise.resolve();
+
+/** Shared by send() and run(): one request at a time, so each uses the latest token. */
+function queued<T extends EventResult>(call: (token: string | null) => Promise<T>, toastErrors = true): Promise<T> {
+  const run = async () => {
+    try {
+      const result = await call(readToken());
+      writeToken(result.token);
+      result.rewards.forEach(emitReward);
+      return result;
+    } catch (err) {
+      const message = err instanceof Error ? err.message : String(err);
+      if (message.startsWith("invalid_token")) {
+        // Token was edited or the server secret changed: start fresh instead of getting stuck.
+        writeToken(null);
+        emitReward({ emoji: "⚠️", title: "Progress reset", detail: "Your saved progress couldn't be verified." });
+      } else if (toastErrors) {
+        emitReward({ emoji: "⚠️", title: "Couldn't save that", detail: "Check your connection and try again." });
+      }
+      throw err;
+    }
+  };
+  const p = queue.then(run, run);
+  queue = p.catch(() => undefined);
+  return p;
+}
 
 export const progressActions = {
   /** Report something the learner did. Resolves with the new progress (or throws a readable error). */
-  send(event: ProgressEvent): Promise<Progress> {
-    const run = async () => {
-      try {
-        const result = await apiFetch<EventResult>("/api/progress/event", {
-          method: "POST",
-          body: JSON.stringify({ token: readToken(), event }),
-        });
-        writeToken(result.token);
-        result.rewards.forEach(emitReward);
-        return result.progress;
-      } catch (err) {
-        const message = err instanceof Error ? err.message : String(err);
-        if (message.startsWith("invalid_token")) {
-          // Token was edited or the server secret changed: start fresh instead of getting stuck.
-          writeToken(null);
-          emitReward({ emoji: "⚠️", title: "Progress reset", detail: "Your saved progress couldn't be verified." });
-        } else {
-          emitReward({ emoji: "⚠️", title: "Couldn't save that", detail: "Check your connection and try again." });
-        }
-        throw err;
-      }
-    };
-    const p = queue.then(run, run);
-    queue = p.catch(() => undefined);
-    return p;
+  async send(event: ProgressEvent): Promise<Progress> {
+    const result = await queued((token) =>
+      apiFetch<EventResult>("/api/progress/event", { method: "POST", body: JSON.stringify({ token, event }) }),
+    );
+    return result.progress;
+  },
+
+  /**
+   * For routes that apply an internal event themselves and return a new token (e.g. /api/pronunciation, T5).
+   * `call` gets the current token; its result's token is saved and its rewards are shown as toasts.
+   * Errors are re-thrown without a toast, so the feature can show its own message.
+   */
+  run<T extends EventResult>(call: (token: string | null) => Promise<T>): Promise<T> {
+    return queued(call, false);
   },
 
   /** Demo helper: start fresh (e.g. before the pitch). */
