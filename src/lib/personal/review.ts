@@ -83,5 +83,6 @@ export function dueIds(store: Store, now: number): string[] {
 }
 
 export function nextDueInDays(card: ReviewCard | undefined, now: number): number | null {
-  return card ? Math.max(0, Math.ceil((card.due - now) / DAY)) : null;
+  // round, not ceil: "now" can be a few seconds old, which must not turn 1 day into 2
+  return card ? Math.max(0, Math.round((card.due - now) / DAY)) : null;
 }
