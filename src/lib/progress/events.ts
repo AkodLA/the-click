@@ -15,6 +15,13 @@ export const progressEventSchema = z.discriminatedUnion("type", [
     nativeLanguage: z.string().regex(/^[a-z]{2,3}$/),
   }),
   z.object({
+    // First-visit language choice. Only languages we support today; they must differ.
+    type: z.literal("languages_set"),
+    // Any language code, like profile_set: a learner who speaks e.g. Spanish (from the placement test) keeps it.
+    nativeLanguage: z.string().regex(/^[a-z]{2,3}$/),
+    targetLanguage: z.enum(["en", "nb"]),
+  }),
+  z.object({
     type: z.literal("placement_submitted"),
     /** question id -> chosen option index */
     answers: z.record(id, z.number().int().min(0).max(9)),

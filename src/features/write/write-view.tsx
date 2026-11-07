@@ -1,22 +1,26 @@
 "use client";
 /**
- * Write (/write): trace æ, ø, å and short words. Owner: T12.
+ * Write (/write): trace the whole alphabet (A–Å, capitals and small letters) and short words. Owner: T12.
+ * Letters show a worksheet guide: numbered start dots and arrows. Tools: pen, eraser, undo, clear.
  * A good trace sends `writing_done`; the SERVER gives the XP (3 each, max 10 per day).
  * Which items you've traced is a per-device convenience in localStorage (display only, no XP).
+ * Below the canvas: My notes (also only on this device).
  */
 import Link from "next/link";
 import { useRef, useState, useSyncExternalStore } from "react";
 import { Badge, Button, Card, ProgressBar } from "@/components/ui";
+import { NotesBoard } from "@/features/notes/notes-board";
 import { progressActions, useProgress } from "@/lib/progress/store";
-import { TraceCanvas, type TraceHandle } from "./trace-canvas";
+import { TraceCanvas, type TraceHandle, type TraceTool } from "./trace-canvas";
 import { usePrefs } from "@/lib/personal/prefs";
-import { WRITE_ITEMS as ALL_ITEMS, type WriteItem } from "./write-items";
+import { WRITE_GROUPS, WRITE_ITEMS as ALL_ITEMS, type WriteGroup, type WriteItem } from "./write-items";
 
 /** Mirrors RULES.writingPerDay / writingXp on the server (display only). */
 const PER_DAY = 10;
 const XP_EACH = 3;
 const MIN_COVERAGE = 0.5;
 const MIN_PRECISION = 0.55;
+const NUMBERS = ["①", "②", "③", "④", "⑤", "⑥"];
 
 // ---- traced items (localStorage, per device) ----
 const KEY = "snakk.write.done.v1";
@@ -76,11 +80,13 @@ export function WriteView() {
   const p = useProgress();
   const done = useDone();
   const [index, setIndex] = useState(() => 0);
-  const [hasInk, setHasInk] = useState(false);
+  const [ink, setInk] = useState({ hasInk: false, canUndo: false });
+  const [tool, setTool] = useState<TraceTool>("pen");
   const [result, setResult] = useState<Result>(null);
   const [saving, setSaving] = useState(false);
   const canvas = useRef<TraceHandle>(null);
   const item = WRITE_ITEMS[index] ?? WRITE_ITEMS[0];
+  const groupItems = WRITE_ITEMS.filter((w) => w.group === item.group);
 
   // XP-earning traces left today (the server enforces it; this only explains it).
   const usedToday = p.daily.day && p.daily.counts.writing ? (p.daily.day === osloToday() ? p.daily.counts.writing : 0) : 0;
@@ -90,17 +96,22 @@ export function WriteView() {
   function go(i: number) {
     setIndex((i + WRITE_ITEMS.length) % WRITE_ITEMS.length);
     setResult(null);
+    setTool("pen");
+  }
+  function pickGroup(group: WriteGroup) {
+    const first = WRITE_ITEMS.findIndex((w) => w.group === group && !done.has(w.id));
+    go(first >= 0 ? first : WRITE_ITEMS.findIndex((w) => w.group === group));
   }
 
   async function check() {
     const s = canvas.current?.score();
     if (!s) return;
     if (s.coverage < MIN_COVERAGE) {
-      setResult({ ok: false, stars: 0, message: `Trace the whole ${item.kind}. Follow every part of the grey shape.` });
+      setResult({ ok: false, stars: 0, message: `Trace the whole ${item.kind}. Follow every part of the grey ${item.strokes ? "road" : "shape"}.` });
       return;
     }
     if (s.precision < MIN_PRECISION) {
-      setResult({ ok: false, stars: 0, message: "Nearly! Try to stay on the grey shape." });
+      setResult({ ok: false, stars: 0, message: `Nearly! Try to stay on the grey ${item.strokes ? "road" : "shape"}. Use 🧽 to rub out the bits outside.` });
       return;
     }
     const stars = s.coverage > 0.8 && s.precision > 0.8 ? 3 : s.coverage > 0.65 ? 2 : 1;
@@ -122,7 +133,8 @@ export function WriteView() {
     <div className="flex flex-col gap-5">
       <section className="rounded-3xl bg-brand p-6 text-brand-ink shadow-md">
         <p className="text-sm font-semibold opacity-80">Write</p>
-        <h1 className="mt-1 text-3xl font-black leading-tight">Æ, ø, å and your first words.</h1>
+        <h1 className="mt-1 text-3xl font-black leading-tight">The Norwegian alphabet, A to Å.</h1>
+        <p className="mt-1 text-sm opacity-90">Follow the numbers and arrows, like in school. Then try short words.</p>
         <div className="mt-4">
           <div className="h-2.5 w-full overflow-hidden rounded-full bg-white/25">
             <div className="h-full rounded-full bg-white transition-all duration-500" style={{ width: `${Math.round((doneCount / WRITE_ITEMS.length) * 100)}%` }} />
@@ -133,23 +145,56 @@ export function WriteView() {
         </div>
       </section>
 
-      {/* Item picker */}
-      <div className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1" role="group" aria-label="Choose a letter or word">
-        {WRITE_ITEMS.map((w, i) => (
-          <button
-            key={w.id}
-            type="button"
-            onClick={() => go(i)}
-            aria-pressed={i === index}
-            aria-label={`${w.text}${done.has(w.id) ? ", traced" : ""}`}
-            className={`inline-flex h-11 min-w-11 shrink-0 items-center justify-center gap-1 rounded-full px-4 text-base font-bold transition ${
-              i === index ? "bg-ink text-bg" : done.has(w.id) ? "border border-success bg-success-soft text-success" : "border border-line bg-surface"
-            }`}
-          >
-            {w.text}
-            {done.has(w.id) && i !== index && <span aria-hidden>✓</span>}
-          </button>
-        ))}
+      {/* Group tabs: capitals, small letters, words */}
+      <div className="grid grid-cols-3 gap-2" role="tablist" aria-label="What to write">
+        {WRITE_GROUPS.map((g) => {
+          const items = WRITE_ITEMS.filter((w) => w.group === g.id);
+          const traced = items.filter((w) => done.has(w.id)).length;
+          const active = g.id === item.group;
+          return (
+            <button
+              key={g.id}
+              type="button"
+              role="tab"
+              aria-selected={active}
+              onClick={() => pickGroup(g.id)}
+              className={`flex flex-col items-center rounded-2xl border-2 px-2 py-2 transition ${active ? "border-brand bg-brand-soft shadow-[0_3px_0_var(--brand-deep)]" : "border-line bg-surface shadow-[0_3px_0_var(--line)] hover:-translate-y-0.5"}`}
+            >
+              <span className="font-display text-xl font-bold">{g.label}</span>
+              <span className="text-xs font-semibold text-muted">
+                {g.hint} · {traced}/{items.length}
+              </span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Item picker for the current group */}
+      <div className="grid grid-cols-6 gap-2 sm:grid-cols-8 md:grid-cols-10" role="group" aria-label="Choose a letter or word">
+        {groupItems.map((w) => {
+          const i = WRITE_ITEMS.indexOf(w);
+          const active = i === index;
+          const traced = done.has(w.id);
+          return (
+            <button
+              key={w.id}
+              type="button"
+              onClick={() => go(i)}
+              aria-pressed={active}
+              aria-label={`${w.text}${traced ? ", traced" : ""}`}
+              className={`relative flex h-11 items-center justify-center rounded-xl font-display text-lg font-semibold transition ${
+                w.group === "word" ? "col-span-2" : ""
+              } ${active ? "bg-ink text-bg" : traced ? "border-2 border-success bg-success-soft text-success" : "border-2 border-line bg-surface hover:bg-surface-2"}`}
+            >
+              {w.text}
+              {traced && !active && (
+                <span className="absolute -right-1 -top-1 text-xs" aria-hidden>
+                  ✅
+                </span>
+              )}
+            </button>
+          );
+        })}
       </div>
 
       {/* Current item */}
@@ -157,7 +202,7 @@ export function WriteView() {
         <div className="flex items-start justify-between gap-3">
           <div>
             <div className="flex items-center gap-2">
-              <p className="text-3xl font-black">{item.text}</p>
+              <p className="font-display text-4xl font-bold">{item.text}</p>
               <Badge tone={item.kind === "letter" ? "brand" : "accent"}>{item.kind === "letter" ? "Letter" : "Word"}</Badge>
             </div>
             <p className="text-muted">{item.meaning}</p>
@@ -166,7 +211,7 @@ export function WriteView() {
             type="button"
             onClick={() => speak(item.text)}
             aria-label={`Hear «${item.text}»`}
-            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-line bg-surface text-xl transition hover:bg-surface-2"
+            className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border-2 border-line bg-surface text-xl transition hover:bg-surface-2"
           >
             <span aria-hidden>🔊</span>
           </button>
@@ -176,32 +221,56 @@ export function WriteView() {
           {item.sound}
         </p>
 
+        {item.strokes && (
+          <p className="rounded-2xl bg-brand-soft p-3 text-sm">
+            <span className="font-bold">How to write it: </span>
+            put your pen on the blue dot <b>①</b> and follow the orange arrow.
+            {item.strokes.length > 1 && (
+              <>
+                {" "}Lift your pen, then do {NUMBERS.slice(1, item.strokes.length).join(", ")}. {item.strokes.length} strokes in total.
+              </>
+            )}
+          </p>
+        )}
+
         <TraceCanvas
           ref={canvas}
           text={item.text}
+          strokes={item.strokes}
+          tool={tool}
           label={`Trace «${item.text}» with your finger or mouse`}
-          onInk={(ink) => {
-            setHasInk(ink);
-            if (ink) setResult(null);
+          onChange={(state) => {
+            setInk(state);
+            if (state.hasInk) setResult(null);
           }}
         />
 
+        {/* Tools: pen, eraser (rub out a mistake), undo (last stroke), clear (start over) */}
+        <div className="grid grid-cols-4 gap-2" role="toolbar" aria-label="Writing tools">
+          <ToolButton active={tool === "pen"} onClick={() => setTool("pen")} emoji="✏️" label="Pen" pressed />
+          <ToolButton active={tool === "eraser"} onClick={() => setTool("eraser")} emoji="🧽" label="Eraser" pressed />
+          <ToolButton onClick={() => canvas.current?.undo()} emoji="↩️" label="Undo" disabled={!ink.canUndo} />
+          <ToolButton
+            onClick={() => {
+              canvas.current?.clear();
+              setResult(null);
+              setTool("pen");
+            }}
+            emoji="🗑️"
+            label="Clear"
+            disabled={!ink.canUndo}
+          />
+        </div>
+
         {result && <Feedback result={result} item={item} saving={saving} gotXp={result.ok && xpLeft > 0} />}
 
-        <div className="grid grid-cols-3 gap-2">
-          <Button variant="secondary" onClick={() => { canvas.current?.clear(); setResult(null); }} disabled={!hasInk}>
-            Clear
+        {result?.ok ? (
+          <Button onClick={() => go(index + 1)}>Next →</Button>
+        ) : (
+          <Button variant="accent" onClick={check} disabled={!ink.hasInk || saving}>
+            ✓ Done
           </Button>
-          {result?.ok ? (
-            <Button className="col-span-2" onClick={() => go(index + 1)}>
-              Next →
-            </Button>
-          ) : (
-            <Button className="col-span-2" variant="accent" onClick={check} disabled={!hasInk || saving}>
-              ✓ Done
-            </Button>
-          )}
-        </div>
+        )}
         {!result?.ok && (
           <button type="button" onClick={() => go(index + 1)} className="h-11 text-sm font-semibold text-muted">
             Skip this one
@@ -219,7 +288,43 @@ export function WriteView() {
           <Button href="/speak">🎙️ Speak with the tutor</Button>
         </Card>
       )}
+
+      <NotesBoard />
     </div>
+  );
+}
+
+function ToolButton({
+  emoji,
+  label,
+  onClick,
+  active = false,
+  pressed = false,
+  disabled = false,
+}: {
+  emoji: string;
+  label: string;
+  onClick: () => void;
+  active?: boolean;
+  /** Toggle tools (pen, eraser) report their on/off state. */
+  pressed?: boolean;
+  disabled?: boolean;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      disabled={disabled}
+      aria-pressed={pressed ? active : undefined}
+      className={`flex min-h-14 flex-col items-center justify-center gap-0.5 rounded-2xl border-2 text-xs font-bold transition disabled:opacity-40 ${
+        active ? "border-brand bg-brand-soft text-brand shadow-[0_3px_0_var(--brand-deep)]" : "border-line bg-surface shadow-[0_3px_0_var(--line)] hover:bg-surface-2"
+      }`}
+    >
+      <span className="text-xl" aria-hidden>
+        {emoji}
+      </span>
+      {label}
+    </button>
   );
 }
 

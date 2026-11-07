@@ -8,11 +8,14 @@ import { Cloud, Mascot } from "@/components/mascot";
 import { Badge, Button, Card, ProgressBar, SectionTitle } from "@/components/ui";
 import { ProgressTree } from "@/features/home/progress-tree";
 import { PhraseCard } from "@/features/phrases/phrase-card";
-import { CEFR_LEVELS, phrases, scenarios } from "@/lib/content";
+import { openLanguagePicker } from "@/features/languages/language-picker";
+import { CEFR_LEVELS, LANGUAGE_OPTIONS, phrases, scenarios } from "@/lib/content";
 import { levelProgress } from "@/lib/progress/levels";
 import { useProgress } from "@/lib/progress/store";
 
 const DAILY_GOAL_XP = 50;
+
+const langOf = (code: string) => LANGUAGE_OPTIONS.find((l) => l.code === code) ?? LANGUAGE_OPTIONS[0];
 
 /** YYYY-MM-DD in Oslo, matching the server's day for daily counters. */
 function osloToday() {
@@ -23,7 +26,7 @@ const TILES = [
   { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk", text: "Live interpreter for real meetings" },
   { href: "/tandem", emoji: "🤝", title: "Tandem", text: "Swap languages with a buddy, anonymously" },
   { href: "/events", emoji: "🧇", title: "Språkkafé", text: "Practise in real life, earn XP" },
-  { href: "/write", emoji: "✍️", title: "Write", text: "Draw æ, ø, å and new words" },
+  { href: "/write", emoji: "✍️", title: "Write & notes", text: "Trace A to Å step by step, and keep your own notes" },
   { href: "/words", emoji: "🧠", title: "My words", text: "Words for your work and interests" }, // T20
 ];
 
@@ -64,7 +67,20 @@ export function HomeDashboard() {
             <Mascot className="h-14 w-14 sm:h-16 sm:w-16" />
           </span>
         </div>
-        {p.cefr && <span className="relative mt-4 inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>}
+        <div className="relative mt-4 flex flex-wrap items-center gap-2">
+          {/* Shows the chosen pair; tapping it reopens the language picker. */}
+          <button
+            type="button"
+            onClick={openLanguagePicker}
+            aria-label={`Languages: you speak ${langOf(p.nativeLanguage).name}, learning ${langOf(p.targetLanguage).name}. Change`}
+            className="inline-flex min-h-9 items-center gap-1.5 rounded-full bg-white/20 px-3 py-1 text-sm font-bold transition hover:bg-white/30"
+          >
+            {langOf(p.nativeLanguage).flag} → {langOf(p.targetLanguage).flag}
+            <span className="font-semibold opacity-90">{langOf(p.targetLanguage).name}</span>
+            <span className="text-xs font-semibold underline opacity-80">change</span>
+          </button>
+          {p.cefr && <span className="inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>}
+        </div>
         <div className="relative mt-5">
           <div className="mb-1.5 flex items-baseline justify-between text-xs font-semibold">
             <span>Player level {level}</span>

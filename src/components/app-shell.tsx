@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { Mascot } from "@/components/mascot";
+import { LanguageWelcome } from "@/features/languages/language-picker";
 import { levelProgress } from "@/lib/progress/levels";
 import { onReward, useProgress, type Reward } from "@/lib/progress/store";
 
@@ -29,6 +30,7 @@ export function AppShell({ children }: { children: ReactNode }) {
       <main className={`mx-auto w-full flex-1 px-4 pb-28 pt-4 md:px-6 md:pb-10 ${wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl"}`}>{children}</main>
       <BottomNav />
       <RewardToasts />
+      <LanguageWelcome />
     </div>
   );
 }
@@ -50,7 +52,7 @@ function TopBar() {
             <NavLink key={n.href} {...n} compact />
           ))}
         </nav>
-        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex items-center gap-1.5 text-sm font-bold tabular-nums">
+        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-bold tabular-nums">
           <span title="Day streak" className={`rounded-full px-2.5 py-1 ${p.streakDays > 0 ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted"}`}>
             🔥 {p.streakDays}
           </span>
