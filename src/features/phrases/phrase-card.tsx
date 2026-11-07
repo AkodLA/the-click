@@ -10,7 +10,7 @@
  */
 import Link from "next/link";
 import { useId, useState } from "react";
-import { Badge, Card, RegisterTag } from "@/components/ui";
+import { Badge, Button, Card, RegisterTag } from "@/components/ui";
 import { scenarios } from "@/lib/content";
 import type { Phrase } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
@@ -51,17 +51,19 @@ export function PhraseCard({
 
   return (
     <Card id={`phrase-${phrase.id}`} className={`flex scroll-mt-24 flex-col gap-4 ${highlight ? "ring-4 ring-brand/40" : ""}`}>
-      <div className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 items-start gap-3">
+      {/* Layout matches T16's polish: tags on top, then the phrase. */}
+      <div>
+        <div className="flex flex-wrap items-center gap-2">
+          <RegisterTag register={phrase.register} withHint={!collapsible} />
+          <Badge tone="muted">{phrase.level}</Badge>
+          {phrase.region && <span className="text-xs text-muted">📍 {phrase.region}</span>}
+        </div>
+        <div className="mt-2 flex items-start gap-3">
           <PlayButton phraseId={phrase.id} text={phrase.text} label={`Play «${phrase.text}»`} />
           <div className="min-w-0">
             <p className="text-2xl font-black tracking-tight">{phrase.text}</p>
             <p className="text-muted">{phrase.meaning}</p>
           </div>
-        </div>
-        <div className="flex shrink-0 flex-col items-end gap-1">
-          <RegisterTag register={phrase.register} withHint={!collapsible} />
-          <Badge tone="brand">{phrase.level}</Badge>
         </div>
       </div>
 
@@ -108,12 +110,6 @@ export function PhraseCard({
               ))}
             </dd>
           </div>
-          {phrase.region && (
-            <div className="px-1 text-xs text-muted">
-              <dt className="inline font-semibold">📍 Where: </dt>
-              <dd className="inline">{phrase.region}</dd>
-            </div>
-          )}
         </dl>
       )}
 
@@ -134,14 +130,15 @@ export function PhraseCard({
         </div>
       )}
 
-      <button
-        type="button"
-        onClick={markLearned}
-        disabled={learned || saving}
-        className={`h-11 rounded-2xl border font-semibold transition ${learned ? "border-success bg-success-soft text-success" : "border-line hover:bg-surface-2 disabled:opacity-60"}`}
-      >
-        {learned ? "✓ In your vocabulary" : saving ? "Saving…" : "I've got it (+5 XP)"}
-      </button>
+      {learned ? (
+        <p className="flex h-11 items-center justify-center rounded-2xl border border-success bg-success-soft font-semibold text-success">
+          ✓ In your vocabulary
+        </p>
+      ) : (
+        <Button variant="secondary" onClick={markLearned} disabled={saving} aria-busy={saving}>
+          {saving ? "Saving…" : "👍 I've got it · +5 XP"}
+        </Button>
+      )}
     </Card>
   );
 }
