@@ -113,13 +113,13 @@ export function ProfileView() {
 
       {/* Quick stats */}
       <div className="grid grid-cols-3 gap-3">
-        <Stat emoji="💬" value={p.learnedPhraseIds.length} label="Phrases" />
-        <Stat emoji="🏅" value={unlockedCount} label="Badges" />
-        <Stat emoji="🧇" value={p.checkedInEventIds.length} label="Cafés" />
+        <Stat emoji="💬" value={p.learnedPhraseIds.length} label="Phrases" href="/phrases?show=learned" />
+        <Stat emoji="🏅" value={unlockedCount} label="Badges" href="#achievements" />
+        <Stat emoji="🧇" value={p.checkedInEventIds.length} label="Cafés" href="/events" />
       </div>
 
       {/* Achievements */}
-      <section>
+      <section id="achievements" className="scroll-mt-20">
         <SectionTitle action={<span className="text-sm font-semibold text-muted">{unlockedCount}/{achievements.length}</span>}>
           Achievements
         </SectionTitle>
@@ -162,15 +162,19 @@ function LevelRing({ level, ratio }: { level: number; ratio: number }) {
   );
 }
 
-function Stat({ emoji, value, label }: { emoji: string; value: number; label: string }) {
+function Stat({ emoji, value, label, href }: { emoji: string; value: number; label: string; href: string }) {
   return (
-    <Card className="flex flex-col items-center gap-1 p-4 text-center">
+    <Link
+      href={href}
+      aria-label={`${value} ${label}`}
+      className="flex flex-col items-center gap-1 rounded-3xl border border-line bg-surface p-4 text-center shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
+    >
       <span className="text-2xl" aria-hidden>
         {emoji}
       </span>
       <span className="text-xl font-black">{value}</span>
       <span className="text-xs font-semibold text-muted">{label}</span>
-    </Card>
+    </Link>
   );
 }
 
