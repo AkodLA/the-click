@@ -62,6 +62,8 @@ payment, USB), `Cross-Origin-Opener-Policy`, HSTS, and no `X-Powered-By`.
 | Rate limits and "conversation already used" are in memory per server instance | Best effort on Vercel | Redis / Upstash or the T17 database |
 | Språkkafé check-in has no presence proof | Clearly labelled sample events; once per event | QR code shown at the café, verified server-side |
 | Writing trace is scored in the browser | Max 30 XP/day from writing | Score strokes on the server |
+| Field-test answers are public content (the vocabulary is in the app) | It checks learning, not secrets; +40 XP once per pack, 3 tries a day | Server-held question bank with variants |
+| Team league uses sample teams and a device team code | Clearly labelled sample data; no team data stored | Team accounts in the database (T17) |
 | `/api/pronunciation` checks `Content-Length` before reading; a chunked upload without it is read first, then size-checked | Vercel caps request bodies at 4.5 MB anyway | Stream the body with a byte limit |
 
 ## If a key leaks

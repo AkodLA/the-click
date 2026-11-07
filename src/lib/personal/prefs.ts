@@ -14,6 +14,8 @@ export interface Prefs {
   ageGroup: AgeGroup | null;
   field: FieldId | null;
   interests: InterestId[];
+  /** T21: team code for the team league (a class or workplace). */
+  teamCode?: string | null;
 }
 
 export const EMPTY_PREFS: Prefs = { ageGroup: null, field: null, interests: [] };
@@ -39,6 +41,7 @@ function parse(raw: string | null): Prefs {
       ageGroup: p.ageGroup ?? null,
       field: p.field ?? null,
       interests: Array.isArray(p.interests) ? p.interests.slice(0, MAX_INTERESTS) : [],
+      teamCode: typeof p.teamCode === "string" ? p.teamCode : null,
     };
   } catch {
     return EMPTY_PREFS;

@@ -40,6 +40,8 @@ export function streakNow(p: Progress, today?: string): { days: number; state: S
   const gap = daysBetween(p.lastActiveDay, today ?? osloDayClient());
   if (gap <= 0) return { days: p.streakDays, state: "active" };
   if (gap === 1) return { days: p.streakDays, state: "at-risk" };
+  // T21: a streak freeze saves exactly one missed day (server: touchStreak).
+  if (gap === 2 && (p.streakFreezes ?? 0) > 0) return { days: p.streakDays, state: "at-risk" };
   return { days: 0, state: "broken" };
 }
 

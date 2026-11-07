@@ -18,6 +18,7 @@ import {
 } from "@/lib/progress/display";
 import { levelProgress } from "@/lib/progress/levels";
 import { AboutYou } from "@/features/personal/about-you";
+import { Certificates, WeekSummary, WhyLevel } from "./insights";
 import { progressActions, useProgress } from "@/lib/progress/store";
 
 const STREAK_COPY: Record<StreakState, string> = {
@@ -87,6 +88,9 @@ export function ProfileView() {
             <span aria-hidden>{streak.state === "broken" ? "🧊" : "🔥"}</span> {streak.days} {streak.days === 1 ? "day" : "days"}
           </p>
           <p className="text-xs text-muted">{STREAK_COPY[streak.state]}</p>
+          <p className="text-xs font-semibold text-brand" title="A streak freeze saves your streak if you miss one day. Earn one every 7 days in a row (max 2).">
+            🧊 {p.streakFreezes ?? 0} streak {(p.streakFreezes ?? 0) === 1 ? "freeze" : "freezes"}
+          </p>
         </Card>
         <Card className="flex flex-col gap-2">
           <p className="text-sm font-semibold text-muted">Today</p>
@@ -113,6 +117,9 @@ export function ProfileView() {
         </Link>
       </Card>
 
+      {/* T21: week in numbers + most common mistake */}
+      <WeekSummary />
+
       {/* Quick stats */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat emoji="💬" value={p.learnedPhraseIds.length} label="Phrases" href="/phrases?show=learned" />
@@ -134,6 +141,9 @@ export function ProfileView() {
       </section>
 
       {/* T20: age group, field and interests (device-only) shape words, scenarios and the tutor. */}
+      <WhyLevel />
+      <Certificates />
+
       <section id="about-you" className="scroll-mt-20">
         <SectionTitle action={<Link href="/words" className="text-sm font-semibold text-brand">My words →</Link>}>About you</SectionTitle>
         <AboutYou compact />

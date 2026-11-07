@@ -10,7 +10,9 @@ import { useEffect, useMemo, useState } from "react";
 import { Badge, Button, Card, ProgressBar, RegisterTag, SectionTitle } from "@/components/ui";
 import { AboutYou } from "@/features/personal/about-you";
 import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
+import { SeasonBanner } from "@/features/engagement/season-banner";
 import { ExplainText } from "@/features/explain/explain-text";
+import { FieldTest } from "./field-test";
 import { TranslateButton } from "@/features/translate/translate-button";
 import { CEFR_LEVELS, getPack, getVocabWord, packFitsAge, vocabPacks } from "@/lib/content";
 import type { CefrLevel, VocabPack, VocabWord } from "@/lib/content/types";
@@ -58,7 +60,8 @@ export function WordsView() {
     ...vocabPacks.filter((x) => x.id === prefs.field),
     ...vocabPacks.filter((x) => prefs.interests.includes(x.id as never)),
   ].filter((x) => packFitsAge(x, prefs.ageGroup));
-  const others = vocabPacks.filter((x) => !mine.includes(x) && packFitsAge(x, prefs.ageGroup));
+  // Seasonal packs (T21) are reached through the season banner while their season runs, not listed here.
+  const others = vocabPacks.filter((x) => x.kind !== "season" && !mine.includes(x) && packFitsAge(x, prefs.ageGroup));
 
   if (reviewing) return <ReviewMode ids={due} onDone={() => go("")} />;
 
@@ -97,7 +100,9 @@ export function WordsView() {
             </li>
           ))}
         </ul>
+        {openPack.kind === "field" && <FieldTest pack={openPack} />}
         {openPack.kind === "field" && <FieldScenarioLink packId={openPack.id} />}
+        {openPack.kind === "season" && <SeasonBanner compact />}
       </div>
     );
   }
@@ -133,6 +138,8 @@ export function WordsView() {
         </div>
       ) : (
         <>
+          <SeasonBanner />
+
           {due.length > 0 && (
             <Card className="flex items-center justify-between gap-3 border-accent bg-accent-soft">
               <div>
@@ -170,7 +177,10 @@ export function WordsView() {
           </section>
 
           <p className="text-center text-xs text-muted">
-            Want the slang and the polite forms too?{" "}
+            <Link href="/notebook" className="font-semibold text-brand">
+              📓 Mistake notebook
+            </Link>
+            {" · "}Want the slang and the polite forms too?{" "}
             <Link href="/phrases" className="font-semibold text-brand">
               Open the phrasebook →
             </Link>
