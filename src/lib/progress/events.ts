@@ -29,6 +29,12 @@ export const progressEventSchema = z.discriminatedUnion("type", [
   z.object({ type: z.literal("phrase_learned"), phraseId: id }),
   /** T20: a vocabulary word from the personal packs. */
   z.object({ type: z.literal("word_learned"), wordId: id }),
+  /** T21: a field level-up test. word id -> the English meaning the learner picked. The server checks it. */
+  z.object({
+    type: z.literal("field_test_submitted"),
+    packId: id,
+    answers: z.record(id, z.string().max(80)),
+  }),
   z.object({
     type: z.literal("scenario_completed"),
     scenarioId: id,

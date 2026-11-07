@@ -17,6 +17,7 @@ import type { Phrase } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
 import { PlayButton } from "./play-button";
+import { ExplainText } from "@/features/explain/explain-text";
 
 export function PhraseCard({
   phrase,
@@ -72,7 +73,9 @@ export function PhraseCard({
 
       <div className="flex items-center gap-3 rounded-2xl bg-surface-2 p-3">
         <div className="min-w-0 flex-1">
-          <p className="font-semibold">«{phrase.example.no}»</p>
+          <p className="font-semibold">
+            «<ExplainText text={phrase.example.no} />»
+          </p>
           {phrase.example.soundsLike && <SoundsLike text={phrase.example.soundsLike} small />}
           <p className="text-sm text-muted">{phrase.example.en}</p>
         </div>

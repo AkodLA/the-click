@@ -10,6 +10,7 @@ import { useEffect, useMemo, useState } from "react";
 import { Badge, Button, Card, ProgressBar, RegisterTag, SectionTitle } from "@/components/ui";
 import { AboutYou } from "@/features/personal/about-you";
 import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
+import { ExplainText } from "@/features/explain/explain-text";
 import { TranslateButton } from "@/features/translate/translate-button";
 import { CEFR_LEVELS, getPack, getVocabWord, packFitsAge, vocabPacks } from "@/lib/content";
 import type { CefrLevel, VocabPack, VocabWord } from "@/lib/content/types";
@@ -255,7 +256,7 @@ function WordCard({ word, known, dueIn, nativeLanguage }: { word: VocabWord; kno
       <div className="flex items-center gap-3 rounded-2xl bg-surface-2 p-3">
         <div className="min-w-0 flex-1">
           <p className="font-semibold" lang="nb">
-            «{word.example.no}»
+            «<ExplainText text={word.example.no} />»
           </p>
           <p className="text-sm text-muted">{word.example.en}</p>
         </div>

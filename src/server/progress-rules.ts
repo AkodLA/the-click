@@ -1,5 +1,5 @@
 import "server-only";
-import { achievements, getPhrase, getScenario, getVocabWord, languageEvents, packOfWord } from "@/lib/content";
+import { achievements, activeSeason, getPack, getPhrase, getScenario, getVocabWord, languageEvents, packOfWord, questsForDay } from "@/lib/content";
 import type { Progress } from "@/lib/content/types";
 import type { ProgressEvent, RewardNotice } from "@/lib/progress/events";
 import { scorePlacement } from "./placement";
@@ -35,6 +35,13 @@ export const RULES = {
   streakShort: 3,
   streakLong: 7,
   streetPhrases: 5,
+  /** T21: streak freezes (earned every N streak days, max held), field tests. */
+  freezeEvery: 7,
+  maxFreezes: 2,
+  fieldTestQuestions: 5,
+  fieldTestPass: 0.8,
+  fieldTestXp: 40,
+  fieldTestsPerDay: 3,
 } as const;
 
 export class RuleError extends Error {
@@ -57,6 +64,7 @@ function rollover(p: Progress): Progress {
   let next = p;
   if (next.daily.day !== day) next = { ...next, daily: { day, counts: {} } };
   if (next.weekId !== week) next = { ...next, weekId: week, weekXp: 0 };
+  if (next.weekStats?.week !== week) next = { ...next, weekStats: { week, counts: {} } };
   return next;
 }
 
@@ -68,12 +76,36 @@ function bump(ctx: Ctx, key: string, by = 1) {
   ctx.p = { ...ctx.p, daily: { ...ctx.p.daily, counts: { ...ctx.p.daily.counts, [key]: count(ctx, key) + by } } };
 }
 
+/** T21: count something the learner did (lifetime, this week, and today for quests). */
+function stat(ctx: Ctx, key: string, by = 1) {
+  const stats = ctx.p.stats ?? {};
+  const week = ctx.p.weekStats ?? { week: null, counts: {} };
+  ctx.p = {
+    ...ctx.p,
+    stats: { ...stats, [key]: (stats[key] ?? 0) + by },
+    weekStats: { ...week, counts: { ...week.counts, [key]: (week.counts[key] ?? 0) + by } },
+  };
+  bump(ctx, `d:${key}`, by);
+}
+
 function touchStreak(ctx: Ctx) {
   const day = osloDay();
   const last = ctx.p.lastActiveDay;
   if (last === day) return;
-  const streakDays = last && daysBetween(last, day) === 1 ? ctx.p.streakDays + 1 : 1;
+  const gap = last ? daysBetween(last, day) : null;
+  let streakDays = gap === 1 ? ctx.p.streakDays + 1 : 1;
+  // T21: a streak freeze saves exactly one missed day.
+  const freezes = ctx.p.streakFreezes ?? 0;
+  if (gap === 2 && freezes > 0 && ctx.p.streakDays > 0) {
+    streakDays = ctx.p.streakDays + 1;
+    ctx.p = { ...ctx.p, streakFreezes: freezes - 1 };
+    ctx.rewards.push({ emoji: "🧊", title: "Streak freeze used", detail: `Your ${streakDays}-day streak is safe.` });
+  }
   ctx.p = { ...ctx.p, lastActiveDay: day, streakDays };
+  if (streakDays % RULES.freezeEvery === 0 && (ctx.p.streakFreezes ?? 0) < RULES.maxFreezes) {
+    ctx.p = { ...ctx.p, streakFreezes: (ctx.p.streakFreezes ?? 0) + 1 };
+    ctx.rewards.push({ emoji: "🧊", title: "Streak freeze earned", detail: "It saves your streak if you miss a day." });
+  }
   if (streakDays >= RULES.streakShort) unlock(ctx, "streak-3");
   if (streakDays >= RULES.streakLong) unlock(ctx, "streak-7");
 }
@@ -122,8 +154,8 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
     }
 
     case "placement_submitted": {
-      const { level, correct, total } = scorePlacement(event.answers);
-      ctx.p = { ...ctx.p, cefr: level };
+      const { level, correct, total, byLevel } = scorePlacement(event.answers);
+      ctx.p = { ...ctx.p, cefr: level, placement: { correct, total, byLevel } };
       ctx.rewards.push({ emoji: "🧭", title: `Your level: ${level}`, detail: `${correct} of ${total} correct` });
       unlock(ctx, "placement-done");
       break;
@@ -134,6 +166,7 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
       if (!phrase) throw new RuleError("not_found", "Unknown phrase");
       if (ctx.p.learnedPhraseIds.includes(phrase.id)) break; // idempotent
       ctx.p = { ...ctx.p, learnedPhraseIds: [...ctx.p.learnedPhraseIds, phrase.id] };
+      stat(ctx, "phrases");
       addXp(ctx, RULES.phraseXp, `Learned «${phrase.text}»`);
       const street = ctx.p.learnedPhraseIds.filter((id) => {
         const reg = getPhrase(id)?.register;
@@ -149,6 +182,14 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
       const known = ctx.p.learnedWordIds ?? [];
       if (known.includes(word.id)) break; // idempotent
       ctx.p = { ...ctx.p, learnedWordIds: [...known, word.id] };
+      stat(ctx, "words");
+      // T21: seasonal words count only while their season runs (server date).
+      const season = activeSeason(osloDay());
+      if (season && getPack(season.packId)?.words.some((x) => x.id === word.id)) {
+        const n = (ctx.p.seasons?.[season.id] ?? 0) + 1;
+        ctx.p = { ...ctx.p, seasons: { ...ctx.p.seasons, [season.id]: n } };
+        if (n >= season.goal) unlock(ctx, season.achievementId);
+      }
       if (count(ctx, "words") < RULES.wordsPerDay) {
         bump(ctx, "words");
         addXp(ctx, RULES.wordXp, `New word: «${word.no}»`, "🧠");
@@ -169,6 +210,8 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
         break;
       }
       bump(ctx, key);
+      stat(ctx, "scenarios");
+      if (event.slangFlags) stat(ctx, "slangFlags", event.slangFlags);
       addXp(ctx, scenario.xpReward, `Finished: ${scenario.title}`, scenario.emoji);
       unlock(ctx, "first-talk");
       if (scenario.register === "formal" && event.slangFlags === 0) unlock(ctx, "register-pro");
@@ -181,6 +224,7 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
       if (ctx.p.checkedInEventIds.includes(ev.id)) break;
       // Roadmap: verify presence with a QR code shown at the café.
       ctx.p = { ...ctx.p, checkedInEventIds: [...ctx.p.checkedInEventIds, ev.id] };
+      stat(ctx, "events");
       addXp(ctx, ev.xpReward, `Checked in: ${ev.title}`, "📍");
       unlock(ctx, "sprakkafe");
       break;
@@ -189,6 +233,7 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
     case "writing_done": {
       if (count(ctx, "writing") >= RULES.writingPerDay) break;
       bump(ctx, "writing");
+      stat(ctx, "writing");
       addXp(ctx, RULES.writingXp, "Writing practice", "✍️");
       break;
     }
@@ -197,13 +242,42 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
       unlock(ctx, "tandem-first");
       if (count(ctx, "tandem") >= RULES.tandemMessagesPerDay) break;
       bump(ctx, "tandem");
+      stat(ctx, "tandem");
       addXp(ctx, RULES.tandemMessageXp, "Tandem message", "🤝");
+      break;
+    }
+
+    case "field_test_submitted": {
+      const pack = getPack(event.packId);
+      if (!pack || pack.kind !== "field") throw new RuleError("not_found", "Unknown field pack");
+      const ids = Object.keys(event.answers);
+      if (ids.length < RULES.fieldTestQuestions || ids.some((id) => !pack.words.some((x) => x.id === id))) {
+        throw new RuleError("invalid", `Answer ${RULES.fieldTestQuestions} questions from this pack`);
+      }
+      if (count(ctx, "fieldTests") >= RULES.fieldTestsPerDay) throw new RuleError("invalid", "That's enough tests for today. Try again tomorrow!");
+      bump(ctx, "fieldTests");
+      stat(ctx, "tests");
+      const right = ids.filter((id) => pack.words.find((x) => x.id === id)?.en === event.answers[id]).length;
+      const passed = right / ids.length >= RULES.fieldTestPass;
+      if (!passed) {
+        ctx.rewards.push({ emoji: "📚", title: `${right} of ${ids.length} right`, detail: "Review the words and try again." });
+        break;
+      }
+      const certs = ctx.p.certificates ?? [];
+      if (!certs.some((c) => c.packId === pack.id)) {
+        ctx.p = { ...ctx.p, certificates: [...certs, { packId: pack.id, day: osloDay(), score: right, total: ids.length }] };
+        addXp(ctx, RULES.fieldTestXp, `Passed: ${pack.title}`, "🎓");
+        unlock(ctx, "certified");
+      } else {
+        ctx.rewards.push({ emoji: "🎓", title: `${right} of ${ids.length} right`, detail: "You already have this certificate. Nice refresher!" });
+      }
       break;
     }
 
     case "pronunciation_scored": {
       if (count(ctx, "pronunciation") >= RULES.pronunciationPerDay) break;
       bump(ctx, "pronunciation");
+      stat(ctx, "pronunciation");
       if (event.score >= RULES.pronunciationMinScore) {
         addXp(ctx, Math.min(RULES.pronunciationMaxXp, Math.round(event.score / 10)), `Pronunciation ${event.score}/100`, "🎯");
       }
@@ -212,5 +286,17 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
     }
   }
 
+  checkQuests(ctx);
   return { progress: ctx.p, rewards: ctx.rewards };
+}
+
+/** T21: daily quests (same 3 for everyone per Oslo day). Bonus XP once per quest per day; all 3 → Quest master. */
+function checkQuests(ctx: Ctx) {
+  const quests = questsForDay(osloDay());
+  for (const q of quests) {
+    if (count(ctx, `quest:${q.id}`) > 0 || count(ctx, `d:${q.stat}`) < q.target) continue;
+    bump(ctx, `quest:${q.id}`);
+    addXp(ctx, q.xp, `Quest done: ${q.title}`, "🗺️");
+  }
+  if (quests.every((q) => count(ctx, `quest:${q.id}`) > 0)) unlock(ctx, "quest-master");
 }

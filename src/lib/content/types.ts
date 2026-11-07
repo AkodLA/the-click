@@ -170,6 +170,19 @@ export interface Progress {
   learnedPhraseIds: string[];
   /** T20: vocabulary words the learner marked as known (server-checked, once per word). */
   learnedWordIds?: string[];
+  // ---- T21 (all optional, so older tokens keep working) ----
+  /** Lifetime counters: words, phrases, scenarios, writing, tandem, pronunciation, events, slangFlags, tests. */
+  stats?: Record<string, number>;
+  /** The same counters for the current Oslo week (reset by the server). */
+  weekStats?: { week: string | null; counts: Record<string, number> };
+  /** Why the placement test gave this level: right answers per level. */
+  placement?: { correct: number; total: number; byLevel: { level: CefrLevel; right: number; total: number }[] };
+  /** Streak freezes: each saves one missed day (earned every 7-day streak, max 2). */
+  streakFreezes?: number;
+  /** Passed field level-up tests. */
+  certificates?: { packId: string; day: string; score: number; total: number }[];
+  /** Seasonal challenge progress: season id → seasonal words learned during the season. */
+  seasons?: Record<string, number>;
   checkedInEventIds: string[];
   /** ISO week id of weekXp, e.g. "2026-W45" (server resets weekXp each week). */
   weekId: string | null;
@@ -201,8 +214,8 @@ export interface VocabWord {
 }
 
 export interface VocabPack {
-  id: FieldId | InterestId;
-  kind: "field" | "interest";
+  id: FieldId | InterestId | `season-${string}`;
+  kind: "field" | "interest" | "season";
   title: string;
   /** Norwegian name of the pack, shown small. */
   titleNo: string;
@@ -210,4 +223,42 @@ export interface VocabPack {
   /** Only suggested to these age groups (undefined = everyone). */
   ageGroups?: AgeGroup[];
   words: VocabWord[];
+}
+
+// ---------- T21: quests, seasons, teams ----------
+
+/** A daily quest. `stat` is a server counter (see Progress.stats); progress is counted per Oslo day. */
+export interface Quest {
+  id: string;
+  title: string;
+  emoji: string;
+  stat: string;
+  target: number;
+  xp: number;
+  href: string;
+}
+
+/** A limited-time challenge: learn `goal` words from its pack between `start` and `end` (Oslo dates, inclusive). */
+export interface Season {
+  id: string;
+  title: string;
+  emoji: string;
+  start: string;
+  end: string;
+  goal: number;
+  /** The vocabulary pack with the season's words (kind "season"). */
+  packId: string;
+  /** Achievement unlocked when the goal is reached. */
+  achievementId: string;
+}
+
+/** A team (class, workplace) in the team league. SAMPLE DATA for the demo. */
+export interface Team {
+  code: string;
+  name: string;
+  emoji: string;
+  kind: "Workplace" | "School" | "Introduction programme" | "Library";
+  members: number;
+  weekXp: number;
+  isSample: true;
 }
