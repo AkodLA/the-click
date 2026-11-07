@@ -88,10 +88,10 @@ export function TreeArt({ xp, health = "healthy", className }: { xp: number; hea
 
       {/* Faint outline of the fully grown tree: shows what you're growing towards, even as a seed. */}
       {stage < STAGES.length - 1 && (
-        <g className="opacity-15" strokeDasharray="3 3">
-          <path d="M55 108 C57 90 57 75 58 56 L62 56 C63 75 63 90 65 108 Z" className="fill-none stroke-leaf" strokeWidth="1" />
+        <g className="fill-leaf opacity-20">
+          <path d="M55 108 C57 90 57 75 58 56 L62 56 C63 75 63 90 65 108 Z" />
           {CANOPY.map((c, i) => (
-            <circle key={i} cx={c.cx} cy={c.cy} r={c.r} className="fill-leaf stroke-leaf" strokeWidth="1" />
+            <circle key={i} cx={c.cx} cy={c.cy} r={c.r} />
           ))}
         </g>
       )}
