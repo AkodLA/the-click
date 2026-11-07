@@ -470,6 +470,63 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-doctor",
+    kind: "everyday",
+    title: "At the doctor",
+    titleNo: "Hos legen",
+    emoji: "🩺",
+    words: [
+      p("fastlege", "👩‍⚕️", "en fastlege", "a regular GP", "A2", "Du kan bytte fastlege på Helsenorge.", "You can change your GP on Helsenorge."),
+      p("venterom", "🪑", "et venterom", "a waiting room", "A2", "Vent på venterommet til du blir ropt opp.", "Wait in the waiting room until you're called."),
+      p("resept", "📜", "en resept", "a prescription", "B1", "Legen sendte resepten til apoteket.", "The doctor sent the prescription to the pharmacy."),
+      p("vaksine", "💉", "en vaksine", "a vaccine", "A2", "Barna får vaksine på helsestasjonen.", "The children get vaccinated at the health clinic."),
+      p("blodprove", "🩸", "en blodprøve", "a blood test", "B1", "Vi tar en blodprøve for å sjekke.", "We'll take a blood test to check."),
+      p("hoste", "😷", "å hoste", "to cough", "A1", "Jeg har hostet i to uker.", "I've been coughing for two weeks."),
+      p("svimmel", "😵‍💫", "svimmel", "dizzy", "B1", "Jeg blir svimmel når jeg reiser meg.", "I get dizzy when I stand up."),
+      p("helsestasjon", "👶", "en helsestasjon", "a child health clinic", "B1", "Babyen skal til kontroll på helsestasjonen.", "The baby is going for a check-up at the health clinic."),
+      p("sykemelding", "📄", "en sykemelding", "a sick note", "B1", "Legen ga meg sykemelding i en uke.", "The doctor gave me a sick note for a week."),
+      p("smertestillende", "💊", "smertestillende", "painkillers", "B1", "Du kan ta smertestillende ved behov.", "You can take painkillers when needed."),
+    ],
+  },
+  {
+    id: "everyday-celebrations",
+    kind: "everyday",
+    title: "Celebrations",
+    titleNo: "Feiringer",
+    emoji: "🎉",
+    words: [
+      p("fest", "🎉", "en fest", "a party", "A0", "Vi skal ha fest på lørdag!", "We're having a party on Saturday!"),
+      p("bryllup", "💒", "et bryllup", "a wedding", "A2", "Vi er invitert i bryllup i august.", "We're invited to a wedding in August."),
+      p("konfirmasjon", "🎓", "en konfirmasjon", "a confirmation (age 15)", "B1", "Konfirmasjon er en stor fest for 15-åringer.", "Confirmation is a big celebration for 15-year-olds."),
+      p("paske", "🐣", "påske", "Easter", "A1", "Mange drar på fjellet i påsken.", "Many people go to the mountains at Easter."),
+      p("nyttar", "🎆", "nyttårsaften", "New Year's Eve", "A1", "Vi ser på fyrverkeri på nyttårsaften.", "We watch fireworks on New Year's Eve."),
+      p("eid", "🌙", "eid", "Eid", "A1", "God eid! Skal dere feire med familien?", "Happy Eid! Are you celebrating with family?"),
+      p("ramadan", "🕌", "ramadan", "Ramadan", "A2", "Kollegaen min faster i ramadan.", "My colleague fasts during Ramadan."),
+      p("gave", "🎁", "en gave", "a present / gift", "A1", "Tusen takk for gaven!", "Thank you so much for the present!"),
+      p("kake", "🍰", "ei kake", "a cake", "A0", "Det er kake på pauserommet!", "There's cake in the break room!"),
+      p("invitasjon", "💌", "en invitasjon", "an invitation", "A2", "Vi fikk invitasjon til bursdag.", "We got an invitation to a birthday party."),
+    ],
+  },
+  {
+    id: "everyday-phone",
+    kind: "everyday",
+    title: "Phone & internet",
+    titleNo: "Mobil og nett",
+    emoji: "📱",
+    words: [
+      p("mobil", "📱", "en mobil", "a mobile phone", "A0", "Har du sett mobilen min?", "Have you seen my phone?"),
+      p("lader", "🔌", "en lader", "a charger", "A1", "Kan jeg låne laderen din?", "Can I borrow your charger?"),
+      p("wifi", "🛜", "wifi / nett", "Wi-Fi / internet", "A1", "Hva er passordet til wifien?", "What's the Wi-Fi password?"),
+      p("melding", "💬", "en melding", "a message / text", "A1", "Send meg en melding når du er framme.", "Text me when you get there."),
+      p("app", "📲", "en app", "an app", "A1", "Last ned appen for å kjøpe billett.", "Download the app to buy a ticket."),
+      p("e-post", "📧", "en e-post", "an email", "A1", "Jeg sender deg en e-post.", "I'll send you an email."),
+      p("bilde", "📷", "et bilde", "a photo / picture", "A0", "Kan du ta et bilde av oss?", "Can you take a picture of us?"),
+      p("logge-inn", "🔓", "å logge inn", "to log in", "A2", "Logg inn med BankID.", "Log in with BankID."),
+      p("batteri", "🔋", "et batteri", "a battery", "A1", "Batteriet er nesten tomt.", "The battery is almost dead."),
+      p("lenke", "🔗", "en lenke", "a link", "A2", "Jeg sender deg lenken på Messenger.", "I'll send you the link on Messenger."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -570,7 +627,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;

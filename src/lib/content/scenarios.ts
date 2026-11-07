@@ -13,7 +13,7 @@ export const scenarios: Scenario[] = [
     goal: "Order a coffee and a bun, ask the price, say thanks.",
     agentRole: "a friendly kiosk worker in Oslo",
     openingLine: "Hei! Hva skal det være?",
-    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det", "nydelig-vaer"],
+    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det", "nydelig-vaer", "kan-jeg-bytte"],
     xpReward: 30,
   },
   {
@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt", "sa-fin-du-er"],
     xpReward: 40,
   },
   {
@@ -61,7 +61,7 @@ export const scenarios: Scenario[] = [
     goal: "Ask how your child is doing, ask one follow-up question, ask the teacher to slow down if needed, thank them.",
     agentRole: "a kind primary-school teacher at a parent-teacher meeting",
     openingLine: "Velkommen! Fint at du kunne komme. Skal vi begynne?",
-    keyPhraseIds: ["du-not-de", "hvordan-har-dagen-vaert", "jeg-lurer-pa", "kunne-du", "kan-du-sende-meg", "saktere", "en-gang-til"],
+    keyPhraseIds: ["du-not-de", "hvordan-har-dagen-vaert", "jeg-lurer-pa", "kunne-du", "kan-du-sende-meg", "saktere", "en-gang-til", "sa-flink-du-er"],
     xpReward: 60,
   },
   {
@@ -73,7 +73,7 @@ export const scenarios: Scenario[] = [
     goal: "Book an appointment, explain what's wrong in 1–2 sentences, and confirm the day and time.",
     agentRole: "a receptionist at a Norwegian GP office",
     openingLine: "Legekontoret, hva kan jeg hjelpe deg med?",
-    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "han-har-feber", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til", "bestille-time"],
+    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "han-har-feber", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til", "bestille-time", "si-ifra"],
     xpReward: 70,
   },
   {
@@ -150,7 +150,7 @@ export const scenarios: Scenario[] = [
     goal: "Say what you did yesterday, what you'll do today, and mention one problem you're stuck on.",
     agentRole: "a team lead at a Norwegian tech company",
     openingLine: "Hei! Hva jobbet du med i går?",
-    keyPhraseIds: ["jeg-lurer-pa", "det-gar-fint", "greit", "typ", "jeg-tar-det"],
+    keyPhraseIds: ["jeg-lurer-pa", "det-gar-fint", "greit", "typ", "jeg-tar-det", "godt-jobbet"],
     xpReward: 60,
     fields: ["it"],
   },
