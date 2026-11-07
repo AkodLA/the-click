@@ -123,3 +123,13 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 - **Seasonal challenges** (`seasons`, `seasonPacks`): words of the running season count in `progress.seasons` (server date) → limited badge. Autumn week runs 2–15 Nov 2026.
 - **Team league** (`/league` → Teams): join a sample team by code (device setting `prefs.teamCode`); your week XP counts for the team. Real teams need accounts (T17).
 - **Tree**: fruits for every 5 words and every conversation; "Share my tree" PNG.
+
+### Better on-device translation (T22)
+Checked against Opera's own Translator playground (next.opera.com/web-ai/translator), which uses exactly the `Translator` API we use.
+- **Norwegian is `no`** in Opera/Chrome's language list, so `translateText` asks for `no` first (then `nb`).
+- **Translation memory** (`src/lib/web-ai/memory.ts`): our human-checked Norwegian ↔ English pairs (phrases, examples, vocabulary, seasonal words: ~420 nb→en, ~376 en→nb) are used before the model: perfect, instant, and they work without Web AI. Result field `via: "memory" | "device" | "same"`.
+- **Glossary notes**: Norwegian terms like NAV, fastlege, barnehage, BankID, dugnad come back as `notes` with a short explanation (whole-word matching for short terms, so «navnet» isn't NAV).
+- **Quality check**: `checkTranslation()` translates back and compares (`high` / `medium` / `low`), like Opera's «round trip» mode. "Check it" link under device translations.
+- **Robustness**: long text is translated sentence by sentence (respects `inputQuota` when the browser reports it), calls can be aborted, translators are destroyed on `pagehide`, every call has a time limit.
+- **`/translator`**: browser status per language pair, a self-test (Norwegian → your language → back, with timing) and a free translation box. Linked from Tolk and from translation errors.
+- The model itself can't be retrained (it's the browser's); the memory and glossary are how Snakk "teaches" it.

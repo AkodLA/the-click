@@ -4,6 +4,7 @@
  *   setup → live (ElevenLabs agent) or demo (offline sample) → summary ("learn from this meeting")
  */
 import dynamic from "next/dynamic";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Button, Card, SectionTitle } from "@/components/ui";
 import { useProgress } from "@/lib/progress/store";
@@ -190,6 +191,9 @@ export function TolkView() {
         <Button variant="secondary" disabled={sameLanguage || checkingTyped} onClick={startTyped}>
           {checkingTyped ? "Checking your browser…" : "⌨️ Type instead (on-device, private)"}
         </Button>
+        <Link href="/translator" className="-mt-1 flex h-11 items-center justify-center text-sm font-semibold text-brand">
+          🌐 Check this browser&apos;s translator
+        </Link>
         <Button variant="secondary" onClick={() => { setError(null); setStage("demo"); }}>
           ▶️ Watch a demo
         </Button>
