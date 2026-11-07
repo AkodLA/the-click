@@ -64,6 +64,7 @@ export function PhraseCard({
           <PlayButton phraseId={phrase.id} text={phrase.text} label={`Play «${phrase.text}»`} />
           <div className="min-w-0">
             <p className="text-2xl font-black tracking-tight">{phrase.text}</p>
+            {phrase.soundsLike && <SoundsLike text={phrase.soundsLike} />}
             <p className="text-muted">{phrase.meaning}</p>
           </div>
         </div>
@@ -72,6 +73,7 @@ export function PhraseCard({
       <div className="flex items-center gap-3 rounded-2xl bg-surface-2 p-3">
         <div className="min-w-0 flex-1">
           <p className="font-semibold">«{phrase.example.no}»</p>
+          {phrase.example.soundsLike && <SoundsLike text={phrase.example.soundsLike} small />}
           <p className="text-sm text-muted">{phrase.example.en}</p>
         </div>
         <PlayButton phraseId={phrase.id} text={phrase.example.no} part="example" size="sm" label="Play the example sentence" />
@@ -145,5 +147,23 @@ export function PhraseCard({
         </Button>
       )}
     </Card>
+  );
+}
+
+/**
+ * "Plan D" for pronunciation: the phrase spelled with plain English letters, stressed syllable in CAPS.
+ * Deliberately faint (not bold) so it doesn't compete with the real word, but always there if the
+ * voice, the audio and reading the Norwegian spelling all didn't help.
+ */
+function SoundsLike({ text, small = false }: { text: string; small?: boolean }) {
+  return (
+    <p
+      className={`mt-0.5 font-normal italic tracking-wide text-muted opacity-60 transition-opacity hover:opacity-100 ${small ? "text-xs" : "text-sm"}`}
+      title="How to say it, in plain letters. The CAPS part is stressed."
+    >
+      <span className="sr-only">Sounds like: </span>
+      <span aria-hidden>🗣️ </span>
+      {text}
+    </p>
   );
 }
