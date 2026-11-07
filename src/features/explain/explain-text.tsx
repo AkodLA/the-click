@@ -19,24 +19,41 @@ export function ExplainText({ text, className = "" }: { text: string; className?
   const [open, setOpen] = useState<string | null>(null);
   // Split into words and the bits between them, keeping punctuation and spaces as they are.
   const parts = text.split(/([A-Za-zÆØÅæøåÉéÜüÖöÄä'-]+)/);
+  // Keep punctuation glued to its word («meg?», «Hjelp!) so a line never starts with «?» or ends with «.
+  // Each separator (even index) = [sticks to the word before, free part, sticks to the word after].
+  const glue = parts.map((sep, i): [string, string, string] => {
+    if (i % 2 === 1) return ["", "", ""];
+    if (i === 0) return ["", sep.replace(/\S+$/, ""), sep.match(/\S*$/)?.[0] ?? ""];
+    if (i === parts.length - 1) return [sep.match(/^\S*/)?.[0] ?? "", sep.replace(/^\S+/, ""), ""];
+    const m = sep.match(/^(\S*)(\s[\s\S]*\s|\s)(\S*)$/);
+    return m ? [m[1], m[2], m[3]] : [sep, "", ""]; // no space (e.g. «,» in «1,5»): glue it to the word before
+  });
   return (
     <>
       <span className={className} lang="nb">
-        {parts.map((part, i) =>
-          i % 2 === 1 && normWord(part).length >= 2 ? (
-            <button
-              key={i}
-              type="button"
-              onClick={() => setOpen(part)}
-              className="cursor-help rounded decoration-muted/60 decoration-dotted underline-offset-4 hover:underline focus-visible:underline"
-              aria-label={`Explain «${part}»`}
-            >
-              {part}
-            </button>
-          ) : (
-            <span key={i}>{part}</span>
-          ),
-        )}
+        {parts.map((part, i) => {
+          if (i % 2 === 0) return glue[i][1] ? <span key={i}>{glue[i][1]}</span> : null;
+          const word =
+            normWord(part).length >= 2 ? (
+              <button
+                type="button"
+                onClick={() => setOpen(part)}
+                className="cursor-help rounded decoration-muted/60 decoration-dotted underline-offset-4 hover:underline focus-visible:underline"
+                aria-label={`Explain «${part}»`}
+              >
+                {part}
+              </button>
+            ) : (
+              part
+            );
+          return (
+            <span key={i} className="whitespace-nowrap">
+              {glue[i - 1][2]}
+              {word}
+              {glue[i + 1]?.[0]}
+            </span>
+          );
+        })}
       </span>
       {/* Portal: the sheet is a <dialog>, which must not sit inside the <p> that holds the text. */}
       {open && createPortal(<ExplainSheet word={open} onClose={() => setOpen(null)} />, document.body)}
@@ -63,7 +80,12 @@ function ExplainSheet({ word, onClose }: { word: string; onClose: () => void }) 
     >
       <div className="flex flex-col gap-3 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))]">
         <div className="flex items-start justify-between gap-3">
-          <div className="min-w-0">
+          {entry?.picture && (
+            <span role="img" aria-label={`Picture: ${entry.en}`} className="flex h-16 w-16 shrink-0 items-center justify-center rounded-2xl border-2 border-line bg-brand-soft text-4xl shadow-[0_3px_0_var(--line)] font-[family-name:var(--font-emoji)]">
+              {entry.picture}
+            </span>
+          )}
+          <div className="min-w-0 flex-1">
             <p className="text-2xl font-black" lang="nb">
               {word}
             </p>

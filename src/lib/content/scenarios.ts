@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant"],
     xpReward: 40,
   },
   {
@@ -61,7 +61,7 @@ export const scenarios: Scenario[] = [
     goal: "Ask how your child is doing, ask one follow-up question, ask the teacher to slow down if needed, thank them.",
     agentRole: "a kind primary-school teacher at a parent-teacher meeting",
     openingLine: "Velkommen! Fint at du kunne komme. Skal vi begynne?",
-    keyPhraseIds: ["du-not-de", "jeg-lurer-pa", "kunne-du", "saktere", "en-gang-til"],
+    keyPhraseIds: ["du-not-de", "jeg-lurer-pa", "kunne-du", "kan-du-sende-meg", "saktere", "en-gang-til"],
     xpReward: 60,
   },
   {
@@ -73,7 +73,7 @@ export const scenarios: Scenario[] = [
     goal: "Book an appointment, explain what's wrong in 1–2 sentences, and confirm the day and time.",
     agentRole: "a receptionist at a Norwegian GP office",
     openingLine: "Legekontoret, hva kan jeg hjelpe deg med?",
-    keyPhraseIds: ["jeg-ringer-fordi", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til"],
+    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til"],
     xpReward: 70,
   },
   {
@@ -137,7 +137,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet the guest, take the order, ask about allergies, and bring the bill.",
     agentRole: "a guest at a café in Oslo",
     openingLine: "Hei! Kan jeg få se menyen?",
-    keyPhraseIds: ["kan-jeg-fa", "vil-gjerne", "vaer-sa-god", "greit", "bare-hyggelig"],
+    keyPhraseIds: ["kan-jeg-fa", "har-dere", "vil-gjerne", "vaer-sa-god", "greit", "bare-hyggelig"],
     xpReward: 50,
     fields: ["hospitality"],
   },

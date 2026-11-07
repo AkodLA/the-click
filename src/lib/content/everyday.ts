@@ -17,7 +17,7 @@ const p = (
   register: VocabWord["register"] = "neutral",
 ): VocabWord => ({ id: `everyday-${id}`, no, en, level, register, picture, example: { no: exNo, en: exEn } });
 
-export const everydayPacks: VocabPack[] = [
+const packs: VocabPack[] = [
   {
     id: "everyday-food",
     kind: "everyday",
@@ -175,6 +175,101 @@ export const everydayPacks: VocabPack[] = [
       p("nordlys", "🌌", "nordlys", "northern lights", "A2", "Vi så nordlys i Tromsø!", "We saw the northern lights in Tromsø!"),
     ],
   },  {
+    id: "everyday-emergency",
+    kind: "everyday",
+    title: "Help & emergencies",
+    titleNo: "Hjelp og nødsituasjoner",
+    emoji: "🆘",
+    words: [
+      p("hjelp", "🆘", "hjelp", "help", "A0", "Hjelp! Kan noen hjelpe meg?", "Help! Can someone help me?"),
+      p("ambulanse", "🚑", "en ambulanse", "an ambulance (call 113)", "A1", "Ring 113 og be om ambulanse!", "Call 113 and ask for an ambulance!"),
+      p("politi", "🚓", "politiet", "the police (call 112)", "A1", "Ring politiet på 112.", "Call the police on 112."),
+      p("brann", "🔥", "en brann", "a fire (call 110)", "A1", "Det brenner! Ring 110!", "There's a fire! Call 110!"),
+      p("legevakt", "🏥", "legevakten", "the out-of-hours clinic (116 117)", "A2", "Om natta må du ringe legevakten.", "At night you have to call the out-of-hours clinic."),
+      p("skadet", "🩹", "skadet", "injured / hurt", "A2", "Er noen skadet?", "Is anyone hurt?"),
+      p("adresse", "📍", "en adresse", "an address", "A1", "Hva er adressen din?", "What's your address?"),
+      p("hjertestarter", "❤️‍🩹", "en hjertestarter", "a defibrillator (AED)", "B1", "Det henger en hjertestarter i resepsjonen.", "There's a defibrillator at reception."),
+      p("bortkommet", "❓", "bortkommet", "lost (an item)", "A2", "Lommeboka mi er bortkommet.", "My wallet is lost."),
+      p("haster", "⏱️", "det haster", "it's urgent", "A2", "Det haster, kan du komme nå?", "It's urgent, can you come now?"),
+    ],
+  },
+  {
+    id: "everyday-travel",
+    kind: "everyday",
+    title: "Travel",
+    titleNo: "Reise",
+    emoji: "✈️",
+    words: [
+      p("fly", "✈️", "et fly", "a plane", "A0", "Flyet til Tromsø er forsinket.", "The plane to Tromsø is delayed."),
+      p("flyplass", "🛫", "en flyplass", "an airport", "A1", "Hvordan kommer jeg til flyplassen?", "How do I get to the airport?"),
+      p("bat", "⛴️", "en båt", "a boat / ferry", "A0", "Vi tar båten til Nesodden.", "We're taking the boat to Nesodden."),
+      p("pass", "🛂", "et pass", "a passport", "A1", "Husk passet!", "Remember your passport!"),
+      p("koffert", "🧳", "en koffert", "a suitcase", "A1", "Kofferten min er for tung.", "My suitcase is too heavy."),
+      p("hotell", "🏨", "et hotell", "a hotel", "A0", "Hotellet ligger midt i sentrum.", "The hotel is right in the city centre."),
+      p("kart", "🗺️", "et kart", "a map", "A1", "Kan du vise meg det på kartet?", "Can you show me on the map?"),
+      p("tur-retur", "🔁", "tur-retur", "return (ticket)", "A2", "En billett tur-retur Bergen, takk.", "A return ticket to Bergen, please."),
+      p("bensin", "⛽", "bensin", "petrol", "A2", "Vi må fylle bensin før fjellet.", "We need to get petrol before the mountains."),
+      p("telt", "⛺", "et telt", "a tent", "A1", "Allemannsretten: du kan sette opp telt i naturen.", "The right to roam: you can put up a tent in nature."),
+    ],
+  },
+  {
+    id: "everyday-fruit-veg",
+    kind: "everyday",
+    title: "Fruit & veg",
+    titleNo: "Frukt og grønt",
+    emoji: "🥕",
+    words: [
+      p("banan", "🍌", "en banan", "a banana", "A0", "Jeg tar med en banan på tur.", "I'm taking a banana on the hike."),
+      p("appelsin", "🍊", "en appelsin", "an orange", "A0", "Appelsin og Kvikk Lunsj hører påsken til.", "Oranges and Kvikk Lunsj belong to Easter."),
+      p("jordbaer", "🍓", "jordbær", "strawberries", "A1", "Norske jordbær er de beste!", "Norwegian strawberries are the best!"),
+      p("blabaer", "🫐", "blåbær", "blueberries", "A1", "Vi plukker blåbær i skogen i august.", "We pick blueberries in the forest in August."),
+      p("gulrot", "🥕", "ei gulrot", "a carrot", "A0", "Barna spiser gulrøtter i matpakka.", "The kids eat carrots in their packed lunch."),
+      p("tomat", "🍅", "en tomat", "a tomato", "A0", "Kan du kjøpe tomater?", "Can you buy tomatoes?"),
+      p("lok", "🧅", "en løk", "an onion", "A1", "Først steker du løken.", "First you fry the onion."),
+      p("agurk", "🥒", "en agurk", "a cucumber", "A1", "Brødskive med ost og agurk.", "A slice of bread with cheese and cucumber."),
+      p("salat", "🥬", "salat", "lettuce / salad", "A1", "Vil du ha salat til?", "Would you like salad with it?"),
+      p("sitron", "🍋", "en sitron", "a lemon", "A1", "Fisk med sitron er godt.", "Fish with lemon is good."),
+    ],
+  },
+  {
+    id: "everyday-jobs",
+    kind: "everyday",
+    title: "Jobs",
+    titleNo: "Yrker",
+    emoji: "🧑‍🔧",
+    words: [
+      p("lege", "🧑‍⚕️", "en lege", "a doctor", "A0", "Jeg må til legen.", "I have to see the doctor."),
+      p("tannlege", "🦷", "en tannlege", "a dentist", "A1", "Tannlegen sier jeg må pusse mer.", "The dentist says I have to brush more."),
+      p("politibetjent", "👮", "en politibetjent", "a police officer", "A2", "Spør politibetjenten om veien.", "Ask the police officer for directions."),
+      p("kokk", "🧑‍🍳", "en kokk", "a cook / chef", "A1", "Hun jobber som kokk på en restaurant.", "She works as a chef at a restaurant."),
+      p("elektriker", "🧑‍🔧", "en elektriker", "an electrician", "B1", "Vi må ringe en elektriker.", "We have to call an electrician."),
+      p("bonde", "🧑‍🌾", "en bonde", "a farmer", "A2", "Bonden har kuer og sauer.", "The farmer has cows and sheep."),
+      p("frisor", "💇", "en frisør", "a hairdresser", "A1", "Jeg har time hos frisøren i morgen.", "I have a hairdresser's appointment tomorrow."),
+      p("student", "🧑‍🎓", "en student", "a (university) student", "A0", "Jeg er student i Oslo.", "I'm a student in Oslo."),
+      p("forsker", "🧑‍🔬", "en forsker", "a researcher / scientist", "B1", "Hun er forsker på sykehuset.", "She's a researcher at the hospital."),
+      p("brannkonstabel", "🧑‍🚒", "en brannkonstabel", "a firefighter", "B1", "Brannkonstablene kom etter fem minutter.", "The firefighters came after five minutes."),
+    ],
+  },
+  {
+    id: "everyday-free-time",
+    kind: "everyday",
+    title: "Free time",
+    titleNo: "Fritid",
+    emoji: "🎳",
+    words: [
+      p("kino", "🎬", "en kino", "a cinema", "A0", "Skal vi gå på kino?", "Shall we go to the cinema?"),
+      p("bok", "📖", "ei bok", "a book", "A0", "Jeg leser en spennende bok.", "I'm reading an exciting book."),
+      p("svomme", "🏊", "å svømme", "to swim", "A1", "Vi svømmer i badebassenget hver onsdag.", "We swim at the pool every Wednesday."),
+      p("lope", "🏃", "å løpe / jogge", "to run / jog", "A1", "Jeg jogger rundt Sognsvann.", "I jog around Sognsvann."),
+      p("trening", "🏋️", "trening", "workout / training", "A1", "Jeg skal på trening etter jobb.", "I'm going to work out after work."),
+      p("male", "🖌️", "å male", "to paint", "A1", "Hun maler bilder i fritida.", "She paints pictures in her free time."),
+      p("fotball", "⚽", "fotball", "football", "A0", "Spiller du fotball?", "Do you play football?"),
+      p("brettspill", "🎲", "et brettspill", "a board game", "A2", "Vi spiller brettspill på hytta.", "We play board games at the cabin."),
+      p("fiske", "🎣", "å fiske", "to fish", "A1", "Bestefar og jeg skal fiske i helga.", "Grandpa and I are going fishing this weekend."),
+      p("tegne", "✏️", "å tegne", "to draw", "A1", "Barna tegner hele dagen.", "The kids draw all day."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -273,3 +368,11 @@ export const everydayPacks: VocabPack[] = [
     ],
   },
 ];
+
+/** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
+const ORDER = ["food", "numbers", "colours", "home", "town", "emergency", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "jobs", "free-time", "nature"];
+const rank = (id: string) => {
+  const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
+  return i === -1 ? ORDER.length : i;
+};
+export const everydayPacks: VocabPack[] = [...packs].sort((a, b) => rank(a.id) - rank(b.id));

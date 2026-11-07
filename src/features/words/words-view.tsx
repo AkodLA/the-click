@@ -39,6 +39,7 @@ export function WordsView() {
   const [editing, setEditing] = useState(false);
   const [skipSetup, setSkipSetup] = useState(false);
   const [allLevels, setAllLevels] = useState(false);
+  const [allEveryday, setAllEveryday] = useState(false);
   const [now, setNow] = useState<number | null>(null);
 
   // Clock only after mount (the page is prerendered).
@@ -65,7 +66,9 @@ export function WordsView() {
   // Seasonal packs (T21) are reached through the season banner while their season runs, not listed here.
   const others = vocabPacks.filter((x) => x.kind !== "season" && x.kind !== "everyday" && !mine.includes(x) && packFitsAge(x, prefs.ageGroup));
   // T24: picture words for daily life, for everyone. Beginners (A0–A2 or no level yet) see them first.
-  const everyday = vocabPacks.filter((x) => x.kind === "everyday");
+  const everydayAll = vocabPacks.filter((x) => x.kind === "everyday");
+  // Show 6 first on phones so personal packs stay close; the rest one tap away.
+  const everyday = allEveryday ? everydayAll : everydayAll.slice(0, 6);
   const beginner = !p.cefr || CEFR_LEVELS.indexOf(p.cefr) <= CEFR_LEVELS.indexOf("A2");
 
   if (reviewing) return <ReviewMode ids={due} onDone={() => go("")} />;
@@ -163,6 +166,11 @@ export function WordsView() {
               <SectionTitle>🖼️ Everyday words</SectionTitle>
               <p className="-mt-2 mb-3 text-sm text-muted">With pictures: the first words you need for food, home, the weather, the shop and the bus.</p>
               <PackGrid packs={everyday} known={known} onOpen={(id) => go(`pack=${id}`)} highlight={beginner && mine.length === 0} />
+              {!allEveryday && everydayAll.length > everyday.length && (
+                <button type="button" onClick={() => setAllEveryday(true)} className="mt-3 h-11 w-full rounded-full border-2 border-line bg-surface text-sm font-bold text-brand">
+                  Show all {everydayAll.length} picture packs ↓
+                </button>
+              )}
             </section>
           )}
 
@@ -195,6 +203,11 @@ export function WordsView() {
               <SectionTitle>🖼️ Everyday words</SectionTitle>
               <p className="-mt-2 mb-3 text-sm text-muted">With pictures: the first words you need for food, home, the weather, the shop and the bus.</p>
               <PackGrid packs={everyday} known={known} onOpen={(id) => go(`pack=${id}`)} highlight={beginner && mine.length === 0} />
+              {!allEveryday && everydayAll.length > everyday.length && (
+                <button type="button" onClick={() => setAllEveryday(true)} className="mt-3 h-11 w-full rounded-full border-2 border-line bg-surface text-sm font-bold text-brand">
+                  Show all {everydayAll.length} picture packs ↓
+                </button>
+              )}
             </section>
           )}
 

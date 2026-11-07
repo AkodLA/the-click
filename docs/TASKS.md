@@ -26,7 +26,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T18 | (Optional) Partner API: add `translate` scope (Tolk as an API for warehouses / robots / schools), API docs page | T8 | 2 | | | ⬜ |
 | T19 | **On-device translation** (Opera Web AI / Chrome Translator API): shared helper + `TranslateButton`; Tolk typing mode, Tandem translate, tutor transcript translate. No server, no key. | T8 T10 T2 | 1–2 | | | ✅ |
 | T20 | **Personal learning**: About you (age group, field, interests; device-only) → vocabulary packs by field/interest/level/age with spaced review, `word_learned` XP, work scenarios by field, tutor adapts | T19 T2 | 3 | | | ✅ |
-| T24 | **More words & phrases, with pictures**: 138 everyday picture words (13 packs), a picture for 264 of 265 words, picture quiz (see it / hear it), 37 new phrases linked to scenarios. Needs a native-speaker check | T20 T3 | 2 | | | 🟡 PR |
+| T24 | **More words & phrases, with pictures**: 188 everyday picture words (18 packs), a picture for 314 of 315 words (same look on every device), picture quiz (see it / hear it), pictures in explain-a-word, 51 new phrases linked to scenarios. Needs a native-speaker check | T20 T3 | 2 | | | 🟡 PR |
 | T21 | **Engagement pack**: why this level, weekly summary, mistake notebook, explain-a-word, daily quests, streak freeze, field tests + certificates, seasonal challenges, team league, tree fruits + share | T20 | 4 | | | ✅ |
 | T22 | **Translator quality** (Opera Web AI): `no` language code, translation memory from our content, glossary notes, round-trip check, chunking/abort, `/translator` self-test | T19 | 2 | | | ✅ |
 

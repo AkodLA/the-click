@@ -15,6 +15,8 @@ export interface DictEntry {
   example?: { no: string; en: string };
   /** Where to learn more. */
   href: string;
+  /** T24: the word's picture (emoji), if it has one. */
+  picture?: string;
 }
 
 export const normWord = (s: string) => s.toLowerCase().replace(/[^a-zæøå0-9-]/g, "");
@@ -27,7 +29,7 @@ function add(key: string, e: DictEntry) {
 
 for (const pack of vocabPacks) {
   for (const w of pack.words) {
-    const entry: DictEntry = { headword: w.no, en: w.en, register: w.register, level: w.level, example: w.example, href: `/words?pack=${pack.id}` };
+    const entry: DictEntry = { headword: w.no, en: w.en, register: w.register, level: w.level, example: w.example, href: `/words?pack=${pack.id}`, picture: w.picture };
     // "en vakt" → "vakt"; "å bore" → "bore"; multi-word entries also by their last word
     const bare = w.no.replace(/^(en|ei|et|å)\s+/i, "");
     add(bare, entry);

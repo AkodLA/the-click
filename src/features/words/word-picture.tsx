@@ -22,7 +22,7 @@ export function WordPicture({ word, size = "md" }: { word: VocabWord; size?: "md
     <span
       role="img"
       aria-label={`Picture: ${word.en}`}
-      className={`flex shrink-0 select-none items-center justify-center rounded-2xl border-2 border-line bg-brand-soft shadow-[0_3px_0_var(--line)] ${
+      className={`flex shrink-0 select-none items-center justify-center rounded-2xl font-[family-name:var(--font-emoji)] border-2 border-line bg-brand-soft shadow-[0_3px_0_var(--line)] ${
         size === "lg" ? "h-24 w-24 text-6xl" : "h-16 w-16 text-4xl"
       }`}
     >
@@ -149,7 +149,7 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
       <div className="flex justify-center py-2">
         {mode === "see" ? (
           /* The picture IS the question, so it has no text alternative that gives the answer away. */
-          <span role="img" aria-label="Picture to name" className="flex h-32 w-32 items-center justify-center rounded-3xl border-2 border-line bg-brand-soft text-7xl shadow-[0_4px_0_var(--line)]">
+          <span role="img" aria-label="Picture to name" className="flex h-32 w-32 items-center justify-center rounded-3xl border-2 border-line bg-brand-soft text-7xl font-[family-name:var(--font-emoji)] shadow-[0_4px_0_var(--line)]">
             {round.word.picture}
           </span>
         ) : (
@@ -184,7 +184,7 @@ export function PictureQuiz({ pack }: { pack: VocabPack }) {
                       : "border-line bg-surface hover:bg-surface-2 disabled:opacity-50"
                 }`}
               >
-                <span aria-hidden>{o.picture}</span>
+                <span aria-hidden className="font-[family-name:var(--font-emoji)]">{o.picture}</span>
               </button>
             );
           })}

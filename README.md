@@ -13,9 +13,9 @@ Textbooks teach written Norwegian. Snakk teaches **how Norway talks**. You speak
 | 🧭 Placement test | Estimates your level, A0 to C2, in about 3 minutes (scored on the server) |
 | 🎙️ Voice tutor | Real-life scenarios (kiosk, party, dinner, job interview, doctor, plus work scenarios like a warehouse shift or a nursing-home handover) with an ElevenLabs voice agent that corrects slang used in the wrong place |
 | 🎯 Pronunciation check | Say a sentence and see which words came through |
-| 💬 Phrasebook | 68 phrases tagged slang / informal / neutral / formal, with ✅ use when · 🚫 avoid when · 💡 say instead, audio and a "sounds like" hint |
+| 💬 Phrasebook | 82 phrases tagged slang / informal / neutral / formal, with ✅ use when · 🚫 avoid when · 💡 say instead, audio and a "sounds like" hint |
 | 🧠 My words | Vocabulary for **your work, interests, age group and level** (9 fields, 6 interests), with spaced review, level-up tests and Snakk certificates |
-| 🖼️ Everyday picture words | 138 beginner words in 13 packs (food, home, weather, body, town, shop, feelings, nature, colours, numbers, time, people, work life), each with a picture, plus a picture quiz (see it → word, or hear it → picture). 264 of the 265 words have a picture |
+| 🖼️ Everyday picture words | 188 beginner words in 18 packs (food, numbers, colours, home, town, help & emergencies, shop, time, people, weather, body, feelings, work life, travel, fruit & veg, jobs, free time, nature), each with a picture, plus a picture quiz (see it → word, or hear it → picture). 314 of the 315 words have a picture, also when you tap a word anywhere in the app |
 | 📓 Mistakes | Every correction from the tutor, Tandem and the pronunciation check, collected automatically, with practice |
 | 📒 My notes | Save any word with one tap; it lands in the right notebook (Everyday, Formal, Slang, Corrections, Writing, your own) |
 | 👆 Explain a word | Tap any Norwegian word: meaning, register, example, listen, translate |
