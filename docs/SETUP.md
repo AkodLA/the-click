@@ -31,7 +31,16 @@ The owner's account holds the agents and the key. Everyone else uses the owner's
 3. Set a **credit limit** on the key (e.g. 20 000 credits), so a bug or abuse can't drain the plan.
 4. Copy the key **once**, then DM it to Akram (for Vercel) and to teammates who test voice locally.
 
-### B2. Tutor agent (T2)
+### B2. Fastest way: sync both agents from the repo (recommended)
+`agent/tutor-prompt.md` and `agent/tolk-prompt.md` are the **source of truth**. One command sets up both agents exactly as the app expects (prompt, first message, Norwegian + extra languages, client tools with the right names, dynamic-variable placeholders, authentication ON, allowlist `localhost` + our Vercel domain):
+```bash
+npm run agents:sync      # create/update both agents (needs ELEVENLABS_API_KEY with ElevenAgents: Write)
+npm run agents:check     # read-only: ✅/❌ per field, live agent vs. repo
+```
+If `ELEVENLABS_TOLK_AGENT_ID` is empty, the Tolk agent is **created** and its id printed: add it to `.env.local` and Vercel.
+**Changed a prompt in `agent/*.md`?** Run `npm run agents:sync` after the PR is merged, or the live agent keeps the old prompt. The voice and LLM chosen in the dashboard are left alone.
+
+### B2b. Tutor agent by hand (only if the script can't be used)
 1. **ElevenAgents → Agents → Create agent → Blank agent.** Name it `Snakk Tutor`.
 2. **Language:** Norwegian as default. Add English as an additional language (learners can fall back).
 3. **Voice:** pick a natural Norwegian-capable voice. Test it in the dashboard.

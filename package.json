@@ -10,7 +10,9 @@
     "partner:key": "node scripts/create-partner-key.mjs",
     "typecheck": "tsc --noEmit",
     "secret-scan": "node scripts/secret-scan.mjs",
-    "security-check": "node scripts/security-check.mjs"
+    "security-check": "node scripts/security-check.mjs",
+    "agents:sync": "node --env-file=.env.local scripts/sync-agents.mjs",
+    "agents:check": "node --env-file=.env.local scripts/sync-agents.mjs --check"
   },
   "dependencies": {
     "@elevenlabs/react": "^1.21.1",
