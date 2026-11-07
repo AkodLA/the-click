@@ -27,7 +27,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T19 | **On-device translation** (Opera Web AI / Chrome Translator API): shared helper + `TranslateButton`; Tolk typing mode, Tandem translate, tutor transcript translate. No server, no key. | T8 T10 T2 | 1–2 | | | ✅ |
 | T20 | **Personal learning**: About you (age group, field, interests; device-only) → vocabulary packs by field/interest/level/age with spaced review, `word_learned` XP, work scenarios by field, tutor adapts | T19 T2 | 3 | | | ✅ |
 | T21 | **Engagement pack**: why this level, weekly summary, mistake notebook, explain-a-word, daily quests, streak freeze, field tests + certificates, seasonal challenges, team league, tree fruits + share | T20 | 4 | | | ✅ |
-| T22 | **Translator quality** (Opera Web AI): `no` language code, translation memory from our content, glossary notes, round-trip check, chunking/abort, `/translator` self-test | T19 | 2 | | | 🔵 |
+| T22 | **Translator quality** (Opera Web AI): `no` language code, translation memory from our content, glossary notes, round-trip check, chunking/abort, `/translator` self-test | T19 | 2 | | | ✅ |
 
 ## Checkpoints
 | When | Must be true |
