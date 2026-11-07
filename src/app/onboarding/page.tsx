@@ -1,12 +1,9 @@
-import { ComingSoon } from "@/components/ui";
+import type { Metadata } from "next";
+import { PlacementFlow } from "@/features/onboarding/placement-flow";
 
-// Owner: T4. Build the feature in src/features/ and render it here.
+export const metadata: Metadata = { title: "Find your level · Snakk" };
+
+// Owner: T4. Outside the (app) shell on purpose: a focused, full-screen test.
 export default function Page() {
-  return (
-    <main className="mx-auto max-w-xl px-4">
-      <ComingSoon task="T4" title="Find your level" emoji="🧭">
-      A 3-minute test from A0 to C2: tap, listen and speak.
-      </ComingSoon>
-    </main>
-  );
+  return <PlacementFlow />;
 }
