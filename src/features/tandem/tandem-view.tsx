@@ -11,6 +11,8 @@ import { Badge, Button, Card, SectionTitle } from "@/components/ui";
 import { LANGUAGE_NAMES, tandemPartners } from "@/lib/content";
 import type { TandemPartner } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { TranslateButton } from "@/features/translate/translate-button";
+import { translateText } from "@/lib/web-ai/translator";
 import { contactInfoWarning, correct, PARTNER_FILLERS, partnerScript, phrasesUsed, type ScriptLine } from "./tandem-data";
 
 const MAX_LEN = 280;
@@ -182,6 +184,7 @@ function Chat({ partner, myLanguage, onBack }: { partner: TandemPartner; myLangu
   const [typing, setTyping] = useState(true);
   const [draft, setDraft] = useState("");
   const [warning, setWarning] = useState<string | null>(null);
+  const [helping, setHelping] = useState<string | null>(null);
   const [sending, setSending] = useState(false);
   const [reported, setReported] = useState(false);
   const [showEn, setShowEn] = useState<Record<number, boolean>>({});
@@ -216,6 +219,18 @@ function Chat({ partner, myLanguage, onBack }: { partner: TandemPartner; myLangu
 
   const lastPartnerLine = step - 1 >= 0 && step - 1 < script.length ? script[step - 1] : null;
   const suggestions = !typing && lastPartnerLine ? lastPartnerLine.suggestions : [];
+
+  /** T19: write it in your own language, the browser's on-device translator turns it into Norwegian. */
+  async function toNorwegian() {
+    const text = draft.trim();
+    if (!text || helping) return;
+    setWarning(null);
+    setHelping("Translating…");
+    const r = await translateText(text, myLanguage, "nb", (loaded) => setHelping(`Getting the translator… ${Math.round(loaded * 100)}%`));
+    setHelping(null);
+    if (r.ok) setDraft(r.text.slice(0, MAX_LEN));
+    else setWarning(r.message);
+  }
 
   async function send(e?: FormEvent) {
     e?.preventDefault();
@@ -277,7 +292,7 @@ function Chat({ partner, myLanguage, onBack }: { partner: TandemPartner; myLangu
       {/* Messages */}
       <div className="flex flex-col gap-3" aria-live="polite" aria-label={`Chat with ${partner.nickname}`}>
         {messages.map((m) => (
-          <Message key={m.id} m={m} showEn={!!showEn[m.id]} onToggleEn={() => setShowEn((s) => ({ ...s, [m.id]: !s[m.id] }))} />
+          <Message key={m.id} m={m} myLanguage={myLanguage} showEn={!!showEn[m.id]} onToggleEn={() => setShowEn((s) => ({ ...s, [m.id]: !s[m.id] }))} />
         ))}
         {typing && (
           <div className="flex items-center gap-2 text-sm text-muted">
@@ -334,6 +349,16 @@ function Chat({ partner, myLanguage, onBack }: { partner: TandemPartner; myLangu
             ➤
           </Button>
         </form>
+        {myLanguage !== "nb" && (
+          <button
+            type="button"
+            onClick={toNorwegian}
+            disabled={!draft.trim() || helping !== null}
+            className="h-11 self-start rounded-full px-1 text-xs font-semibold text-brand disabled:text-muted"
+          >
+            🌐 {helping ?? `Wrote it in ${LANGUAGE_NAMES[myLanguage] ?? "your language"}? Make it Norwegian`}
+          </button>
+        )}
         <p className="px-1 text-xs text-muted">
           +2 XP per message ·{" "}
           <Link href="/phrases?register=informal" className="font-semibold text-brand">
@@ -345,7 +370,7 @@ function Chat({ partner, myLanguage, onBack }: { partner: TandemPartner; myLangu
   );
 }
 
-function Message({ m, showEn, onToggleEn }: { m: ChatMessage; showEn: boolean; onToggleEn: () => void }) {
+function Message({ m, myLanguage, showEn, onToggleEn }: { m: ChatMessage; myLanguage: string; showEn: boolean; onToggleEn: () => void }) {
   if (m.from === "me") {
     return (
       <div className="flex flex-col items-end gap-1">
@@ -379,6 +404,8 @@ function Message({ m, showEn, onToggleEn }: { m: ChatMessage; showEn: boolean; o
           </Link>
         ))}
       </div>
+      {/* English is built in; other languages use the on-device translator (T19). */}
+      {myLanguage !== "en" && <TranslateButton text={m.text} from="nb" to={myLanguage} />}
     </div>
   );
 }

@@ -52,6 +52,7 @@ payment, USB), `Cross-Origin-Opener-Policy`, HSTS, and no `X-Powered-By`.
 - Audio is streamed to ElevenLabs for speech-to-text / voice and **never stored by us**. Tolk transcripts live in the tab only.
 - Tandem: nicknames and emoji avatars only; the chat blocks phone numbers, emails, links and social handles.
 - All community data (league, tandem partners, events) is **test data** and labelled as such.
+- Translation (T19) runs **on the device** with the browser's built-in Translator (Opera Web AI / Chrome): the text never reaches our server or any AI provider.
 
 ## Known limits (honest list, with the fix)
 | Limit | Why it's OK for the MVP | Fix (roadmap) |
