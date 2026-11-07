@@ -7,6 +7,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
 import { Mascot } from "@/components/mascot";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageWelcome } from "@/features/languages/language-picker";
 import { levelProgress } from "@/lib/progress/levels";
 import { onReward, useProgress, type Reward } from "@/lib/progress/store";
@@ -15,6 +16,7 @@ const NAV = [
   { href: "/learn", label: "Home", icon: "🏠" },
   { href: "/speak", label: "Speak", icon: "🎙️" },
   { href: "/phrases", label: "Phrases", icon: "💬" },
+  { href: "/notes", label: "Notes", icon: "📒" },
   { href: "/league", label: "League", icon: "🏆" },
   { href: "/profile", label: "Me", icon: "🙂" },
 ];
@@ -52,7 +54,8 @@ function TopBar() {
             <NavLink key={n.href} {...n} compact />
           ))}
         </nav>
-        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex shrink-0 items-center gap-1.5 whitespace-nowrap text-sm font-bold tabular-nums">
+        <div className="flex shrink-0 items-center gap-1.5">
+        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex shrink-0 items-center gap-1 whitespace-nowrap text-sm font-bold tabular-nums">
           <span title="Day streak" className={`rounded-full px-2.5 py-1 ${p.streakDays > 0 ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted"}`}>
             🔥 {p.streakDays}
           </span>
@@ -63,6 +66,8 @@ function TopBar() {
             ⚡ {p.xp}
           </span>
         </Link>
+        <ThemeToggle />
+        </div>
       </div>
     </header>
   );

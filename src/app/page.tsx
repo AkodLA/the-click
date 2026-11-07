@@ -1,4 +1,6 @@
+import Link from "next/link";
 import { Cloud, Mascot, Squiggle } from "@/components/mascot";
+import { ThemeToggle } from "@/components/theme-toggle";
 import { Button, RegisterTag } from "@/components/ui";
 import { LanguageWelcome } from "@/features/languages/language-picker";
 import { scenarios } from "@/lib/content";
@@ -52,9 +54,12 @@ export default function Landing() {
             <a href="#organisations" className="hover:text-ink">For organisations</a>
             <a href="#pricing" className="hover:text-ink">Pricing</a>
           </nav>
-          <Button href="/learn" className="h-10 px-5 text-sm">
-            Open app
-          </Button>
+          <div className="flex items-center gap-2">
+            <ThemeToggle />
+            <Button href="/learn" className="h-10 px-5 text-sm">
+              Open app
+            </Button>
+          </div>
         </div>
       </header>
 
@@ -202,6 +207,9 @@ export default function Landing() {
 
       <footer className="border-t-2 border-line bg-surface/70 py-8 text-center text-sm font-semibold text-muted">
         Made with ☕ and 💙 by The Click at Oslo Sprint 2026 · No accounts, no personal data on our servers
+        <span className="mt-2 block">
+          <Link href="/resources" className="font-bold text-brand hover:underline">🎓 Taking a Norwegian test? See exams &amp; resources →</Link>
+        </span>
       </footer>
     </div>
   );

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Fredoka, Geist_Mono, Nunito } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 // Cozy, friendly type: rounded Fredoka for headings, soft Nunito for reading.
@@ -28,8 +29,13 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
     <html
       lang="en"
       className={`${fredoka.variable} ${nunito.variable} ${geistMono.variable} h-full antialiased`}
+      // theme-init.js sets data-theme before React hydrates.
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      <body className="min-h-full flex flex-col">
+        <Script src="/theme-init.js" strategy="beforeInteractive" />
+        {children}
+      </body>
     </html>
   );
 }

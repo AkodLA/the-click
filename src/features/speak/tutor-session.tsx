@@ -11,6 +11,7 @@ import { useEffect, useRef, useState } from "react";
 import { Button, Card, RegisterTag } from "@/components/ui";
 import { TranslateButton } from "@/features/translate/translate-button";
 import { ExplainText } from "@/features/explain/explain-text";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { apiFetch } from "@/lib/api-client";
 import { getPack, getPhrase, LANGUAGE_NAMES } from "@/lib/content";
 import type { Register, Scenario } from "@/lib/content/types";
@@ -276,6 +277,7 @@ export function CorrectionCard({ c }: { c: Correction }) {
       <p className="mt-1">
         <span className="line-through opacity-70">«{c.said}»</span> → <span className="font-bold">«{c.better}»</span>
       </p>
+      <SaveToNotes size="sm" className="mt-2" text={c.better} meaning={`Say this instead of «${c.said}»`} source="correction" />
     </div>
   );
 }

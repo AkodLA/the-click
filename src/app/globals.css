@@ -10,6 +10,7 @@
  * Fonts: headings use Fredoka (font-display), body text Nunito (font-sans).
  */
 :root {
+  color-scheme: light;
   --bg: #dfeffc;
   --surface: #ffffff;
   --surface-2: #eef7ff;
@@ -42,9 +43,13 @@
   --reg-formal: #4f46e5;
 }
 
-/* Cozy night: deep fjord blue instead of black. */
+/*
+ * Cozy night: deep fjord blue instead of black.
+ * Follows the device setting, unless the learner picked light or dark (data-theme on <html>, see theme-toggle.tsx).
+ */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;
     --bg: #0e1b2c;
     --surface: #152740;
     --surface-2: #1c3352;
@@ -71,6 +76,34 @@
     --leaf: #5fd08a;
     --leaf-soft: #15382a;
   }
+}
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0e1b2c;
+  --surface: #152740;
+  --surface-2: #1c3352;
+  --ink: #eaf4ff;
+  --muted: #9db3cc;
+  --line: #28446a;
+  --dot: #1a3150;
+
+  --brand: #6cb8ff;
+  --brand-ink: #0b1a2b;
+  --brand-soft: #1b3a5e;
+  --brand-deep: #3c82c4;
+  --accent: #ff8a65;
+  --accent-soft: #3b2420;
+  --accent-deep: #c45d3c;
+  --sun: #ffd15c;
+  --success: #4ad991;
+  --success-soft: #12342a;
+  --warn: #fbbf24;
+  --warn-soft: #33290f;
+  --danger: #f87171;
+  --danger-soft: #3a1717;
+  --wood: #c08d63;
+  --leaf: #5fd08a;
+  --leaf-soft: #15382a;
 }
 
 @theme inline {

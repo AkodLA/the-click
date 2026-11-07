@@ -10,6 +10,7 @@
  *   precision = how much of your ink stayed on the letter
  */
 import { useEffect, useImperativeHandle, useRef, type Ref } from "react";
+import { THEME_EVENT } from "@/components/theme-toggle";
 
 export type TraceTool = "pen" | "eraser";
 
@@ -279,7 +280,16 @@ export function TraceCanvas({
     layout();
     const ro = new ResizeObserver(() => layout());
     if (boxRef.current) ro.observe(boxRef.current);
-    return () => ro.disconnect();
+    // Light/dark switch or device theme change: redraw with the new colors.
+    const media = window.matchMedia("(prefers-color-scheme: dark)");
+    const relayout = () => layout();
+    window.addEventListener(THEME_EVENT, relayout);
+    media.addEventListener("change", relayout);
+    return () => {
+      ro.disconnect();
+      window.removeEventListener(THEME_EVENT, relayout);
+      media.removeEventListener("change", relayout);
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps -- relayout per text
   }, [text]);
 
