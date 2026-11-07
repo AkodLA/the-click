@@ -18,7 +18,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T10 | **Tandem** `/tandem`: "I speak X, I want Y" → matching cards (nickname + avatar only) → chat screen with the scripted partner + correction bubbles; privacy note. Avatar calls = "coming soon" button. | T1 | 2–3 | | | ⬜ |
 | T11 | **Events** `/events`: språkkafé list (sample data badge), filter by level, check-in button → `event_checkin` → badge + XP | T1 | 1–2 | | | ⬜ |
 | T12 | **Write** `/write`: canvas with a faint letter (æ ø å, then short words) to trace with finger or mouse, "done" → XP | T1 | 1–2 | | | ⬜ |
-| T13 | **Security pass**: strict Content-Security-Policy (allow ElevenLabs), rate limit on `/api/agent/signed-url`, verify `conversationId` with ElevenLabs before giving scenario XP, secret scan, try to cheat our own XP | T2 T5 | 1–2 | | | 🟡 |
+| T13 | **Security pass**: strict Content-Security-Policy (allow ElevenLabs), rate limit on `/api/agent/signed-url`, verify `conversationId` with ElevenLabs before giving scenario XP, secret scan, try to cheat our own XP | T2 T5 | 1–2 | | | ⬜ |
 | T14 | **Pitch**: 2-min script (see PLAN.md), Q&A prep per juror, business model slide, roadmap slide, legal note for Tolk, **backup demo video** (Sun before 13:00) | T2 | 3 | Anas | | ⬜ |
 | T15 | **Landing page** `/` polish: pricing section, "for organisations" (Tolk) section, screenshots | T1 | 1–2 | | | ⬜ |
 | T16 | **UX polish + demo path**: loading / empty / error states, mobile check on a real phone, `progressActions.reset()` button for demo, run the exact demo 5× | T2 T4 T5 | 2 | | | ⬜ |
