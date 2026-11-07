@@ -199,7 +199,7 @@ function Intro({
       }}
     >
       <div>
-        <p className="font-semibold text-accent">3 minutes · 9 questions</p>
+        <p className="font-semibold text-accent">3 minutes · {placementQuestions.length} questions</p>
         <h1 className="mt-1 text-3xl font-black leading-tight">Let&apos;s find your Norwegian level</h1>
         <p className="mt-2 text-muted">Tap, listen and speak. No pressure: there&apos;s no wrong level, only a starting point.</p>
         {currentLevel && (
