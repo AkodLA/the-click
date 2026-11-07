@@ -13,6 +13,7 @@ import { Badge, Button } from "@/components/ui";
 import type { ApiResponse } from "@/lib/api";
 import type { PronunciationResult } from "@/lib/content/types";
 import { progressActions, type EventResult } from "@/lib/progress/store";
+import { speakNorwegian } from "@/lib/speech";
 
 const MAX_SECONDS = 15;
 const MIN_MS = 600;
@@ -162,16 +163,8 @@ export function PronunciationCheck({ sentence, target, label = "Say it out loud"
     }
   }
 
-  /** Free, instant model audio from the browser's own Norwegian voice (if the device has one). */
   function listen() {
-    if (typeof window === "undefined" || !("speechSynthesis" in window)) return;
-    window.speechSynthesis.cancel();
-    const u = new SpeechSynthesisUtterance(sentence);
-    u.lang = "nb-NO";
-    u.rate = 0.9;
-    const voice = window.speechSynthesis.getVoices().find((v) => /^(nb|no|nn)/i.test(v.lang));
-    if (voice) u.voice = voice;
-    window.speechSynthesis.speak(u);
+    speakNorwegian(sentence);
   }
 
   const recording = status.kind === "recording";
