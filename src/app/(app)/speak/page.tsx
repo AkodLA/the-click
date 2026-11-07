@@ -1,6 +1,9 @@
+import type { Metadata } from "next";
 import { Suspense } from "react";
 import { PronunciationPractice } from "@/features/pronunciation/pronunciation-practice";
 import { SpeakView } from "@/features/speak/speak-view";
+
+export const metadata: Metadata = { title: "Speak · Snakk" };
 
 // Owner: T2. The real UI lives in src/features/speak/.
 // T5: <PronunciationPractice /> stays on this page, below the tutor.

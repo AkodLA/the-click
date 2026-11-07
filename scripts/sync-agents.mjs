@@ -14,7 +14,16 @@ import { readFileSync } from "node:fs";
 
 const API = "https://api.elevenlabs.io/v1/convai";
 const KEY = process.env.ELEVENLABS_API_KEY;
-const ALLOWLIST = ["localhost", "the-click-grind6.vercel.app"];
+// Hostnames allowed to start voice sessions. the-click-psi is the live app (README, repo homepage);
+// add more (e.g. a Vercel preview) with AGENT_ALLOWLIST_EXTRA=host1,host2 in .env.local.
+const ALLOWLIST = [
+  ...new Set([
+    "localhost",
+    "the-click-grind6.vercel.app",
+    "the-click-psi.vercel.app",
+    ...(process.env.AGENT_ALLOWLIST_EXTRA ?? "").split(",").map((h) => h.trim().toLowerCase()).filter((h) => /^[a-z0-9.-]+$/.test(h)),
+  ]),
+];
 const CHECK_ONLY = process.argv.includes("--check");
 const only = process.argv.slice(2).find((a) => !a.startsWith("--"));
 
@@ -199,6 +208,7 @@ async function check(key, agentId) {
     [(ag.prompt?.prompt ?? "").trim() === prompt, "system prompt matches repo", `${(ag.prompt?.prompt ?? "").length} chars`],
     [spec.tools.every((t) => toolNames.includes(t.name)), "client tools", toolNames.join(", ") || "none"],
     [a.platform_settings?.auth?.enable_auth === true, "authentication", String(a.platform_settings?.auth?.enable_auth)],
+    [ALLOWLIST.every((h) => (a.platform_settings?.auth?.allowlist ?? []).some((x) => x.hostname === h)), "allowlist has our sites", (a.platform_settings?.auth?.allowlist ?? []).map((x) => x.hostname).join(", ") || "none"],
     [ag.prompt?.llm === spec.llm, "model", ag.prompt?.llm],
     [!(a.conversation_config?.conversation?.client_events ?? []).includes("interruption"), "interruptions off", String(!(a.conversation_config?.conversation?.client_events ?? []).includes("interruption"))],
     [a.conversation_config?.vad?.background_voice_detection === true, "background voice filter", String(a.conversation_config?.vad?.background_voice_detection)],

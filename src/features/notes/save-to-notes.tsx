@@ -20,7 +20,7 @@ export function SaveToNotes({ size = "md", className = "", ...note }: NewNote & 
       <Link
         href={`/notes#${book.id}`}
         aria-label={`«${note.text}» is saved in your ${book.name} notebook. Open it`}
-        className={`inline-flex shrink-0 items-center gap-1 rounded-full border-2 border-success bg-success-soft font-bold text-success transition hover:brightness-95 ${sm ? "h-8 px-2.5 text-xs" : "h-10 px-3.5 text-sm"} ${className}`}
+        className={`inline-flex shrink-0 items-center gap-1 rounded-full border-2 border-success bg-success-soft font-bold text-success transition hover:brightness-95 ${sm ? "h-11 px-3 text-xs" : "h-11 px-3.5 text-sm"} ${className}`}
       >
         ✓ <span aria-hidden>{book.emoji}</span> {sm ? "Saved" : `Saved in ${book.name}`}
       </Link>
@@ -35,7 +35,7 @@ export function SaveToNotes({ size = "md", className = "", ...note }: NewNote & 
       title={failed ? "Couldn't save on this device (private browsing?)" : "Save to my notes"}
       className={`inline-flex shrink-0 items-center gap-1 rounded-full border-2 font-bold transition hover:-translate-y-0.5 ${
         failed ? "border-danger bg-danger-soft text-danger" : "border-line bg-surface text-ink shadow-[0_3px_0_var(--line)] hover:bg-surface-2"
-      } ${sm ? "h-8 px-2.5 text-xs" : "h-10 px-3.5 text-sm"} ${className}`}
+      } ${sm ? "h-11 px-3 text-xs" : "h-11 px-3.5 text-sm"} ${className}`}
     >
       <span aria-hidden>📒</span> {failed ? "Couldn't save" : "Save"}
     </button>

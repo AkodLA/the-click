@@ -87,7 +87,7 @@ export function ThemeToggle({ className = "" }: { className?: string }) {
         aria-haspopup="true"
         aria-label={`Colour theme: ${OPTIONS.find((o) => o.id === choice)?.label}. Change`}
         title="Light or dark mode"
-        className="flex h-9 w-9 items-center justify-center rounded-full border-2 border-line bg-surface text-base transition hover:bg-surface-2"
+        className="flex h-11 w-11 items-center justify-center rounded-full border-2 border-line bg-surface text-base transition hover:bg-surface-2"
       >
         <span aria-hidden>{seen === "dark" ? "🌙" : "☀️"}</span>
       </button>

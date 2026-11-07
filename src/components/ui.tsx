@@ -116,7 +116,8 @@ export function SectionTitle({ children, action }: { children: ReactNode; action
   return (
     <div className="mb-3 flex items-end justify-between">
       <h2 className="text-xl font-semibold">{children}</h2>
-      {action}
+      {/* Tap target ≥ 44 px for the "See all →" link, without changing how it looks. */}
+      {action && <span className="[&>a]:inline-flex [&>a]:min-h-11 [&>a]:items-end">{action}</span>}
     </div>
   );
 }

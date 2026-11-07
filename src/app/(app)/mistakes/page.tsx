@@ -1,4 +1,7 @@
+import type { Metadata } from "next";
 import { MistakesView } from "@/features/mistakes/mistakes-view";
+
+export const metadata: Metadata = { title: "My mistakes · Snakk" };
 
 // Owner: T21. The real UI lives in src/features/mistakes/.
 // "Mistakes" = corrections collected automatically, with practice. Anas's "My notes" (/notes) = words you save on purpose.

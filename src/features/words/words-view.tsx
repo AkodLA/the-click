@@ -11,6 +11,7 @@ import { Badge, Button, Card, ProgressBar, RegisterTag, SectionTitle } from "@/c
 import { AboutYou } from "@/features/personal/about-you";
 import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
 import { SeasonBanner } from "@/features/engagement/season-banner";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { ExplainText } from "@/features/explain/explain-text";
 import { FieldTest } from "./field-test";
 import { TranslateButton } from "@/features/translate/translate-button";
@@ -282,6 +283,7 @@ function WordCard({ word, known, dueIn, nativeLanguage }: { word: VocabWord; kno
 
       <div className="flex flex-wrap items-center gap-x-3">
         {nativeLanguage !== "en" && <TranslateButton text={word.example.no} from="nb" to={nativeLanguage} />}
+        <SaveToNotes size="sm" text={word.no} meaning={word.en} register={word.register} source="phrasebook" href="/words" />
         <button type="button" onClick={() => setPractise((x) => !x)} aria-expanded={practise} className="h-11 text-xs font-semibold text-muted underline">
           🎙️ {practise ? "Hide" : "Say it out loud"}
         </button>
