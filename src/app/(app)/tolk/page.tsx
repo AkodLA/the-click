@@ -1,10 +1,6 @@
-import { ComingSoon } from "@/components/ui";
+import { TolkView } from "@/features/tolk/tolk-view";
 
-// Owner: T8. Build the feature in src/features/ and render it here.
+// Owner: T8. The real UI lives in src/features/tolk/.
 export default function Page() {
-  return (
-    <ComingSoon task="T8" title="Tolk: your interpreter" emoji="🧑‍🤝‍🧑">
-      Put the phone on the table. Snakk interprets both ways, so kids don&apos;t have to translate at the parent-teacher meeting.
-    </ComingSoon>
-  );
+  return <TolkView />;
 }

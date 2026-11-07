@@ -112,6 +112,9 @@ export interface EventResult {
 
 let queue: Promise<unknown> = Promise.resolve();
 
+/** Error codes whose server message is written for learners (see docs/API.md and docs/SECURITY.md). */
+const READABLE_ERRORS = new Set(["unverified", "too_short", "already_used", "verify_unavailable", "not_configured", "rate_limited", "not_found"]);
+
 /** Shared by send() and run(): one request at a time, so each uses the latest token. */
 function queued<T extends EventResult>(call: (token: string | null) => Promise<T>, toastErrors = true): Promise<T> {
   const run = async () => {
@@ -127,7 +130,10 @@ function queued<T extends EventResult>(call: (token: string | null) => Promise<T
         writeToken(null);
         emitReward({ emoji: "⚠️", title: "Progress reset", detail: "Your saved progress couldn't be verified." });
       } else if (toastErrors) {
-        emitReward({ emoji: "⚠️", title: "Couldn't save that", detail: "Check your connection and try again." });
+        // Server reasons the learner should read (T13 checks, limits) are shown as they are; anything else is generic.
+        const [code, ...rest] = message.split(": ");
+        const readable = READABLE_ERRORS.has(code) && rest.length > 0;
+        emitReward({ emoji: "⚠️", title: "Couldn't save that", detail: readable ? rest.join(": ") : "Check your connection and try again." });
       }
       throw err;
     }

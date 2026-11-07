@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState, type ReactNode } from "react";
+import { Mascot } from "@/components/mascot";
 import { levelProgress } from "@/lib/progress/levels";
 import { onReward, useProgress, type Reward } from "@/lib/progress/store";
 
@@ -17,11 +18,15 @@ const NAV = [
   { href: "/profile", label: "Me", icon: "🙂" },
 ];
 
+/** Screens with a desktop two-column layout get a wider frame; the rest stay a readable single column. */
+const WIDE_PATHS = ["/learn"];
+
 export function AppShell({ children }: { children: ReactNode }) {
+  const wide = WIDE_PATHS.includes(usePathname());
   return (
     <div className="flex min-h-dvh flex-col">
       <TopBar />
-      <main className="mx-auto w-full max-w-2xl flex-1 px-4 pb-28 pt-4 md:pb-10">{children}</main>
+      <main className={`mx-auto w-full flex-1 px-4 pb-28 pt-4 md:px-6 md:pb-10 ${wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl"}`}>{children}</main>
       <BottomNav />
       <RewardToasts />
     </div>
@@ -32,27 +37,30 @@ function TopBar() {
   const p = useProgress();
   const { level } = levelProgress(p.xp);
   return (
-    <header className="sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
-        <Link href="/learn" className="text-xl font-black tracking-tight text-brand">
-          snakk<span className="text-accent">.</span>
+    <header className="sticky top-0 z-20 border-b-2 border-line bg-surface/85 backdrop-blur">
+      <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4 md:px-6 lg:max-w-5xl">
+        <Link href="/learn" className="flex items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-brand">
+          <Mascot className="h-8 w-8" still />
+          <span>
+            snakk<span className="text-accent">.</span>
+          </span>
         </Link>
         <nav className="hidden gap-1 md:flex" aria-label="Main">
           {NAV.map((n) => (
             <NavLink key={n.href} {...n} compact />
           ))}
         </nav>
-        <div className="flex items-center gap-3 text-sm font-semibold">
-          <span title="Day streak" aria-label={`${p.streakDays} day streak`}>
+        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex items-center gap-1.5 text-sm font-bold tabular-nums">
+          <span title="Day streak" className={`rounded-full px-2.5 py-1 ${p.streakDays > 0 ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted"}`}>
             🔥 {p.streakDays}
           </span>
-          <span title="Level" className="rounded-full bg-brand-soft px-2 py-0.5 text-brand">
+          <span title="Player level" className="rounded-full bg-brand-soft px-2.5 py-1 text-brand">
             Lv {level}
           </span>
-          <span title="XP" className="text-accent">
-            {p.xp} XP
+          <span title="Total XP" className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">
+            ⚡ {p.xp}
           </span>
-        </div>
+        </Link>
       </div>
     </header>
   );
@@ -63,14 +71,14 @@ function NavLink({ href, label, icon, compact = false }: { href: string; label: 
   const active = path === href || path.startsWith(`${href}/`);
   if (compact) {
     return (
-      <Link href={href} aria-current={active ? "page" : undefined} className={`rounded-xl px-3 py-1.5 text-sm font-semibold ${active ? "bg-brand-soft text-brand" : "text-muted hover:text-ink"}`}>
+      <Link href={href} aria-current={active ? "page" : undefined} className={`rounded-full px-3.5 py-1.5 font-display font-medium ${active ? "bg-brand-soft text-brand" : "text-muted hover:text-ink"}`}>
         {label}
       </Link>
     );
   }
   return (
-    <Link href={href} aria-current={active ? "page" : undefined} className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-xs font-semibold ${active ? "text-brand" : "text-muted"}`}>
-      <span className={`text-xl transition ${active ? "scale-110" : "opacity-70"}`} aria-hidden>
+    <Link href={href} aria-current={active ? "page" : undefined} className={`flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-semibold ${active ? "text-brand" : "text-muted hover:text-ink"}`}>
+      <span className={`flex h-8 w-14 items-center justify-center rounded-full text-xl transition ${active ? "bg-brand-soft" : "opacity-70 grayscale-[40%]"}`} aria-hidden>
         {icon}
       </span>
       {label}
@@ -80,7 +88,7 @@ function NavLink({ href, label, icon, compact = false }: { href: string; label: 
 
 function BottomNav() {
   return (
-    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 border-t border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
+    <nav aria-label="Main" className="fixed inset-x-0 bottom-0 z-20 border-t-2 border-line bg-surface/95 pb-[env(safe-area-inset-bottom)] backdrop-blur md:hidden">
       <div className="mx-auto flex max-w-2xl">
         {NAV.map((n) => (
           <NavLink key={n.href} {...n} />
@@ -103,7 +111,7 @@ function RewardToasts() {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex flex-col items-center gap-2 px-4" aria-live="polite">
       {items.map((r) => (
-        <div key={r.id} className="flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-lg">
+        <div key={r.id} className="animate-toast-in flex w-full max-w-sm items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-lg">
           <span className="text-2xl" aria-hidden>
             {r.emoji}
           </span>
