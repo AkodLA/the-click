@@ -120,12 +120,16 @@ export function SectionTitle({ children, action }: { children: ReactNode; action
 export function ComingSoon({ task, title, emoji, children }: { task: string; title: string; emoji: string; children: ReactNode }) {
   return (
     <div className="flex flex-col items-center gap-4 py-16 text-center">
-      <div className="text-6xl" aria-hidden>
+      <div className="flex h-24 w-24 items-center justify-center rounded-3xl bg-brand-soft text-5xl" aria-hidden>
         {emoji}
       </div>
+      <Badge tone="warn">🚧 Coming soon · {task}</Badge>
       <h1 className="text-2xl font-bold">{title}</h1>
       <p className="max-w-sm text-muted">{children}</p>
-      <Badge tone="brand">Built in task {task}</Badge>
+      {/* A beginner must never get stuck: always offer a way back. */}
+      <Button href="/learn" variant="secondary" className="mt-2">
+        ← Back to Home
+      </Button>
     </div>
   );
 }

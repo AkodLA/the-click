@@ -26,6 +26,7 @@
   --warn-soft: #fff4dc;
   --danger: #d93a3a;
   --danger-soft: #fde8e8;
+  --wood: #8a5a3b;
 
   --reg-slang: #c026d3;
   --reg-informal: #f97316;
@@ -53,6 +54,7 @@
     --warn-soft: #33290f;
     --danger: #f87171;
     --danger-soft: #3a1717;
+    --wood: #b98a62;
   }
 }
 
@@ -74,12 +76,22 @@
   --color-warn-soft: var(--warn-soft);
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
+  --color-wood: var(--wood);
   --color-reg-slang: var(--reg-slang);
   --color-reg-informal: var(--reg-informal);
   --color-reg-neutral: var(--reg-neutral);
   --color-reg-formal: var(--reg-formal);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  /* Reward toasts slide in from the top bar. */
+  --animate-toast-in: toast-in 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.2) both;
+  @keyframes toast-in {
+    from {
+      opacity: 0;
+      transform: translateY(-12px) scale(0.96);
+    }
+  }
 }
 
 body {
