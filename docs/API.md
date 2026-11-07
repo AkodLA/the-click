@@ -60,6 +60,7 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 | `POST /api/progress/event` | `{ token: string \| null, event: ProgressEvent }` | `{ token, progress, rewards[] }` | T1 ✅ |
 | `POST /api/agent/signed-url` | `{ mode: "tutor" \| "tolk", scenarioId? }` | `{ signedUrl }` | T2 (tutor) / T8 (tolk) |
 | `POST /api/pronunciation` | `multipart/form-data`: `audio` (webm/mp4, max 2 MB / 15 s), `target` (must be a known phrase/sentence id or text from our content), `token` | `{ result: PronunciationResult, token, progress, rewards }` | T5 |
+| `POST /api/tts` | `{ phraseId, part?: "text" \| "example" }` (only phrases from our content, no free text) | `audio/mpeg` (ElevenLabs TTS). `503 not_configured` without a key: the browser falls back to its own voice. 30/min per IP. | T7 |
 | `GET /api/v1/*` | partner API, see `docs/PARTNER-API.md` | | ✅ foundation |
 
 ### ElevenLabs details (check the current docs, these are from memory)
@@ -81,7 +82,7 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 | `/onboarding` | Placement test → level | T4 |
 | `/learn` | Home dashboard | T1 ✅ |
 | `/speak` | Scenarios + voice tutor + pronunciation | T2, T5 |
-| `/phrases` | Phrasebook with register filter | T7 |
+| `/phrases` | Phrasebook: search + filters. Deep links: `?register=slang`, `?level=A2`, `?show=learned\|new`, `?q=hei`, `?id=digg` (opens + highlights one phrase) | T7 |
 | `/profile` | Level, XP, achievements | T6 |
 | `/league` | Weekly / monthly league | T9 |
 | `/tandem` | Anonymous tandem chat | T10 |
