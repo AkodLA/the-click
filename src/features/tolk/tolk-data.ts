@@ -46,8 +46,8 @@ export const TOLK_SETTINGS: TolkSetting[] = [
   {
     id: "school",
     emoji: "🏫",
-    title: "Parent-teacher meeting",
-    agentContext: "a parent-teacher meeting (foreldremøte / utviklingssamtale) at a Norwegian school",
+    title: "School: quick chat",
+    agentContext: "a short, informal chat with a teacher at a Norwegian school, e.g. at pickup time",
     practiseScenarioId: "parent-meeting",
   },
   {
@@ -93,43 +93,44 @@ export interface TolkTurn {
 }
 
 /**
- * Offline demo (no ElevenLabs key, no Wi-Fi on stage): a parent-teacher meeting, English ↔ Norwegian.
+ * Offline demo (no ElevenLabs key, no Wi-Fi on stage): a quick chat with the teacher at pickup, English ↔ Norwegian.
+ * An everyday moment on purpose: for formal meetings the school must book a qualified interpreter (tolkeloven, see docs/PITCH.md).
  * SAMPLE DATA: written for the demo, not a real conversation.
  */
 export const DEMO_TURNS: Omit<TolkTurn, "id">[] = [
   {
     speaker: "b",
-    original: "Hei, og velkommen! Takk for at du kom. Jeg heter Kari, og jeg er kontaktlæreren til Amina.",
-    translation: "Hi, and welcome! Thank you for coming. My name is Kari, and I'm Amina's form teacher.",
+    original: "Hei! Har du to minutter? Jeg er Kari, kontaktlæreren til Amina.",
+    translation: "Hi! Do you have two minutes? I'm Kari, Amina's form teacher.",
   },
   {
     speaker: "a",
-    original: "Thank you. How is Amina doing at school?",
-    translation: "Takk. Hvordan går det med Amina på skolen?",
+    original: "Of course. Is everything okay with Amina?",
+    translation: "Selvfølgelig. Er alt i orden med Amina?",
   },
   {
     speaker: "b",
-    original: "Hun gjør det kjempebra i matte, og hun har fått mange venner. Hun kan bli enda bedre i norsk.",
-    translation: "She's doing really well in maths, and she has made lots of friends. She can get even better at Norwegian.",
+    original: "Ja da, hun gjør det kjempebra! Vi skal på tur til skogen på fredag. Hun trenger varme klær og matpakke.",
+    translation: "Yes, she's doing really well! We're going on a trip to the forest on Friday. She needs warm clothes and a packed lunch.",
   },
   {
     speaker: "a",
-    original: "What can we do at home to help her with Norwegian?",
-    translation: "Hva kan vi gjøre hjemme for å hjelpe henne med norsk?",
+    original: "Okay. What time will they be back?",
+    translation: "Greit. Når er de tilbake?",
   },
   {
     speaker: "b",
-    original: "Les gjerne en bok sammen hver kveld, ti minutter er nok. Og hun kan gå på leksehjelp på tirsdager.",
-    translation: "Feel free to read a book together every evening, ten minutes is enough. And she can go to homework help on Tuesdays.",
+    original: "Rundt klokka to. Og husk foreldremøtet neste uke, da bestiller skolen tolk til deg.",
+    translation: "Around two o'clock. And remember the parent-teacher meeting next week, the school will book an interpreter for you.",
   },
   {
     speaker: "a",
-    original: "That's great. Thank you so much.",
-    translation: "Så fint. Tusen takk.",
+    original: "Thank you, that's very helpful.",
+    translation: "Tusen takk, det var veldig nyttig.",
   },
   {
     speaker: "b",
-    original: "Bare hyggelig! Takk for praten, og ha en fin kveld.",
-    translation: "You're welcome! Thanks for the chat, and have a nice evening.",
+    original: "Bare hyggelig! Ha en fin dag.",
+    translation: "You're welcome! Have a nice day.",
   },
 ];
