@@ -38,8 +38,9 @@ npm run agents:sync      # create/update both agents (needs ELEVENLABS_API_KEY w
 npm run agents:check     # read-only: ✅/❌ per field, live agent vs. repo
 ```
 If `ELEVENLABS_TOLK_AGENT_ID` is empty, the Tolk agent is **created** and its id printed: add it to `.env.local` and Vercel.
-**Allowlist:** only `localhost`, `the-click-grind6.vercel.app` and the live app `the-click-psi.vercel.app` may start voice sessions. To test voice on a PR preview, add its host for that run: `AGENT_ALLOWLIST_EXTRA=the-click-git-….vercel.app npm run agents:sync`.
 **Changed a prompt in `agent/*.md`?** Run `npm run agents:sync` after the PR is merged, or the live agent keeps the old prompt. The voice and LLM chosen in the dashboard are left alone.
+
+**Allowlist:** only `localhost`, `the-click-grind6.vercel.app` and the live app `the-click-psi.vercel.app` may start voice sessions. To test voice on a PR preview, add its host for that run: `AGENT_ALLOWLIST_EXTRA=the-click-git-….vercel.app npm run agents:sync`.
 
 ### B2b. Tutor agent by hand (only if the script can't be used)
 1. **ElevenAgents → Agents → Create agent → Blank agent.** Name it `Snakk Tutor`.
