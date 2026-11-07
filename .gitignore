@@ -1,5 +1,3 @@
-# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
-
 # dependencies
 /node_modules
 /.pnp
@@ -16,28 +14,40 @@
 # next.js
 /.next/
 /out/
+next-env.d.ts
+*.tsbuildinfo
 
 # production
 /build
 
-# misc
-.DS_Store
+# ---- SECRETS: never commit these ----
+.env
+.env.*
+!.env.example
 *.pem
+*.key
+*.p12
+secrets/
 
-# debug
+# vercel / supabase local state
+.vercel
+supabase/.temp/
+supabase/.branches/
+
+# organizer material (PDFs from Discord etc.) — keep it out of the public repo
+private/
+*.pdf
+
+# Claude Code personal settings (team settings in .claude/settings.json ARE committed)
+.claude/settings.local.json
+
+# debug / OS / editors
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .pnpm-debug.log*
-
-# env files (can opt-in for committing if needed)
-.env*
-
-# vercel
-.vercel
-
-# typescript
-*.tsbuildinfo
-next-env.d.ts
-
-!.env.example
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
