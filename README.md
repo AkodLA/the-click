@@ -1,37 +1,55 @@
-# The Click
+# Prat
 
-Voice assistant for new warehouse workers – in their own language. Built at Oslo Sprint 2026 for the Holio challenge (#9 Training, partly #8 Returns) and the ElevenLabs challenge.
+**Norsk som det faktisk snakkes. Tolk i dag, egen stemme i morgen.**
 
-- `/` – worker app (phone): pick name + language, talk. The agent guides tasks step by step and drives the screen via client tools.
-- `/leder` – manager dashboard (projector): live feed in Norwegian, open questions the agent could not answer, problems on the floor.
+Prat teaches everyday spoken Norwegian by talking with an ElevenLabs voice agent – including slang, and when *not* to use it. When a learner can't manage a real conversation yet (a parent–teacher meeting, the doctor, day one at the warehouse), Prat interprets so no child has to. Afterwards, the sentences they needed help with become their next speaking lessons.
+
+Built at Oslo Sprint 2026.
+
+## What's in the app
+
+| Route | What it does | Status |
+|---|---|---|
+| `/start` | Nickname, home language, A0–C2 placement test (listening via browser voice) | Working |
+| `/` | Home: today's conversation, phrases from your last interpreted meeting, XP and streak | Working |
+| `/snakk` | Voice tutor: role-play scenarios, live corrections with register colour, pronunciation tips, target phrases | Working (needs tutor agent) |
+| `/slang` | Slang check: pick who you're talking to, see if a phrase fits and what to say instead | Working |
+| `/tolk` | Table interpreter: top half faces the other person; ends with summary + phrases saved as lessons | Working (needs tolk agent) · **Demo** button works offline |
+| `/skriv` | Trace æ, ø, å and words with your finger, scored | Working |
+| `/tandem` | Anonymous language exchange: nicknames, avatars, blocks phone numbers/usernames, 15-min language switch, avatar call | Prototype (sample partners) |
+| `/kafe` | Språkkafé meetups with check-in rewards | Prototype (sample data) |
+| `/konkurranse` | Weekly league by level | Prototype (sample league) |
+| `/meg` | Badges, saved phrases, privacy + delete progress | Working |
+| `/bedrift` | Business page: schools, warehouses, robots/API | Pitch page |
+| `/lager`, `/leder` | Warehouse assistant + manager screen (Holio challenge), same voice engine | Working (needs lager agent) |
+
+Progress is stored in the browser (localStorage) for the demo. No account, no audio stored.
 
 ## Run locally
 
 ```bash
 npm install
-cp .env.example .env.local   # fill in ElevenLabs keys
+cp .env.example .env.local   # fill in keys
 npm run dev
 ```
 
-Open http://localhost:3000 (worker) and http://localhost:3000/leder (manager).
-The phone needs HTTPS for the microphone → use the Vercel deploy for phone testing.
+Phone testing needs HTTPS for the microphone → use the Vercel deploy.
 
-## Set up the ElevenLabs agent
+## Set up the ElevenLabs agents
 
-1. Create an agent in ElevenLabs → Agents.
-2. Paste `agent/system-prompt.md` as the system prompt.
-3. Upload `agent/kunnskapsbase/lager-rutiner.md` to the knowledge base.
-4. Add the client tools in `agent/client-tools.md`, and the settings listed there.
-5. Put the agent ID and API key in `.env.local` (and in Vercel env vars).
+Create one agent per folder in `agent/`:
 
-## Deploy
+| Agent | Prompt + tools | Env var |
+|---|---|---|
+| Tutor | `agent/tutor/` | `ELEVENLABS_TUTOR_AGENT_ID` |
+| Interpreter | `agent/tolk/` | `ELEVENLABS_TOLK_AGENT_ID` |
+| Warehouse | `agent/lager/` | `ELEVENLABS_AGENT_ID` |
 
-1. Supabase: run `supabase/schema.sql`, add `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY`.
-2. Vercel: import the repo, add all env vars from `.env.example`.
+For each: paste `system-prompt.md`, add the client tools from `client-tools.md`, turn on Authentication, and put the agent ID in `.env.local` and Vercel.
 
 ## Security and privacy
 
-- The ElevenLabs API key stays on the server; the browser gets a short-lived signed URL.
-- API input is validated and length-limited.
-- We store no audio. The feed stores short task events only, and no individual performance scores.
-- All warehouse data is fictional test data.
+- The ElevenLabs API key stays on the server; the browser only gets a short-lived signed URL.
+- No audio is stored. Tandem chat blocks phone numbers and social usernames so both sides stay anonymous.
+- The interpreter tells users to book a qualified interpreter for serious cases (child welfare, diagnoses, legal).
+- Learner data lives on the device and can be deleted from `/meg`.

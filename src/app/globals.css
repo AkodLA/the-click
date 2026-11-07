@@ -1,19 +1,107 @@
 @import "tailwindcss";
 
+/*
+  Prat design tokens.
+  The one bold idea: register is a colour. Every phrase in the app carries it.
+    kompis (slang)  -> sol (yellow)
+    hverdag (neutral) -> gran (spruce green)
+    formell (NAV/school) -> fjord (blue)
+    unngå (don't say)  -> tyttebær (lingonberry)
+  Everything else stays quiet: frost background, spruce ink, white sheets.
+*/
 :root {
-  --background: #0b1220;
-  --foreground: #e8edf5;
+  --frost: #eef3f1;
+  --sheet: #ffffff;
+  --ink: #13221c;
+  --ink-soft: #4a5a53;
+  --line: #d5e0db;
+  --gran: #0f6e5a;
+  --gran-deep: #0a4d3f;
+  --sol: #ffc93c;
+  --sol-soft: #fff3cf;
+  --fjord: #2f55c8;
+  --fjord-soft: #e3e9fb;
+  --tytte: #d63a52;
+  --tytte-soft: #fbe4e8;
+  --gran-soft: #dcefe8;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", Arial, sans-serif;
+  --color-frost: var(--frost);
+  --color-sheet: var(--sheet);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-line: var(--line);
+  --color-gran: var(--gran);
+  --color-gran-deep: var(--gran-deep);
+  --color-gran-soft: var(--gran-soft);
+  --color-sol: var(--sol);
+  --color-sol-soft: var(--sol-soft);
+  --color-fjord: var(--fjord);
+  --color-fjord-soft: var(--fjord-soft);
+  --color-tytte: var(--tytte);
+  --color-tytte-soft: var(--tytte-soft);
+  --font-display: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: "Atkinson Hyperlegible", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
 }
 
 html,
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: var(--frost);
+  color: var(--ink);
   font-family: var(--font-sans);
+  -webkit-tap-highlight-color: transparent;
+}
+
+h1,
+h2,
+h3,
+.display {
+  font-family: var(--font-display);
+  letter-spacing: -0.02em;
+}
+
+:focus-visible {
+  outline: 3px solid var(--fjord);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+/* The talk orb: the only ambient motion in the app, and only while a session is live. */
+@keyframes breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.06);
+  }
+}
+.orb-live {
+  animation: breathe 2.4s ease-in-out infinite;
+}
+
+/* XP pop when a reward lands (answers a user action). */
+@keyframes pop {
+  0% {
+    transform: translateY(8px) scale(0.9);
+    opacity: 0;
+  }
+  60% {
+    transform: translateY(-2px) scale(1.04);
+    opacity: 1;
+  }
+  100% {
+    transform: none;
+  }
+}
+.pop {
+  animation: pop 0.35s ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .orb-live,
+  .pop {
+    animation: none;
+  }
 }
