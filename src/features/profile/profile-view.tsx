@@ -4,6 +4,7 @@
  * Owner: T6. Display only: every number comes from the server-signed progress token.
  */
 import Link from "next/link";
+import { useState } from "react";
 import { Badge, Button, Card, ProgressBar, SectionTitle } from "@/components/ui";
 import { achievements, LANGUAGE_NAMES } from "@/lib/content";
 import type { Achievement } from "@/lib/content/types";
@@ -16,7 +17,7 @@ import {
   type StreakState,
 } from "@/lib/progress/display";
 import { levelProgress } from "@/lib/progress/levels";
-import { useProgress } from "@/lib/progress/store";
+import { progressActions, useProgress } from "@/lib/progress/store";
 
 const STREAK_COPY: Record<StreakState, string> = {
   active: "You practised today. Nice!",
@@ -129,6 +130,8 @@ export function ProfileView() {
           ))}
         </ul>
       </section>
+
+      {!isNew && <StartOver />}
     </div>
   );
 }
@@ -210,5 +213,38 @@ function AchievementTile({
       )}
       <p className={`mt-auto text-xs font-bold ${unlocked ? "text-accent" : "text-muted"}`}>+{a.xp} XP</p>
     </li>
+  );
+}
+
+/** Start over on this device (also the demo reset before the pitch). Asks first: progress can't be recovered. */
+function StartOver() {
+  const [asking, setAsking] = useState(false);
+  if (!asking) {
+    return (
+      <button type="button" onClick={() => setAsking(true)} className="h-11 self-center text-sm font-semibold text-muted underline">
+        Start over on this device
+      </button>
+    );
+  }
+  return (
+    <Card className="flex flex-col gap-3 border-danger" role="alertdialog" aria-label="Start over">
+      <p className="font-bold">Delete your progress on this device?</p>
+      <p className="text-sm text-muted">Your XP, level, streak and badges are only saved in this browser. This can&apos;t be undone.</p>
+      <div className="grid grid-cols-2 gap-2">
+        <Button
+          variant="accent"
+          onClick={() => {
+            progressActions.reset();
+            setAsking(false);
+            window.scrollTo({ top: 0 });
+          }}
+        >
+          Yes, start over
+        </Button>
+        <Button variant="secondary" onClick={() => setAsking(false)}>
+          Keep my progress
+        </Button>
+      </div>
+    </Card>
   );
 }
