@@ -76,6 +76,14 @@ export const tandemPartners: TandemPartner[] = [
   { id: "tp-2", nickname: "Nordkapp", avatar: "🧭", offers: "nb", wants: "es", level: "B1", online: true, interests: ["hiking", "music"] },
   { id: "tp-3", nickname: "KaffeKatt", avatar: "🐈", offers: "nb", wants: "en", level: "B2", online: false, interests: ["films", "coffee"] },
   { id: "tp-4", nickname: "Lumi", avatar: "❄️", offers: "en", wants: "nb", level: "A1", online: true, interests: ["gaming", "travel"] },
+  // More test partners (T10), so every app language has a Norwegian match.
+  { id: "tp-5", nickname: "Kvikklunsj", avatar: "🍫", offers: "nb", wants: "en", level: "C1", online: true, interests: ["skiing", "podcasts"] },
+  { id: "tp-6", nickname: "Bølgen", avatar: "🌊", offers: "nb", wants: "ar", level: "C2", online: true, interests: ["surfing", "food"] },
+  { id: "tp-7", nickname: "Granskog", avatar: "🌲", offers: "nb", wants: "uk", level: "C2", online: true, interests: ["chess", "hiking"] },
+  { id: "tp-8", nickname: "Pepperkake", avatar: "🍪", offers: "nb", wants: "pl", level: "C2", online: false, interests: ["baking", "football"] },
+  { id: "tp-9", nickname: "Tindetur", avatar: "⛰️", offers: "nb", wants: "so", level: "C2", online: true, interests: ["running", "music"] },
+  { id: "tp-10", nickname: "Lysløype", avatar: "🔦", offers: "nb", wants: "fr", level: "C2", online: true, interests: ["books", "cycling"] },
+  { id: "tp-11", nickname: "Fjellrev", avatar: "🦊", offers: "nb", wants: "es", level: "C2", online: false, interests: ["photography", "dogs"] },
 ];
 
 export const tandemDemoChat: TandemMessage[] = [

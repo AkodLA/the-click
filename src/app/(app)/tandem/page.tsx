@@ -1,10 +1,6 @@
-import { ComingSoon } from "@/components/ui";
+import { TandemView } from "@/features/tandem/tandem-view";
 
-// Owner: T10. Build the feature in src/features/ and render it here.
+// Owner: T10. The real UI lives in src/features/tandem/.
 export default function Page() {
-  return (
-    <ComingSoon task="T10" title="Tandem" emoji="🤝">
-      Swap languages with a native speaker. Nicknames only, no real names or faces, so it&apos;s all about the language.
-    </ComingSoon>
-  );
+  return <TandemView />;
 }
