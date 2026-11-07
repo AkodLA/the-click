@@ -432,6 +432,44 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-animals",
+    kind: "everyday",
+    title: "Animals",
+    titleNo: "Dyr",
+    emoji: "🐄",
+    words: [
+      p("ku", "🐄", "ei ku", "a cow", "A1", "Kuene står ute på beite om sommeren.", "The cows are out grazing in summer."),
+      p("sau", "🐑", "en sau", "a sheep", "A1", "Det er flere sauer enn folk her!", "There are more sheep than people here!"),
+      p("gris", "🐖", "en gris", "a pig", "A1", "Grisen ruller seg i gjørma.", "The pig is rolling in the mud."),
+      p("hest", "🐎", "en hest", "a horse", "A1", "Hun rir på hesten hver helg.", "She rides the horse every weekend."),
+      p("hone", "🐔", "ei høne", "a hen", "A2", "Hønene legger egg hver dag.", "The hens lay eggs every day."),
+      p("rev", "🦊", "en rev", "a fox", "A2", "Vi så en rev i hagen i natt!", "We saw a fox in the garden last night!"),
+      p("ulv", "🐺", "en ulv", "a wolf", "A2", "Det finnes ulv i Østerdalen.", "There are wolves in Østerdalen."),
+      p("bjorn", "🐻", "en bjørn", "a bear", "A2", "Bjørnen sover hele vinteren.", "The bear sleeps all winter."),
+      p("reinsdyr", "🦌", "et reinsdyr", "a reindeer", "A2", "I Finnmark kan du se reinsdyr ved veien.", "In Finnmark you can see reindeer by the road."),
+      p("hval", "🐋", "en hval", "a whale", "A2", "Om vinteren kommer hvalene til Tromsø.", "In winter the whales come to Tromsø."),
+    ],
+  },
+  {
+    id: "everyday-clothes",
+    kind: "everyday",
+    title: "Clothes",
+    titleNo: "Klær",
+    emoji: "👕",
+    words: [
+      p("bukse", "👖", "ei bukse", "trousers", "A1", "Jeg trenger ei ny bukse til jobben.", "I need new trousers for work."),
+      p("genser", "🧶", "en genser", "a jumper / sweater", "A1", "Ta på deg en genser, det er kaldt.", "Put on a jumper, it's cold."),
+      p("t-skjorte", "👕", "ei t-skjorte", "a T-shirt", "A0", "Det er varmt nok for t-skjorte i dag.", "It's warm enough for a T-shirt today."),
+      p("kjole", "👗", "en kjole", "a dress", "A1", "Hun har på seg en blå kjole.", "She's wearing a blue dress."),
+      p("skjerf", "🧣", "et skjerf", "a scarf", "A1", "Husk skjerf, det blåser kaldt.", "Remember your scarf, there's a cold wind."),
+      p("stovler", "🥾", "støvler", "boots", "A1", "Barna må ha gummistøvler i barnehagen.", "The kids need rubber boots at kindergarten."),
+      p("regntoy", "☔", "regntøy", "rainwear", "A2", "I Bergen trenger du alltid regntøy.", "In Bergen you always need rainwear."),
+      p("badetoy", "🩱", "badetøy", "swimwear", "A2", "Husk badetøy til svømmingen.", "Remember swimwear for swimming."),
+      p("briller", "👓", "briller", "glasses", "A1", "Jeg finner ikke brillene mine!", "I can't find my glasses!"),
+      p("sekk", "🎒", "en sekk", "a backpack", "A1", "Pakk sekken kvelden før turen.", "Pack your backpack the evening before the trip."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -532,7 +570,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
