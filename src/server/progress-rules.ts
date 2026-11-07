@@ -21,8 +21,16 @@ export const RULES = {
   tandemMessagesPerDay: 20,
   /** Each scenario gives XP once per day. */
   scenarioPerDay: 1,
-  /** XP for pronunciation = score / 10, max 10, only when score ≥ 60. Max 15 checks per day. */
+  /** XP for pronunciation = score / 10, max `pronunciationMaxXp`, only when score ≥ `pronunciationMinScore`. */
   pronunciationPerDay: 15,
+  pronunciationMinScore: 60,
+  pronunciationMaxXp: 10,
+  /** Score that unlocks "Native ears". */
+  pronunciationPerfect: 90,
+  /** Achievement thresholds. */
+  streakShort: 3,
+  streakLong: 7,
+  streetPhrases: 5,
 } as const;
 
 export class RuleError extends Error {
@@ -62,8 +70,8 @@ function touchStreak(ctx: Ctx) {
   if (last === day) return;
   const streakDays = last && daysBetween(last, day) === 1 ? ctx.p.streakDays + 1 : 1;
   ctx.p = { ...ctx.p, lastActiveDay: day, streakDays };
-  if (streakDays >= 3) unlock(ctx, "streak-3");
-  if (streakDays >= 7) unlock(ctx, "streak-7");
+  if (streakDays >= RULES.streakShort) unlock(ctx, "streak-3");
+  if (streakDays >= RULES.streakLong) unlock(ctx, "streak-7");
 }
 
 function addXp(ctx: Ctx, amount: number, reason: string, emoji = "✨") {
@@ -84,12 +92,13 @@ function unlock(ctx: Ctx, achievementId: string) {
   const a = achievements.find((x) => x.id === achievementId);
   if (!a) return;
   ctx.p = { ...ctx.p, unlocked: [...ctx.p.unlocked, a.id] };
-  ctx.rewards.push({ emoji: a.emoji, title: `Achievement: ${a.title}`, detail: `+${a.xp} XP` });
   // Achievement XP also counts toward the daily cap.
   const room = Math.max(0, RULES.dailyXpCap - count(ctx, "xp"));
   const granted = Math.min(a.xp, room);
   bump(ctx, "xp", granted);
   ctx.p = { ...ctx.p, xp: ctx.p.xp + granted, weekXp: ctx.p.weekXp + granted };
+  // Show what was actually granted (can be less than a.xp when the daily cap is hit).
+  ctx.rewards.push({ emoji: a.emoji, title: `Achievement: ${a.title}`, detail: granted > 0 ? `+${granted} XP` : "Daily XP limit reached" });
 }
 
 export function applyEvent(progress: Progress, event: ProgressEvent | InternalEvent): { progress: Progress; rewards: RewardNotice[] } {
@@ -119,7 +128,7 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
         const reg = getPhrase(id)?.register;
         return reg === "slang" || reg === "informal";
       }).length;
-      if (street >= 5) unlock(ctx, "slang-5");
+      if (street >= RULES.streetPhrases) unlock(ctx, "slang-5");
       break;
     }
 
@@ -167,8 +176,10 @@ export function applyEvent(progress: Progress, event: ProgressEvent | InternalEv
     case "pronunciation_scored": {
       if (count(ctx, "pronunciation") >= RULES.pronunciationPerDay) break;
       bump(ctx, "pronunciation");
-      if (event.score >= 60) addXp(ctx, Math.min(10, Math.round(event.score / 10)), `Pronunciation ${event.score}/100`, "🎯");
-      if (event.score >= 90) unlock(ctx, "perfect-pron");
+      if (event.score >= RULES.pronunciationMinScore) {
+        addXp(ctx, Math.min(RULES.pronunciationMaxXp, Math.round(event.score / 10)), `Pronunciation ${event.score}/100`, "🎯");
+      }
+      if (event.score >= RULES.pronunciationPerfect) unlock(ctx, "perfect-pron");
       break;
     }
   }
