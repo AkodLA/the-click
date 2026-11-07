@@ -21,7 +21,17 @@ export type ServerEnv = z.infer<typeof schema>;
 let cached: ServerEnv | null = null;
 
 export function env(): ServerEnv {
-  if (!cached) cached = schema.parse(process.env);
+  if (!cached) {
+    // An empty line like `ELEVENLABS_TUTOR_AGENT_ID=` in .env.local means "not set yet", not "invalid".
+    const raw = Object.fromEntries(Object.entries(process.env).map(([k, v]) => [k, v === "" ? undefined : v]));
+    const result = schema.safeParse(raw);
+    if (!result.success) {
+      // Name the broken variables, never their values (they may be secrets).
+      const names = [...new Set(result.error.issues.map((i) => String(i.path[0])))].join(", ");
+      throw new Error(`Invalid environment variable(s): ${names}. Check .env.local or Vercel settings (see docs/SETUP.md).`);
+    }
+    cached = result.data;
+  }
   return cached;
 }
 
