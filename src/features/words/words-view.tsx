@@ -3,6 +3,7 @@
  * My words (/words), T20: vocabulary packs picked for YOU (age group, field, interests) at your level,
  * with listen, translate (T19), say-it (T5), "I know it" (server XP) and spaced review.
  *   /words?pack=logistics   open one pack     /words?review=1   start a review
+ * T24: every word has a picture (emoji tile), "Everyday words" for beginners, and a picture quiz per pack.
  */
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
@@ -13,6 +14,7 @@ import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check
 import { SeasonBanner } from "@/features/engagement/season-banner";
 import { ExplainText } from "@/features/explain/explain-text";
 import { FieldTest } from "./field-test";
+import { PictureQuiz, WordPicture } from "./word-picture";
 import { TranslateButton } from "@/features/translate/translate-button";
 import { CEFR_LEVELS, getPack, getVocabWord, packFitsAge, vocabPacks } from "@/lib/content";
 import type { CefrLevel, VocabPack, VocabWord } from "@/lib/content/types";
@@ -61,7 +63,10 @@ export function WordsView() {
     ...vocabPacks.filter((x) => prefs.interests.includes(x.id as never)),
   ].filter((x) => packFitsAge(x, prefs.ageGroup));
   // Seasonal packs (T21) are reached through the season banner while their season runs, not listed here.
-  const others = vocabPacks.filter((x) => x.kind !== "season" && !mine.includes(x) && packFitsAge(x, prefs.ageGroup));
+  const others = vocabPacks.filter((x) => x.kind !== "season" && x.kind !== "everyday" && !mine.includes(x) && packFitsAge(x, prefs.ageGroup));
+  // T24: picture words for daily life, for everyone. Beginners (A0–A2 or no level yet) see them first.
+  const everyday = vocabPacks.filter((x) => x.kind === "everyday");
+  const beginner = !p.cefr || CEFR_LEVELS.indexOf(p.cefr) <= CEFR_LEVELS.indexOf("A2");
 
   if (reviewing) return <ReviewMode ids={due} onDone={() => go("")} />;
 
@@ -100,6 +105,7 @@ export function WordsView() {
             </li>
           ))}
         </ul>
+        <PictureQuiz pack={openPack} />
         {openPack.kind === "field" && <FieldTest pack={openPack} />}
         {openPack.kind === "field" && <FieldScenarioLink packId={openPack.id} />}
         {openPack.kind === "season" && <SeasonBanner compact />}
@@ -152,6 +158,14 @@ export function WordsView() {
             </Card>
           )}
 
+          {beginner && (
+          <section>
+              <SectionTitle>🖼️ Everyday words</SectionTitle>
+              <p className="-mt-2 mb-3 text-sm text-muted">With pictures: the first words you need for food, home, the weather, the shop and the bus.</p>
+              <PackGrid packs={everyday} known={known} onOpen={(id) => go(`pack=${id}`)} highlight={beginner && mine.length === 0} />
+            </section>
+          )}
+
           {mine.length > 0 && (
             <section>
               <SectionTitle action={<button type="button" onClick={() => setEditing(true)} className="h-11 text-sm font-semibold text-brand">Edit about you</button>}>
@@ -175,6 +189,14 @@ export function WordsView() {
             </SectionTitle>
             <PackGrid packs={others} known={known} onOpen={(id) => go(`pack=${id}`)} />
           </section>
+
+          {!beginner && (
+          <section>
+              <SectionTitle>🖼️ Everyday words</SectionTitle>
+              <p className="-mt-2 mb-3 text-sm text-muted">With pictures: the first words you need for food, home, the weather, the shop and the bus.</p>
+              <PackGrid packs={everyday} known={known} onOpen={(id) => go(`pack=${id}`)} highlight={beginner && mine.length === 0} />
+            </section>
+          )}
 
           <p className="text-center text-xs text-muted">
             <Link href="/mistakes" className="font-semibold text-brand">
@@ -241,20 +263,21 @@ function WordCard({ word, known, dueIn, nativeLanguage }: { word: VocabWord; kno
   return (
     <Card className="flex flex-col gap-3">
       <div className="flex items-start justify-between gap-3">
-        <div className="flex min-w-0 items-start gap-3">
-          <button
-            type="button"
-            onClick={() => speakNorwegian(word.no.replace(/^(en|ei|et|å) /, ""), { slow: true })}
-            aria-label={`Hear «${word.no}»`}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full border border-line bg-surface transition hover:bg-surface-2"
-          >
-            <span aria-hidden>🔊</span>
-          </button>
+        <div className="flex min-w-0 items-center gap-3">
+          {word.picture && <WordPicture word={word} />}
           <div className="min-w-0">
             <p className="text-xl font-black" lang="nb">
               {word.no}
             </p>
             <p className="text-sm text-muted">{word.en}</p>
+            <button
+              type="button"
+              onClick={() => speakNorwegian(word.no.replace(/^(en|ei|et|å) /, ""), { slow: true })}
+              aria-label={`Hear «${word.no}»`}
+              className="-ml-1 inline-flex h-11 items-center gap-1 px-1 text-sm font-semibold text-brand"
+            >
+              <span aria-hidden>🔊</span> Hear it
+            </button>
           </div>
         </div>
         <div className="flex shrink-0 flex-col items-end gap-1">
@@ -348,7 +371,8 @@ function ReviewMode({ ids, onDone }: { ids: string[]; onDone: () => void }) {
           🔊 Hear it
         </button>
         {shown ? (
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col items-center gap-1">
+            {word.picture && <WordPicture word={word} size="lg" />}
             <p className="text-xl font-bold">{word.en}</p>
             <p className="text-sm" lang="nb">
               «{word.example.no}»

@@ -25,6 +25,7 @@ Everything in `src/server/` imports `server-only`, so it can never end up in the
 | `leagueWeek`, `leagueMonth` | `LeagueEntry[]` (test data) | T9 |
 | `languageEvents` | `LanguageEvent[]` (`isSample: true`) | T11 |
 | `tandemPartners`, `tandemDemoChat` | `TandemPartner[]`, `TandemMessage[]` | T10 |
+| `vocabPacks`, `vocabWords`, `everydayPacks` | `VocabPack[]` (kind `field` / `interest` / `season` / `everyday`), `VocabWord[]` with optional `picture` (one emoji, see `pictures.ts`) | T20 My words, T24 picture words |
 | `REGISTER_STYLE`, `LANGUAGE_NAMES`, `CEFR_LEVELS` | helpers | everyone |
 
 **Register** = `slang | informal | neutral | formal`. Always show it with `<RegisterTag>`.
@@ -133,3 +134,10 @@ Checked against Opera's own Translator playground (next.opera.com/web-ai/transla
 - **Robustness**: long text is translated sentence by sentence (respects `inputQuota` when the browser reports it), calls can be aborted, translators are destroyed on `pagehide`, every call has a time limit.
 - **`/translator`**: browser status per language pair, a self-test (Norwegian → your language → back, with timing) and a free translation box. Linked from Tolk and from translation errors.
 - The model itself can't be retrained (it's the browser's); the memory and glossary are how Snakk "teaches" it.
+
+### More words and phrases, with pictures (T24)
+- **Pictures are emoji**, by design: same style as the rest of Snakk's tiles, crisp in light and dark mode, no image files, no licences, nothing for the CSP to block. `src/lib/content/pictures.ts` maps every existing word id → emoji; everyday words carry their own. A word without an honest picture gets none (better than a misleading one).
+- **Everyday picture words** (`src/lib/content/everyday.ts`, kind `everyday`, ids `everyday-*`): 8 packs, 85 words, A0–A2. Shown first on `/words` for beginners (A0–A2 or no level yet), lower down for others. Learning one is the normal `word_learned` event (server XP, daily cap), and they flow into translation memory, pronunciation targets and notes automatically.
+- **Picture quiz** on every pack with 4+ unique pictures: picture → pick the Norwegian word → hear it. Practice only, no XP, nothing stored. Review cards show the picture together with the meaning.
+- **21 new phrases** (A0–B1, all with use when / avoid when / say instead), linked into tutor scenarios as key phrases.
+- All new content was drafted with AI help: a native speaker must check it before the demo.

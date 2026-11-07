@@ -28,6 +28,7 @@ Build every screen with the UI kit (`src/components/ui.tsx`) and copy the patter
 | T20 | **Personal learning**: About you (age group, field, interests; device-only) → vocabulary packs by field/interest/level/age with spaced review, `word_learned` XP, work scenarios by field, tutor adapts | T19 T2 | 3 | | | ✅ |
 | T21 | **Engagement pack**: why this level, weekly summary, mistake notebook, explain-a-word, daily quests, streak freeze, field tests + certificates, seasonal challenges, team league, tree fruits + share | T20 | 4 | | | ✅ |
 | T22 | **Translator quality** (Opera Web AI): `no` language code, translation memory from our content, glossary notes, round-trip check, chunking/abort, `/translator` self-test | T19 | 2 | | | ✅ |
+| T24 | **More words & phrases, with pictures**: 85 everyday picture words (8 packs), a picture for all 212 words, picture quiz, 21 new phrases linked to scenarios. Needs a native-speaker check | T20 T3 | 2 | | | 🟡 PR |
 
 ## Checkpoints
 | When | Must be true |

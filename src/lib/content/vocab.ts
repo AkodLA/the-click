@@ -4,6 +4,8 @@
  * Keep ids stable: they are sent as `word_learned.wordId` and stored in progress.
  */
 import { seasonPacks } from "./engagement";
+import { everydayPacks } from "./everyday";
+import { WORD_PICTURES } from "./pictures";
 import type { AgeGroup, FieldId, InterestId, VocabPack, VocabWord } from "./types";
 
 const w = (id: string, no: string, en: string, level: VocabWord["level"], exNo: string, exEn: string, register: VocabWord["register"] = "neutral"): VocabWord => ({
@@ -273,7 +275,9 @@ export const interestPacks: VocabPack[] = [
 ];
 
 /** Every pack, incl. T21 seasonal packs (shown only while their season runs). */
-export const vocabPacks: VocabPack[] = [...fieldPacks, ...interestPacks, ...seasonPacks];
+export const vocabPacks: VocabPack[] = [...everydayPacks, ...fieldPacks, ...interestPacks, ...seasonPacks];
+// T24: every word gets its picture (everyday words bring their own).
+for (const pack of vocabPacks) for (const word of pack.words) word.picture ??= WORD_PICTURES[word.id];
 export const vocabWords: VocabWord[] = vocabPacks.flatMap((p) => p.words);
 
 export function getVocabWord(id: string): VocabWord | undefined {
