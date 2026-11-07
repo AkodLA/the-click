@@ -28,6 +28,8 @@ export function TolkTyped({ langA, langB, onEnd }: { langA: TolkLanguage; langB:
   const [status, setStatus] = useState<{ text: string; tone: "idle" | "listening" | "speaking" | "error" }>({ text: "Type a message", tone: "listening" });
   const [readAloud, setReadAloud] = useState(true);
   const [busy, setBusy] = useState(false);
+  // T22: Norwegian terms in the latest message, explained (NAV, fastlege…).
+  const [notes, setNotes] = useState<{ term: string; explain: string }[]>([]);
   const seq = useRef(0);
 
   async function send(e?: FormEvent) {
@@ -50,6 +52,7 @@ export function TolkTyped({ langA, langB, onEnd }: { langA: TolkLanguage; langB:
       return;
     }
     setTurns((t) => [...t, { id: ++seq.current, speaker: who, original: text, translation: r.text }]);
+    setNotes(r.notes);
     setDraft("");
     setSpeaker(who === "a" ? "b" : "a"); // it's usually the other person's turn next
     setStatus({ text: "Type a message", tone: "listening" });
@@ -66,6 +69,15 @@ export function TolkTyped({ langA, langB, onEnd }: { langA: TolkLanguage; langB:
       status={status}
       banner={
         <div className="flex flex-col gap-2">
+          {notes.length > 0 && (
+            <p className="rounded-xl bg-brand-soft px-3 py-1.5 text-xs" role="status">
+              {notes.map((n) => (
+                <span key={n.term} className="block">
+                  ℹ️ <span className="font-bold" lang="nb">{n.term}</span>: {n.explain}
+                </span>
+              ))}
+            </p>
+          )}
           <p className="text-center text-xs font-semibold text-muted">
             ⌨️ Typing mode · translated on this device ·{" "}
             <button type="button" className="underline" onClick={() => setReadAloud((x) => !x)}>
