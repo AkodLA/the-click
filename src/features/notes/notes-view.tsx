@@ -54,6 +54,10 @@ export function NotesView() {
         <p className="mt-3 text-xs font-semibold opacity-80">
           {notes.length} {notes.length === 1 ? "note" : "notes"} · 🔒 saved only on this device
         </p>
+        {/* T21: corrections are also collected automatically, with practice, on /mistakes. */}
+        <Link href="/mistakes" className="mt-3 inline-flex h-11 items-center rounded-full bg-white/20 px-4 text-sm font-bold">
+          📓 Practise all your mistakes →
+        </Link>
       </section>
 
       {/* The shelf */}

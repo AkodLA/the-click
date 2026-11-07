@@ -53,6 +53,14 @@ export function WhyLevel() {
             </Link>
           </p>
         )}
+        {p.cefr !== "A0" && (
+          <p className="text-xs text-muted">
+            This is Snakk&apos;s estimate, not an official result.{" "}
+            <Link href="/resources" className="font-semibold text-brand underline">
+              Official tests (Norskprøven) →
+            </Link>
+          </p>
+        )}
       </Card>
     </section>
   );
@@ -80,7 +88,7 @@ export function WeekSummary() {
 
   return (
     <section id="week" className="scroll-mt-20">
-      <SectionTitle action={<Link href="/notebook" className="text-sm font-semibold text-brand">Mistake notebook →</Link>}>Your week in numbers</SectionTitle>
+      <SectionTitle action={<Link href="/mistakes" className="text-sm font-semibold text-brand">📓 Mistakes →</Link>}>Your week in numbers</SectionTitle>
       <Card className="flex flex-col gap-3">
         {rows.length === 0 ? (
           <p className="text-sm text-muted">Nothing yet this week. One conversation or three words is a great start!</p>
@@ -124,7 +132,13 @@ export function Certificates() {
     <section id="certificates" className="scroll-mt-20">
       <SectionTitle action={<Link href="/words" className="text-sm font-semibold text-brand">Take a test →</Link>}>Certificates</SectionTitle>
       {certs.length === 0 ? (
-        <Card className="text-sm text-muted">🎓 Pass a level-up test in one of your work packs (e.g. «Ready for warehouse work?») to get your first certificate.</Card>
+        <Card className="text-sm text-muted">
+          🎓 Pass a level-up test in one of your work packs (e.g. «Ready for warehouse work?») to get your first Snakk certificate. Looking for an official
+          exam?{" "}
+          <Link href="/resources" className="font-semibold text-brand underline">
+            Exams & resources →
+          </Link>
+        </Card>
       ) : (
         <ul className="flex flex-col gap-2">
           {certs.map((c) => {

@@ -1,6 +1,7 @@
 "use client";
 /**
- * T21 mistake notebook: every correction the learner got, in one place, to review later.
+ * T21 Mistakes (/mistakes): every correction the learner got, in one place, to review later.
+ * (Not the same as "My notes" (/notes, T16), which holds words saved on purpose.)
  * Sources: the voice tutor's correction cards (flag_register), Tandem «small fixes», and words the
  * pronunciation check didn't hear. Stored only in this browser (like My words review); no XP.
  *

@@ -284,8 +284,8 @@ function ResultView({
           {outcome.corrections.map((c, i) => (
             <CorrectionCard key={i} c={c} />
           ))}
-          <Link href="/notebook" className="text-sm font-semibold text-brand">
-            📓 Saved to your mistake notebook: practise them later →
+          <Link href="/mistakes" className="text-sm font-semibold text-brand">
+            📓 Saved to your Mistakes automatically: practise them later →
           </Link>
         </section>
       )}

@@ -4,6 +4,7 @@
  * pick the meaning of each word. The SERVER checks the answers, gives the certificate (+XP once) and the
  * «Certified» badge (event `field_test_submitted`). Max 3 tries a day.
  */
+import Link from "next/link";
 import { useState } from "react";
 import { Button, Card, ProgressBar } from "@/components/ui";
 import { downloadCertificate } from "@/features/engagement/share-image";
@@ -88,7 +89,13 @@ export function FieldTest({ pack }: { pack: VocabPack }) {
               ? "Not this time. Review the words above and try again."
               : cert
                 ? `${cert.score}/${cert.total} right on ${cert.day}.${passedNow ? " 🎉" : ""}`
-                : `${QUESTIONS} quick questions. Get 4 right for a certificate you can share (+40 XP).`}
+                : `${QUESTIONS} quick questions. Get 4 right for a Snakk certificate you can share (+40 XP).`}
+        </p>
+        <p className="text-xs text-muted">
+          A practice certificate from Snakk, not an official exam.{" "}
+          <Link href="/resources" className="font-semibold text-brand underline">
+            Official tests →
+          </Link>
         </p>
         <div className="flex flex-wrap gap-2">
           <Button onClick={start} variant={cert ? "secondary" : "primary"}>

@@ -14,12 +14,17 @@ Textbooks teach written Norwegian. Snakk teaches **how Norway talks**. You speak
 | 🎙️ Voice tutor | Real-life scenarios (kiosk, party, dinner, job interview, doctor, plus work scenarios like a warehouse shift or a nursing-home handover) with an ElevenLabs voice agent that corrects slang used in the wrong place |
 | 🎯 Pronunciation check | Say a sentence and see which words came through |
 | 💬 Phrasebook | 31 phrases tagged slang / informal / neutral / formal, with ✅ use when · 🚫 avoid when · 💡 say instead, audio and a "sounds like" hint |
-| 🧠 My words | Vocabulary for **your work, interests, age group and level** (9 fields, 6 interests), with spaced review |
-| 🏆 Gamification | XP, levels, streaks, achievements, a growing tree, weekly and monthly leagues by level |
+| 🧠 My words | Vocabulary for **your work, interests, age group and level** (9 fields, 6 interests), with spaced review, level-up tests and Snakk certificates |
+| 📓 Mistakes | Every correction from the tutor, Tandem and the pronunciation check, collected automatically, with practice |
+| 📒 My notes | Save any word with one tap; it lands in the right notebook (Everyday, Formal, Slang, Corrections, Writing, your own) |
+| 👆 Explain a word | Tap any Norwegian word: meaning, register, example, listen, translate |
+| 🎓 Exams & resources | Official tests (Norskprøven, citizenship test) and free learning resources |
+| 🏆 Gamification | XP, levels, streaks with freezes, daily quests, achievements, seasonal challenges, a growing tree you can share, leagues by level and **team leagues** for classes and workplaces |
 | 🧑‍🤝‍🧑 Tolk | Two-way interpreter: voice (ElevenLabs) or typing with **on-device translation** (Opera Web AI / Chrome) |
 | 🤝 Tandem | Swap languages with natives. Nicknames and avatars only, gentle corrections, translate any message |
 | 🧇 Språkkafé | Language events near you, with check-in rewards and calendar export |
-| ✍️ Write | Trace æ, ø, å and first words with your finger |
+| ✍️ Write | The whole alphabet A–Å with numbered stroke guides, eraser and undo, plus first words |
+| 🌗 Light / dark | Theme switch, or follow the device |
 
 ## How it works
 ```

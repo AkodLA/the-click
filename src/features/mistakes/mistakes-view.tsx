@@ -1,19 +1,21 @@
 "use client";
 /**
- * Mistake notebook (/notebook), T21: every correction you got, from the tutor, Tandem and the
- * pronunciation check, with a practice mode on the same 1-3-7-14-30 day rhythm as My words.
+ * Mistakes (/mistakes), T21: every correction you got, from the tutor, Tandem and the
+ * pronunciation check, collected automatically, with a practice mode on the same 1-3-7-14-30 day rhythm as My words.
+ * Different from "My notes" (/notes, T16): those are words the learner saves on purpose. Each mistake can be saved there too.
  * Device-only, no XP (reviews are for you, not for points).
  */
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Badge, Button, Card, ProgressBar } from "@/components/ui";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
 import { removeMistake, SOURCE_LABEL, useMistakes, type Mistake, type MistakeSource } from "@/lib/personal/mistakes";
 import { answerReview, nextDueInDays, useReview } from "@/lib/personal/review";
 import { speakNorwegian } from "@/lib/speech";
 
 const FILTERS: (MistakeSource | "all")[] = ["all", "tutor", "tandem", "pronunciation"];
 
-export function NotebookView() {
+export function MistakesView() {
   const list = useMistakes();
   const review = useReview();
   const [filter, setFilter] = useState<MistakeSource | "all">("all");
@@ -32,9 +34,9 @@ export function NotebookView() {
   return (
     <div className="flex flex-col gap-5">
       <section className="rounded-3xl bg-brand p-6 text-brand-ink shadow-md">
-        <p className="text-sm font-semibold opacity-80">Mistake notebook</p>
+        <p className="text-sm font-semibold opacity-80">📓 Mistakes</p>
         <h1 className="mt-1 text-3xl font-black leading-tight">Every mistake is a lesson.</h1>
-        <p className="mt-2 text-sm opacity-90">Corrections from the tutor, Tandem and the pronunciation check land here. Practise them until they stick.</p>
+        <p className="mt-2 text-sm opacity-90">Corrections from the tutor, Tandem and the pronunciation check land here by themselves. Practise them until they stick, and 📒 save the ones you want to keep in your notes.</p>
         <p className="mt-3 text-xs opacity-80">🔒 Saved only on this device.</p>
       </section>
 
@@ -103,9 +105,19 @@ export function NotebookView() {
                       </button>
                     </p>
                     {m.note && <p className="text-xs text-muted">{m.note}</p>}
-                    <button type="button" onClick={() => removeMistake(m.id)} className="h-11 self-start text-xs font-semibold text-muted underline">
-                      Remove
-                    </button>
+                    <div className="flex flex-wrap items-center gap-3">
+                      {/* Keep it for good in My notes (T16): lands in the Corrections or Tandem notebook. */}
+                      <SaveToNotes
+                        size="sm"
+                        text={m.better}
+                        meaning={`Instead of «${m.said}»${m.note ? `: ${m.note}` : ""}`}
+                        source={m.source === "tandem" ? "tandem" : "correction"}
+                        href="/mistakes"
+                      />
+                      <button type="button" onClick={() => removeMistake(m.id)} className="h-11 text-xs font-semibold text-muted underline">
+                        Remove
+                      </button>
+                    </div>
                   </Card>
                 </li>
               );
@@ -114,7 +126,11 @@ export function NotebookView() {
         </>
       )}
       <p className="text-center text-xs text-muted">
-        Your most common mistake also shows on your{" "}
+        Words you saved on purpose are in{" "}
+        <Link href="/notes" className="font-semibold text-brand">
+          📒 My notes
+        </Link>
+        . Your most common mistake also shows on your{" "}
         <Link href="/profile#week" className="font-semibold text-brand">
           profile
         </Link>
@@ -139,7 +155,7 @@ function Practice({ items, onDone }: { items: Mistake[]; onDone: () => void }) {
         <p className="text-xl font-black">
           {right} of {items.length} remembered
         </p>
-        <Button onClick={onDone}>Back to the notebook</Button>
+        <Button onClick={onDone}>Back to my mistakes</Button>
       </Card>
     );
   }
