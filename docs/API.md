@@ -25,6 +25,7 @@ Everything in `src/server/` imports `server-only`, so it can never end up in the
 | `leagueWeek`, `leagueMonth` | `LeagueEntry[]` (test data) | T9 |
 | `languageEvents` | `LanguageEvent[]` (`isSample: true`) | T11 |
 | `tandemPartners`, `tandemDemoChat` | `TandemPartner[]`, `TandemMessage[]` | T10 |
+| `vocabPacks`, `vocabWords`, `everydayPacks` | `VocabPack[]` (kind `field` / `interest` / `season` / `everyday`), `VocabWord[]` with optional `picture` (one emoji, see `pictures.ts`) | T20 My words, T24 picture words |
 | `REGISTER_STYLE`, `LANGUAGE_NAMES`, `CEFR_LEVELS` | helpers | everyone |
 
 **Register** = `slang | informal | neutral | formal`. Always show it with `<RegisterTag>`.
@@ -113,6 +114,16 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 - **Review** (`src/lib/personal/review.ts`): Leitner boxes 1-3-7-14-30 days, browser only, no XP.
 - **Scenarios** can have `fields`; `/speak` puts the learner's field first (`/speak?field=logistics` also works). The tutor gets `age_group`, `field`, `interests` (see `agent/tutor-prompt.md`).
 - Pages: `/words`, `/words?pack=<id>`, `/words?review=1`; "About you" on `/profile#about-you`.
+
+### More words and phrases, with pictures (T24)
+- **Pictures are emoji**, by design: same style as the rest of Snakk's tiles, crisp in light and dark mode, no image files, no licences, nothing for the CSP to block. `src/lib/content/pictures.ts` maps every existing word id → emoji; everyday words carry their own. A word without an honest picture gets none (better than a misleading one).
+- **Everyday picture words** (`src/lib/content/everyday.ts`, kind `everyday`, ids `everyday-*`): 18 packs, 188 words, A0–B1, ordered by what a total beginner needs first (6 shown, «Show all» for the rest). Shown first on `/words` for beginners (A0–A2 or no level yet), lower down for others. Learning one is the normal `word_learned` event (server XP, daily cap), and they flow into translation memory, pronunciation targets and notes automatically.
+- **Picture quiz** on every pack with 4+ unique pictures, two modes: 🖼️ *See it* (picture → pick the Norwegian word → hear it) and 👂 *Hear it* (hear the word → pick the picture; no reading needed, good for A0). Practice only, no XP, nothing stored. Review cards show the picture together with the meaning.
+- **Same pictures on every device:** picture tiles use the Noto Color Emoji font (self-hosted by `next/font`, split by character, not preloaded), so newer emoji never show as empty boxes on older Android or Windows 10. A pack page loads roughly 60–470 KB of it once; other pages load none.
+- **Explain a word** shows the picture too, and punctuation now stays on the same line as its word.
+- **Work and interest packs** got 4 more words each (60 words, all with pictures: blodtrykk, stige, skanner, passord, ukeplan, rundkjøring, kompass…). No two words in a pack share a picture.
+- **63 new phrases** (A0–B2, all with use when / avoid when / say instead: everyday politeness, invitations, reactions like «Nei, så hyggelig!», slang like «Helt konge!», formal «Jeg viser til…»; B2–C1 idioms like «å ta seg vann over hodet», «midt i smørøyet», «det sitter langt inne»), linked into tutor scenarios as key phrases.
+- All new content was drafted with AI help: a native speaker must check it before the demo.
 
 ### Engagement pack (T21)
 - **Why this level?** `placement_submitted` now stores `progress.placement` (right answers per level, from `scorePlacement().byLevel`). Shown on `/profile#why-level`.

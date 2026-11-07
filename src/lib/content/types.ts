@@ -211,11 +211,14 @@ export interface VocabWord {
   level: CefrLevel;
   register: Register;
   example: { no: string; en: string };
+  /** T24: a picture for the word, as one emoji (works in light/dark, no image files). See content/pictures.ts. */
+  picture?: string;
 }
 
 export interface VocabPack {
-  id: FieldId | InterestId | `season-${string}`;
-  kind: "field" | "interest" | "season";
+  /** T24: "everyday" = picture words for beginners (food, home, weather…), shown to everyone. */
+  id: FieldId | InterestId | `season-${string}` | `everyday-${string}`;
+  kind: "field" | "interest" | "season" | "everyday";
   title: string;
   /** Norwegian name of the pack, shown small. */
   titleNo: string;

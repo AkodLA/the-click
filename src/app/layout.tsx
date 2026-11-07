@@ -2,6 +2,8 @@ import type { Metadata, Viewport } from "next";
 import { Fredoka, Geist_Mono, Nunito } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+// T24: emoji font for word pictures (separate import on purpose: fewer merge conflicts in this shared file).
+import { Noto_Color_Emoji } from "next/font/google";
 
 // Cozy, friendly type: rounded Fredoka for headings, soft Nunito for reading.
 const fredoka = Fredoka({
@@ -12,6 +14,16 @@ const fredoka = Fredoka({
 const nunito = Nunito({
   variable: "--font-nunito",
   subsets: ["latin"],
+});
+
+// T24: word pictures are emoji. One emoji font (self-hosted, split by character, loaded only when a picture
+// is on screen) makes them look the same on every phone and computer, incl. older Android and Windows 10.
+const emoji = Noto_Color_Emoji({
+  variable: "--font-emoji",
+  weight: "400",
+  subsets: ["emoji"],
+  preload: false,
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -38,7 +50,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
-      className={`${fredoka.variable} ${nunito.variable} ${geistMono.variable} h-full antialiased`}
+      className={`${fredoka.variable} ${nunito.variable} ${geistMono.variable} ${emoji.variable} h-full antialiased`}
       // theme-init.js sets data-theme before React hydrates.
       suppressHydrationWarning
     >
