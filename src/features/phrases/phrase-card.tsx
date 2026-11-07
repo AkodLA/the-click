@@ -5,6 +5,7 @@
  * Owner: T7. Reused on Home ("phrase of the day") and in scenarios.
  */
 import { Card, RegisterTag } from "@/components/ui";
+import { PronunciationCheck } from "@/features/pronunciation/pronunciation-check";
 import type { Phrase } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
 
@@ -49,6 +50,8 @@ export function PhraseCard({ phrase, compact = false }: { phrase: Phrase; compac
           </div>
         </dl>
       )}
+
+      {!compact && <PronunciationCheck sentence={phrase.example.no} target={phrase.id} label="Say the example" />}
 
       <button
         type="button"
