@@ -22,8 +22,15 @@ const ANSWER_KEY: Record<string, number> = {
  * Level = walk up from A1 while at least half the questions of that level are right.
  * Nothing right = A0. (T4 may tune this; keep it server-side.)
  */
-export function scorePlacement(answers: Record<string, number>): { level: CefrLevel; correct: number; total: number } {
+export function scorePlacement(answers: Record<string, number>): {
+  level: CefrLevel;
+  correct: number;
+  total: number;
+  /** T21: right answers per level, for "Why this level?". */
+  byLevel: { level: CefrLevel; right: number; total: number }[];
+} {
   let reached: CefrLevel = "A0";
+  const byLevel: { level: CefrLevel; right: number; total: number }[] = [];
   let correct = 0;
   let total = 0;
   let stillClimbing = true;
@@ -34,8 +41,9 @@ export function scorePlacement(answers: Record<string, number>): { level: CefrLe
     const right = qs.filter((q) => answers[q.id] === ANSWER_KEY[q.id]).length;
     correct += right;
     total += qs.length;
+    byLevel.push({ level, right, total: qs.length });
     if (stillClimbing && right / qs.length >= 0.5) reached = level;
     else stillClimbing = false;
   }
-  return { level: reached, correct, total };
+  return { level: reached, correct, total, byLevel };
 }

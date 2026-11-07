@@ -11,7 +11,9 @@ import { Badge, Button, Card, SectionTitle } from "@/components/ui";
 import { LANGUAGE_NAMES, tandemPartners } from "@/lib/content";
 import type { TandemPartner } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { recordMistake } from "@/lib/personal/mistakes";
 import { TranslateButton } from "@/features/translate/translate-button";
+import { ExplainText } from "@/features/explain/explain-text";
 import { translateText } from "@/lib/web-ai/translator";
 import { contactInfoWarning, correct, PARTNER_FILLERS, partnerScript, phrasesUsed, type ScriptLine } from "./tandem-data";
 
@@ -243,7 +245,9 @@ function Chat({ partner, myLanguage, onBack }: { partner: TandemPartner; myLangu
     }
     setWarning(null);
     setDraft("");
-    setMessages((m) => [...m, { id: ++seq.current, from: "me", text, correction: correct(text) ?? undefined }]);
+    const fix = correct(text);
+    if (fix) recordMistake({ source: "tandem", said: text, better: fix.corrected, note: fix.why }); // T21 notebook
+    setMessages((m) => [...m, { id: ++seq.current, from: "me", text, correction: fix ?? undefined }]);
 
     setSending(true);
     // The server decides the XP (2 per message, capped per day) and unlocks "New buddy".
@@ -389,7 +393,9 @@ function Message({ m, myLanguage, showEn, onToggleEn }: { m: ChatMessage; myLang
   return (
     <div className="flex flex-col items-start gap-1">
       <div className="max-w-[85%] rounded-3xl rounded-bl-lg border border-line bg-surface px-4 py-3 shadow-sm">
-        <p lang="nb">{m.text}</p>
+        <p lang="nb">
+          <ExplainText text={m.text} />
+        </p>
         {showEn && m.en && <p className="mt-1 border-t border-line pt-1 text-sm text-muted">{m.en}</p>}
       </div>
       <div className="flex flex-wrap items-center gap-2">

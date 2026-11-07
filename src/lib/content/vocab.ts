@@ -3,6 +3,7 @@
  * Rule (same as phrases): real spoken Norwegian, every card checked by a native speaker before the demo.
  * Keep ids stable: they are sent as `word_learned.wordId` and stored in progress.
  */
+import { seasonPacks } from "./engagement";
 import type { AgeGroup, FieldId, InterestId, VocabPack, VocabWord } from "./types";
 
 const w = (id: string, no: string, en: string, level: VocabWord["level"], exNo: string, exEn: string, register: VocabWord["register"] = "neutral"): VocabWord => ({
@@ -271,7 +272,8 @@ export const interestPacks: VocabPack[] = [
   },
 ];
 
-export const vocabPacks: VocabPack[] = [...fieldPacks, ...interestPacks];
+/** Every pack, incl. T21 seasonal packs (shown only while their season runs). */
+export const vocabPacks: VocabPack[] = [...fieldPacks, ...interestPacks, ...seasonPacks];
 export const vocabWords: VocabWord[] = vocabPacks.flatMap((p) => p.words);
 
 export function getVocabWord(id: string): VocabWord | undefined {

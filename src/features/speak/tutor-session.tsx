@@ -10,10 +10,12 @@ import { ConversationProvider, useConversation, useConversationClientTool } from
 import { useEffect, useRef, useState } from "react";
 import { Button, Card, RegisterTag } from "@/components/ui";
 import { TranslateButton } from "@/features/translate/translate-button";
+import { ExplainText } from "@/features/explain/explain-text";
 import { apiFetch } from "@/lib/api-client";
 import { getPack, getPhrase, LANGUAGE_NAMES } from "@/lib/content";
 import type { Register, Scenario } from "@/lib/content/types";
 import { usePrefs } from "@/lib/personal/prefs";
+import { recordMistake } from "@/lib/personal/mistakes";
 import { useProgress } from "@/lib/progress/store";
 
 export interface Correction {
@@ -116,6 +118,7 @@ function Session({
     };
     if (!c.said && !c.better) return "ignored";
     correctionsRef.current = [...correctionsRef.current, c];
+    recordMistake({ source: "tutor", said: c.said, better: c.better, note: c.register ? `«${c.said}» is ${c.register} here` : undefined }); // T21 notebook
     setCorrections(correctionsRef.current);
     return "shown";
   });
@@ -231,7 +234,7 @@ function Session({
                 l.from === "me" ? "rounded-br-lg bg-brand text-brand-ink" : "rounded-bl-lg border border-line bg-surface shadow-sm"
               }`}
             >
-              {l.text}
+              {l.from === "tutor" ? <ExplainText text={l.text} /> : l.text}
             </p>
             {/* T19: on-device translation of what the tutor said, into the learner's language. */}
             {l.from === "tutor" && <TranslateButton text={l.text} from="nb" to={p.nativeLanguage} />}

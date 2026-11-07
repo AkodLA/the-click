@@ -6,6 +6,7 @@
 import Link from "next/link";
 import { Cloud, Mascot } from "@/components/mascot";
 import { Badge, Button, Card, ProgressBar, SectionTitle } from "@/components/ui";
+import { DailyQuests } from "@/features/engagement/daily-quests";
 import { ProgressTree } from "@/features/home/progress-tree";
 import { PhraseCard } from "@/features/phrases/phrase-card";
 import { openLanguagePicker } from "@/features/languages/language-picker";
@@ -182,6 +183,11 @@ export function HomeDashboard() {
       {/* Grows with total XP: a visible reward for every bit of practice. */}
       <div className="order-3 lg:order-none">
         <ProgressTree />
+      </div>
+
+      {/* T21: daily quests (the server decides the bonus XP) */}
+      <div className="order-4 lg:order-none">
+        <DailyQuests />
       </div>
 
       {/* Daily goal + streak */}

@@ -19,6 +19,12 @@ export const achievements: Achievement[] = [
   // T20: personal vocabulary
   { id: "words-25", title: "Word collector", description: "Learn 25 words from your packs.", emoji: "🧺", xp: 50 },
   { id: "field-ready", title: "Ready for work", description: "Learn every word in one field pack.", emoji: "🧰", xp: 80 },
+  // T21
+  { id: "certified", title: "Certified", description: "Pass a field level-up test.", emoji: "🎓", xp: 60 },
+  { id: "quest-master", title: "Quest master", description: "Finish all 3 daily quests in one day.", emoji: "🗺️", xp: 40 },
+  { id: "season-autumn-2026", title: "Cosy autumn", description: "Learn 5 autumn words during autumn week.", emoji: "🍂", xp: 50 },
+  { id: "season-christmas-2026", title: "Christmas spirit", description: "Learn 5 Christmas words in December.", emoji: "🎄", xp: 50 },
+  { id: "season-17mai-2027", title: "Hipp hipp hurra", description: "Learn 5 words for 17 May.", emoji: "🇳🇴", xp: 50 },
 ];
 
 /** Weekly league, grouped by level so beginners compete with beginners. */

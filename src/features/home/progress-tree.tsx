@@ -6,7 +6,9 @@
  * Left alone it gets thirsty, then wilts and shrinks; one practice brings it straight back.
  * Display only: XP and lastActiveDay come from the server-signed progress, and no XP is ever taken away.
  */
+import { useRef } from "react";
 import { Card, ProgressBar } from "@/components/ui";
+import { downloadTree } from "@/features/engagement/share-image";
 import { useProgress } from "@/lib/progress/store";
 
 const STAGES = [
@@ -72,7 +74,19 @@ export function treeState(xp: number, daysAway: number) {
   return { grown, stage, lost: grown - stage, health, shownXp: stage < grown ? STAGES[stage].min : xp };
 }
 
-export function TreeArt({ xp, health = "healthy", className }: { xp: number; health?: TreeHealth; className?: string }) {
+/** T21: fruit spots on the canopy (one per 5 words learned and per tutor conversation). */
+const FRUITS = [
+  [46, 46],
+  [70, 40],
+  [58, 34],
+  [80, 52],
+  [40, 52],
+  [64, 50],
+  [52, 26],
+  [74, 28],
+];
+
+export function TreeArt({ xp, health = "healthy", className, fruits = 0 }: { xp: number; health?: TreeHealth; className?: string; fruits?: number }) {
   const stage = stageFor(xp);
   // From sapling on, the whole tree scales up smoothly towards full size.
   const scale = 0.45 + 0.55 * Math.min(1, Math.max(0, (xp - STAGES[2].min) / (FULL_XP - STAGES[2].min)));
@@ -127,6 +141,10 @@ export function TreeArt({ xp, health = "healthy", className }: { xp: number; hea
               />
             ))}
           </g>
+          {/* T21: fruits from words and conversations (from the sapling stage on) */}
+          {FRUITS.slice(0, stage >= 3 ? Math.min(fruits, FRUITS.length) : 0).map(([cx, cy], i) => (
+            <circle key={`f${i}`} cx={cx} cy={cy} r="3.6" className={health === "healthy" ? "fill-warn" : "fill-warn opacity-50"} />
+          ))}
           {BLOSSOMS.map(([cx, cy], i) => (
             <circle key={i} cx={cx} cy={cy} r="3.2" className={`fill-accent transition-opacity duration-700 ${stage >= 6 && health === "healthy" ? "opacity-100" : "opacity-0"}`} />
           ))}
@@ -137,7 +155,11 @@ export function TreeArt({ xp, health = "healthy", className }: { xp: number; hea
 }
 
 export function ProgressTree() {
-  const { xp, lastActiveDay } = useProgress();
+  const { xp, lastActiveDay, learnedWordIds, stats, streakDays, nickname } = useProgress();
+  const words = learnedWordIds?.length ?? 0;
+  const scenarios = stats?.scenarios ?? 0;
+  const fruits = Math.floor(words / 5) + scenarios;
+  const art = useRef<HTMLDivElement>(null);
   // lastActiveDay is null for new learners (and during server render), so Date is only read in the browser.
   const daysAway = lastActiveDay ? Math.max(0, daysBetween(lastActiveDay, osloToday())) : 0;
   const { grown, stage, lost, health, shownXp } = treeState(xp, daysAway);
@@ -156,8 +178,8 @@ export function ProgressTree() {
 
   return (
     <Card className="flex flex-col items-center gap-4 text-center sm:flex-row sm:text-left lg:flex-col lg:text-center">
-      <div className={`flex h-32 w-32 shrink-0 items-end justify-center rounded-2xl md:h-36 md:w-36 ${health === "healthy" ? "bg-leaf-soft" : "bg-warn-soft/60"}`}>
-        <TreeArt xp={shownXp} health={health} className="h-full w-full" />
+      <div ref={art} className={`flex h-32 w-32 shrink-0 items-end justify-center rounded-2xl md:h-36 md:w-36 ${health === "healthy" ? "bg-leaf-soft" : "bg-warn-soft/60"}`}>
+        <TreeArt xp={shownXp} health={health} fruits={fruits} className="h-full w-full" />
       </div>
       <div className="w-full min-w-0 flex-1">
         <p className="text-sm font-semibold text-muted">Your tree</p>
@@ -171,6 +193,20 @@ export function ProgressTree() {
           <p className="mt-1 text-xs font-semibold text-muted">
             {next ? `${next.min - xp} XP until it becomes a ${next.name.toLowerCase()}` : "🌸 Fully grown"} · Stage {grown + 1} of {STAGES.length}
           </p>
+          {/* T21: what grew the tree + share it */}
+          <p className="mt-2 text-xs text-muted">
+            🍊 {fruits} {fruits === 1 ? "fruit" : "fruits"}: one for every 5 words ({words}) and every conversation ({scenarios})
+          </p>
+          <button
+            type="button"
+            onClick={() => {
+              const svg = art.current?.querySelector("svg");
+              if (svg) downloadTree(svg, { nickname, stage: current.name, words, scenarios, streak: streakDays });
+            }}
+            className="mt-1 inline-flex h-11 items-center gap-1.5 rounded-full px-1 text-sm font-semibold text-brand"
+          >
+            📸 Share my tree
+          </button>
         </div>
       </div>
     </Card>

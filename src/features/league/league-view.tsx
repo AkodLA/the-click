@@ -10,7 +10,9 @@ import { Badge, Button, Card, SectionTitle } from "@/components/ui";
 import { CEFR_LEVELS, leagueMonth, leagueWeek } from "@/lib/content";
 import type { CefrLevel, LeaguePeriod } from "@/lib/content/types";
 import { osloWeekClient, weekXpNow } from "@/lib/progress/display";
+import { SeasonBanner } from "@/features/engagement/season-banner";
 import { useProgress } from "@/lib/progress/store";
+import { TeamLeague } from "./team-league";
 
 /** Top N move up a division at the end of the period. */
 const PROMOTION_SPOTS = 3;
@@ -56,7 +58,32 @@ function timeLeft(period: LeaguePeriod, now = new Date()): string {
   return d > 0 ? `${d}d ${h}h` : `${h}h ${mins % 60}m`;
 }
 
+/** T21: People league (by level) or Team league (classes, workplaces), plus the seasonal challenge. */
 export function LeagueView() {
+  const [mode, setMode] = useState<"people" | "teams">("people");
+  return (
+    <div className="flex flex-col gap-5">
+      <div className="grid grid-cols-2 gap-1 rounded-2xl bg-surface-2 p-1" role="tablist" aria-label="League type">
+        {(["people", "teams"] as const).map((m) => (
+          <button
+            key={m}
+            type="button"
+            role="tab"
+            aria-selected={mode === m}
+            onClick={() => setMode(m)}
+            className={`h-11 rounded-xl text-sm font-bold transition ${mode === m ? "bg-surface text-ink shadow-sm" : "text-muted"}`}
+          >
+            {m === "people" ? "🙂 Learners" : "👥 Teams"}
+          </button>
+        ))}
+      </div>
+      <SeasonBanner compact />
+      {mode === "people" ? <PeopleLeague /> : <TeamLeague />}
+    </div>
+  );
+}
+
+function PeopleLeague() {
   const p = useProgress();
   const [period, setPeriod] = useState<LeaguePeriod>("week");
   const [browseLevel, setBrowseLevel] = useState<CefrLevel | null>(null);

@@ -8,6 +8,7 @@ export * from "./scenarios";
 export * from "./placement";
 export * from "./community";
 export * from "./vocab";
+export * from "./engagement";
 
 import type { Register } from "./types";
 

@@ -110,3 +110,15 @@ Response format: `{ ok: true, data }` or `{ ok: false, error: { code, message } 
 - **Review** (`src/lib/personal/review.ts`): Leitner boxes 1-3-7-14-30 days, browser only, no XP.
 - **Scenarios** can have `fields`; `/speak` puts the learner's field first (`/speak?field=logistics` also works). The tutor gets `age_group`, `field`, `interests` (see `agent/tutor-prompt.md`).
 - Pages: `/words`, `/words?pack=<id>`, `/words?review=1`; "About you" on `/profile#about-you`.
+
+### Engagement pack (T21)
+- **Why this level?** `placement_submitted` now stores `progress.placement` (right answers per level, from `scorePlacement().byLevel`). Shown on `/profile#why-level`.
+- **Weekly summary**: the server counts `stats` (lifetime) and `weekStats` (this Oslo week) for words, phrases, scenarios, writing, tandem, pronunciation, events, slangFlags, tests. `/profile#week`, with the most common mistake from the notebook.
+- **Mistake notebook** (`/notebook`, `src/lib/personal/mistakes.ts`): tutor corrections, Tandem fixes and missed pronunciation words, device-only, practice on the 1-3-7-14-30 rhythm. No XP.
+- **Explain-a-word** (`<ExplainText text />`, `src/features/explain/`): tap any word in tutor lines, Tandem messages and examples → meaning, register, level, example from our content (simple suffix matching), listen, on-device translation, link to learn it.
+- **Daily quests** (`questsForDay(day)` in `src/lib/content/engagement.ts`): 3 per Oslo day, same for everyone. The server checks the daily counters `d:<stat>` after every event, gives the bonus XP once (`quest:<id>`) and unlocks `quest-master` when all 3 are done.
+- **Streak freeze**: earned every 7 streak days (max 2), used automatically for exactly one missed day (`touchStreak`). `progress.streakFreezes`.
+- **Field level-up test**: event `field_test_submitted { packId, answers: { wordId: meaning } }` → the server checks the answers (≥ 4/5), stores `progress.certificates`, +40 XP once, `certified` badge; max 3 tries a day. Certificate PNG made in the browser.
+- **Seasonal challenges** (`seasons`, `seasonPacks`): words of the running season count in `progress.seasons` (server date) → limited badge. Autumn week runs 2–15 Nov 2026.
+- **Team league** (`/league` → Teams): join a sample team by code (device setting `prefs.teamCode`); your week XP counts for the team. Real teams need accounts (T17).
+- **Tree**: fruits for every 5 words and every conversation; "Share my tree" PNG.
