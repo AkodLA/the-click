@@ -13,7 +13,7 @@ export const scenarios: Scenario[] = [
     goal: "Order a coffee and a bun, ask the price, say thanks.",
     agentRole: "a friendly kiosk worker in Oslo",
     openingLine: "Hei! Hva skal det være?",
-    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det"],
+    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det", "nydelig-vaer"],
     xpReward: 30,
   },
   {
@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt"],
     xpReward: 40,
   },
   {
@@ -37,7 +37,7 @@ export const scenarios: Scenario[] = [
     goal: "Say yes to food politely, give a compliment, and thank the host the Norwegian way at the end.",
     agentRole: "a warm Norwegian host who invited you for Sunday dinner",
     openingLine: "Velkommen inn! Vil du ha noe å drikke?",
-    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig"],
+    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig", "takk-for-en-fin-kveld", "kan-vi-dele"],
     xpReward: 40,
   },
   {
@@ -49,7 +49,7 @@ export const scenarios: Scenario[] = [
     goal: "Introduce yourself, talk about the weekend, use «takk for sist» naturally.",
     agentRole: "a friendly colleague at a Norwegian workplace lunch",
     openingLine: "Hei, du er ny her, ikke sant? Hvordan går det?",
-    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes", "kan-jeg-fa-fri"],
+    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes", "kan-jeg-fa-fri", "hva-gjorde-du-i-helga", "for-et-vaer", "jeg-spanderer"],
     xpReward: 50,
   },
   {
@@ -73,7 +73,7 @@ export const scenarios: Scenario[] = [
     goal: "Book an appointment, explain what's wrong in 1–2 sentences, and confirm the day and time.",
     agentRole: "a receptionist at a Norwegian GP office",
     openingLine: "Legekontoret, hva kan jeg hjelpe deg med?",
-    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "han-har-feber", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til"],
+    keyPhraseIds: ["jeg-ringer-fordi", "jeg-har-vondt-i", "han-har-feber", "jeg-lurer-pa", "jeg-forstar-ikke", "saktere", "en-gang-til", "bestille-time"],
     xpReward: 70,
   },
   {
@@ -124,7 +124,7 @@ export const scenarios: Scenario[] = [
     goal: "Confirm your safety gear, ask what you'll do today, and say clearly if something is unclear.",
     agentRole: "a foreman (bas) on a building site",
     openingLine: "God morgen! Har du hjelm og vernesko?",
-    keyPhraseIds: ["en-gang-til", "greit", "unnskyld", "har-du-et-oyeblikk"],
+    keyPhraseIds: ["en-gang-til", "greit", "unnskyld", "har-du-et-oyeblikk", "jeg-beklager"],
     xpReward: 50,
     fields: ["construction"],
   },
@@ -137,7 +137,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet the guest, take the order, ask about allergies, and bring the bill.",
     agentRole: "a guest at a café in Oslo",
     openingLine: "Hei! Kan jeg få se menyen?",
-    keyPhraseIds: ["kan-jeg-fa", "har-dere", "vil-gjerne", "vaer-sa-god", "greit", "bare-hyggelig"],
+    keyPhraseIds: ["kan-jeg-fa", "har-dere", "vil-gjerne", "vaer-sa-god", "greit", "bare-hyggelig", "jeg-er-allergisk", "kan-vi-fa-regningen"],
     xpReward: 50,
     fields: ["hospitality"],
   },

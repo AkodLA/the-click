@@ -393,6 +393,83 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-culture",
+    kind: "everyday",
+    title: "Norwegian culture",
+    titleNo: "Norsk kultur",
+    emoji: "🇳🇴",
+    words: [
+      p("dugnad", "🧹", "en dugnad", "voluntary group work", "A2", "Det er dugnad i borettslaget på lørdag.", "There's a community clean-up in the housing co-op on Saturday."),
+      p("friluftsliv", "🏕️", "friluftsliv", "outdoor life", "B1", "Friluftsliv er en stor del av norsk kultur.", "Outdoor life is a big part of Norwegian culture."),
+      p("fredagstaco", "🌮", "fredagstaco", "Friday tacos", "A2", "Fredag betyr taco i nesten alle norske hjem.", "Friday means tacos in almost every Norwegian home."),
+      p("palegg", "🥪", "pålegg", "sandwich toppings", "A2", "Hva vil du ha som pålegg? Ost eller leverpostei?", "What topping do you want? Cheese or liver pâté?"),
+      p("brunost", "🧀", "brunost", "brown cheese", "A1", "Brunost på vafler er en klassiker.", "Brown cheese on waffles is a classic."),
+      p("janteloven", "🤫", "janteloven", "the Law of Jante (don't think you're better)", "B2", "Janteloven gjør at mange ikke liker å skryte.", "The Law of Jante means many people don't like to brag."),
+      p("hyttetur", "🛖", "en hyttetur", "a trip to the cabin", "A2", "Vi skal på hyttetur i påsken.", "We're going to the cabin at Easter."),
+      p("sondagstur", "🥾", "en søndagstur", "a Sunday walk", "A2", "Etter frokost tar vi en søndagstur i skogen.", "After breakfast we take a Sunday walk in the forest."),
+      p("paskekrim", "🔍", "påskekrim", "Easter crime stories", "B1", "Om påsken leser alle påskekrim.", "At Easter everyone reads crime novels."),
+      p("julebord", "🎄", "et julebord", "a Christmas party (work)", "B1", "Firmaet har julebord i desember.", "The company has its Christmas party in December."),
+      p("lordagsgodt", "🍬", "lørdagsgodt", "Saturday sweets", "A2", "Barna får lørdagsgodt hver lørdag.", "The kids get sweets every Saturday."),
+      p("allemannsretten", "🗺️", "allemannsretten", "the right to roam", "B2", "Allemannsretten lar deg gå tur nesten overalt.", "The right to roam lets you walk almost anywhere."),
+    ],
+  },
+  {
+    id: "everyday-school-subjects",
+    kind: "everyday",
+    title: "School subjects",
+    titleNo: "Skolefag",
+    emoji: "📚",
+    words: [
+      p("matte", "➗", "matte", "maths", "A1", "Vi har matte i første time.", "We have maths in the first lesson.", "informal"),
+      p("norsk", "🇳🇴", "norsk", "Norwegian (subject)", "A0", "Hun er flink i norsk.", "She's good at Norwegian."),
+      p("engelsk", "🇬🇧", "engelsk", "English (subject)", "A0", "Engelsk er favorittfaget mitt.", "English is my favourite subject."),
+      p("gym", "🤸", "gym", "PE (physical education)", "A1", "Husk gymtøy i morgen!", "Remember your PE clothes tomorrow!", "informal"),
+      p("naturfag", "🔬", "naturfag", "science", "A2", "I naturfag lærer vi om planter.", "In science we learn about plants."),
+      p("samfunnsfag", "🌍", "samfunnsfag", "social studies", "B1", "I samfunnsfag snakker vi om demokrati.", "In social studies we talk about democracy."),
+      p("kunst", "🎨", "kunst og håndverk", "arts and crafts", "A2", "I kunst og håndverk lager de juletrepynt.", "In arts and crafts they make Christmas decorations."),
+      p("mat-og-helse", "🥗", "mat og helse", "food and health (home economics)", "A2", "I mat og helse bakte vi brød.", "In food and health we baked bread."),
+      p("musikk", "🎵", "musikk", "music (subject)", "A1", "Vi synger mye i musikk.", "We sing a lot in music."),
+    ],
+  },
+  {
+    id: "everyday-animals",
+    kind: "everyday",
+    title: "Animals",
+    titleNo: "Dyr",
+    emoji: "🐄",
+    words: [
+      p("ku", "🐄", "ei ku", "a cow", "A1", "Kuene står ute på beite om sommeren.", "The cows are out grazing in summer."),
+      p("sau", "🐑", "en sau", "a sheep", "A1", "Det er flere sauer enn folk her!", "There are more sheep than people here!"),
+      p("gris", "🐖", "en gris", "a pig", "A1", "Grisen ruller seg i gjørma.", "The pig is rolling in the mud."),
+      p("hest", "🐎", "en hest", "a horse", "A1", "Hun rir på hesten hver helg.", "She rides the horse every weekend."),
+      p("hone", "🐔", "ei høne", "a hen", "A2", "Hønene legger egg hver dag.", "The hens lay eggs every day."),
+      p("rev", "🦊", "en rev", "a fox", "A2", "Vi så en rev i hagen i natt!", "We saw a fox in the garden last night!"),
+      p("ulv", "🐺", "en ulv", "a wolf", "A2", "Det finnes ulv i Østerdalen.", "There are wolves in Østerdalen."),
+      p("bjorn", "🐻", "en bjørn", "a bear", "A2", "Bjørnen sover hele vinteren.", "The bear sleeps all winter."),
+      p("reinsdyr", "🦌", "et reinsdyr", "a reindeer", "A2", "I Finnmark kan du se reinsdyr ved veien.", "In Finnmark you can see reindeer by the road."),
+      p("hval", "🐋", "en hval", "a whale", "A2", "Om vinteren kommer hvalene til Tromsø.", "In winter the whales come to Tromsø."),
+    ],
+  },
+  {
+    id: "everyday-clothes",
+    kind: "everyday",
+    title: "Clothes",
+    titleNo: "Klær",
+    emoji: "👕",
+    words: [
+      p("bukse", "👖", "ei bukse", "trousers", "A1", "Jeg trenger ei ny bukse til jobben.", "I need new trousers for work."),
+      p("genser", "🧶", "en genser", "a jumper / sweater", "A1", "Ta på deg en genser, det er kaldt.", "Put on a jumper, it's cold."),
+      p("t-skjorte", "👕", "ei t-skjorte", "a T-shirt", "A0", "Det er varmt nok for t-skjorte i dag.", "It's warm enough for a T-shirt today."),
+      p("kjole", "👗", "en kjole", "a dress", "A1", "Hun har på seg en blå kjole.", "She's wearing a blue dress."),
+      p("skjerf", "🧣", "et skjerf", "a scarf", "A1", "Husk skjerf, det blåser kaldt.", "Remember your scarf, there's a cold wind."),
+      p("stovler", "🥾", "støvler", "boots", "A1", "Barna må ha gummistøvler i barnehagen.", "The kids need rubber boots at kindergarten."),
+      p("regntoy", "☔", "regntøy", "rainwear", "A2", "I Bergen trenger du alltid regntøy.", "In Bergen you always need rainwear."),
+      p("badetoy", "🩱", "badetøy", "swimwear", "A2", "Husk badetøy til svømmingen.", "Remember swimwear for swimming."),
+      p("briller", "👓", "briller", "glasses", "A1", "Jeg finner ikke brillene mine!", "I can't find my glasses!"),
+      p("sekk", "🎒", "en sekk", "a backpack", "A1", "Pakk sekken kvelden før turen.", "Pack your backpack the evening before the trip."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -493,7 +570,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
