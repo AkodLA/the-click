@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Button, RegisterTag } from "@/components/ui";
 
 // Public landing page: the first thing the jury sees. Owner: T15 (polish + pricing).
@@ -18,16 +17,16 @@ export default function Landing() {
         <span className="text-2xl font-black tracking-tight text-brand">
           snakk<span className="text-accent">.</span>
         </span>
-        <Link href="/learn" className="text-sm font-semibold text-muted hover:text-ink">
+        <Button href="/learn" variant="ghost" className="text-sm">
           Open app →
-        </Link>
+        </Button>
       </header>
 
       <main className="mx-auto max-w-5xl px-5">
         <section className="grid items-center gap-10 py-12 md:grid-cols-2 md:py-20">
           <div>
             <p className="font-semibold text-accent">Learn Norwegian by speaking it</p>
-            <h1 className="mt-3 text-5xl font-black leading-[1.05] tracking-tight md:text-6xl">
+            <h1 className="mt-3 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
               Textbooks teach Norwegian. <span className="text-brand">We teach how Norway talks.</span>
             </h1>
             <p className="mt-5 text-lg text-muted">
@@ -42,23 +41,24 @@ export default function Landing() {
                 Try the app
               </Button>
             </div>
+            <p className="mt-4 text-sm text-muted">✓ No account needed · ✓ Free to start · ✓ Works on your phone</p>
           </div>
 
           {/* Visual: the "same thing, three rooms" idea */}
           <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-xl">
             <p className="text-sm font-semibold text-muted">How do you say «that was great» in…</p>
             <ul className="mt-4 flex flex-col gap-3">
-              <li className="flex items-center justify-between rounded-2xl bg-surface-2 p-4">
+              <li className="flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-surface-2 p-4">
                 <span className="text-lg font-bold">«Det var sykt bra, ass!»</span>
-                <RegisterTag register="slang" />
+                <RegisterTag register="slang" withHint />
               </li>
-              <li className="flex items-center justify-between rounded-2xl bg-surface-2 p-4">
+              <li className="flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-surface-2 p-4">
                 <span className="text-lg font-bold">«Det var kjempebra!»</span>
-                <RegisterTag register="informal" />
+                <RegisterTag register="informal" withHint />
               </li>
-              <li className="flex items-center justify-between rounded-2xl bg-surface-2 p-4">
+              <li className="flex flex-wrap items-center justify-between gap-2 rounded-2xl bg-surface-2 p-4">
                 <span className="text-lg font-bold">«Det var svært vellykket.»</span>
-                <RegisterTag register="formal" />
+                <RegisterTag register="formal" withHint />
               </li>
             </ul>
             <p className="mt-4 text-sm text-muted">Snakk tells you which one fits the room you&apos;re in.</p>

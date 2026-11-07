@@ -42,17 +42,17 @@ function TopBar() {
             <NavLink key={n.href} {...n} compact />
           ))}
         </nav>
-        <div className="flex items-center gap-3 text-sm font-semibold">
-          <span title="Day streak" aria-label={`${p.streakDays} day streak`}>
+        <Link href="/profile" aria-label={`Your progress: ${p.streakDays} day streak, level ${level}, ${p.xp} XP`} className="flex items-center gap-1.5 text-sm font-bold tabular-nums">
+          <span title="Day streak" className={`rounded-full px-2.5 py-1 ${p.streakDays > 0 ? "bg-warn-soft text-warn" : "bg-surface-2 text-muted"}`}>
             🔥 {p.streakDays}
           </span>
-          <span title="Level" className="rounded-full bg-brand-soft px-2 py-0.5 text-brand">
+          <span title="Player level" className="rounded-full bg-brand-soft px-2.5 py-1 text-brand">
             Lv {level}
           </span>
-          <span title="XP" className="text-accent">
-            {p.xp} XP
+          <span title="Total XP" className="rounded-full bg-accent-soft px-2.5 py-1 text-accent">
+            ⚡ {p.xp}
           </span>
-        </div>
+        </Link>
       </div>
     </header>
   );
@@ -69,8 +69,8 @@ function NavLink({ href, label, icon, compact = false }: { href: string; label: 
     );
   }
   return (
-    <Link href={href} aria-current={active ? "page" : undefined} className={`flex flex-1 flex-col items-center gap-0.5 py-2 text-xs font-semibold ${active ? "text-brand" : "text-muted"}`}>
-      <span className={`text-xl transition ${active ? "scale-110" : "opacity-70"}`} aria-hidden>
+    <Link href={href} aria-current={active ? "page" : undefined} className={`flex min-h-14 flex-1 flex-col items-center justify-center gap-0.5 py-1.5 text-xs font-semibold ${active ? "text-brand" : "text-muted hover:text-ink"}`}>
+      <span className={`flex h-8 w-14 items-center justify-center rounded-full text-xl transition ${active ? "bg-brand-soft" : "opacity-70 grayscale-[40%]"}`} aria-hidden>
         {icon}
       </span>
       {label}
@@ -103,7 +103,7 @@ function RewardToasts() {
   return (
     <div className="pointer-events-none fixed inset-x-0 top-16 z-30 flex flex-col items-center gap-2 px-4" aria-live="polite">
       {items.map((r) => (
-        <div key={r.id} className="flex items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-lg">
+        <div key={r.id} className="animate-toast-in flex w-full max-w-sm items-center gap-3 rounded-2xl border border-line bg-surface px-4 py-3 shadow-lg">
           <span className="text-2xl" aria-hidden>
             {r.emoji}
           </span>
