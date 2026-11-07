@@ -1,7 +1,9 @@
 import type { Metadata } from "next";
-import { Fredoka, Geist_Mono, Noto_Color_Emoji, Nunito } from "next/font/google";
+import { Fredoka, Geist_Mono, Nunito } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
+// T24: emoji font for word pictures (separate import on purpose: fewer merge conflicts in this shared file).
+import { Noto_Color_Emoji } from "next/font/google";
 
 // Cozy, friendly type: rounded Fredoka for headings, soft Nunito for reading.
 const fredoka = Fredoka({
