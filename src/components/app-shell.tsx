@@ -17,11 +17,15 @@ const NAV = [
   { href: "/profile", label: "Me", icon: "🙂" },
 ];
 
+/** Screens with a desktop two-column layout get a wider frame; the rest stay a readable single column. */
+const WIDE_PATHS = ["/learn"];
+
 export function AppShell({ children }: { children: ReactNode }) {
+  const wide = WIDE_PATHS.includes(usePathname());
   return (
     <div className="flex min-h-dvh flex-col">
       <TopBar />
-      <main className="mx-auto w-full max-w-2xl flex-1 px-4 pb-28 pt-4 md:pb-10">{children}</main>
+      <main className={`mx-auto w-full flex-1 px-4 pb-28 pt-4 md:px-6 md:pb-10 ${wide ? "max-w-2xl lg:max-w-5xl" : "max-w-2xl"}`}>{children}</main>
       <BottomNav />
       <RewardToasts />
     </div>
@@ -33,7 +37,7 @@ function TopBar() {
   const { level } = levelProgress(p.xp);
   return (
     <header className="sticky top-0 z-20 border-b border-line bg-surface/85 backdrop-blur">
-      <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4">
+      <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4 md:px-6 lg:max-w-5xl">
         <Link href="/learn" className="text-xl font-black tracking-tight text-brand">
           snakk<span className="text-accent">.</span>
         </Link>
