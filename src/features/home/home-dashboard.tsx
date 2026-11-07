@@ -45,9 +45,12 @@ export function HomeDashboard() {
   ];
 
   return (
-    <div className="flex flex-col gap-6">
+    // Phones/tablets: one column in the order-* sequence. Desktop (lg): lessons on the left,
+    // a sticky sidebar with tree + goals on the right. The wrappers are `contents` below lg so order-* works.
+    <div className="flex flex-col gap-6 lg:grid lg:grid-cols-[minmax(0,1fr)_20rem] lg:items-start lg:gap-8">
+      <div className="contents lg:flex lg:flex-col lg:gap-6">
       {/* Greeting + level */}
-      <section className="rounded-3xl bg-brand p-6 text-brand-ink shadow-md">
+      <section className="order-1 rounded-3xl bg-brand p-6 text-brand-ink shadow-md lg:order-none">
         <p className="text-sm font-semibold opacity-80">Hei{p.nickname ? `, ${p.nickname}` : ""}! 👋</p>
         <h1 className="mt-1 text-3xl font-black leading-tight">Let&apos;s speak some real Norwegian today.</h1>
         {p.cefr && <span className="mt-4 inline-flex rounded-full bg-white/20 px-3 py-1 text-sm font-bold">Your level: {p.cefr}</span>}
@@ -64,7 +67,7 @@ export function HomeDashboard() {
 
       {/* First-time guide: tells a new learner exactly what to do, then disappears. */}
       {startSteps.some((s) => !s.done) && (
-        <section aria-labelledby="start-here">
+        <section aria-labelledby="start-here" className="order-2 lg:order-none">
           <SectionTitle action={<span className="text-sm font-semibold text-muted">{startSteps.filter((s) => s.done).length} of {startSteps.length} done</span>}>
             <span id="start-here">Start here</span>
           </SectionTitle>
@@ -97,28 +100,8 @@ export function HomeDashboard() {
         </section>
       )}
 
-      {/* Grows with total XP: a visible reward for every bit of practice. */}
-      <ProgressTree />
-
-      {/* Daily goal + streak */}
-      <div className="grid grid-cols-2 gap-3">
-        <Card className="flex flex-col gap-2">
-          <p className="text-sm font-semibold text-muted">Daily goal</p>
-          <p className="text-2xl font-black tabular-nums">
-            {Math.min(todayXp, DAILY_GOAL_XP)}/{DAILY_GOAL_XP} <span className="text-base font-semibold text-muted">XP</span>
-          </p>
-          <ProgressBar value={goalRatio} tone={goalDone ? "success" : "accent"} label="Daily goal" />
-          <p className="text-xs text-muted">{goalDone ? "✅ Goal reached. Nice!" : todayXp === 0 ? "Learn one phrase to start." : `${DAILY_GOAL_XP - todayXp} XP to go today.`}</p>
-        </Card>
-        <Card className="flex flex-col gap-2">
-          <p className="text-sm font-semibold text-muted">Streak</p>
-          <p className="text-2xl font-black">🔥 {p.streakDays} {p.streakDays === 1 ? "day" : "days"}</p>
-          <p className="text-xs text-muted">{p.streakDays === 0 ? "Practise today to start one." : "Practise every day to keep it."}</p>
-        </Card>
-      </div>
-
       {/* Continue speaking */}
-      <section>
+      <section className="order-5 lg:order-none">
         <SectionTitle action={<Link href="/speak" className="text-sm font-semibold text-brand">All scenarios →</Link>}>
           Speak now
         </SectionTitle>
@@ -143,7 +126,7 @@ export function HomeDashboard() {
       </section>
 
       {/* Phrase of the moment */}
-      <section id="phrase" className="scroll-mt-20">
+      <section id="phrase" className="order-6 scroll-mt-20 lg:order-none">
         <SectionTitle action={<Link href="/phrases" className="text-sm font-semibold text-brand">Phrasebook →</Link>}>
           Say it like a local
         </SectionTitle>
@@ -151,7 +134,7 @@ export function HomeDashboard() {
       </section>
 
       {/* More ways to learn */}
-      <section>
+      <section className="order-7 lg:order-none">
         <SectionTitle>More ways to practise</SectionTitle>
         <div className="grid grid-cols-2 gap-3">
           {TILES.map((t) => (
@@ -165,6 +148,32 @@ export function HomeDashboard() {
           ))}
         </div>
       </section>
+      </div>
+
+      {/* Sidebar on desktop */}
+      <div className="contents lg:sticky lg:top-20 lg:flex lg:flex-col lg:gap-6">
+      {/* Grows with total XP: a visible reward for every bit of practice. */}
+      <div className="order-3 lg:order-none">
+        <ProgressTree />
+      </div>
+
+      {/* Daily goal + streak */}
+      <div className="order-4 grid grid-cols-2 gap-3 lg:order-none">
+        <Card className="flex flex-col gap-2">
+          <p className="text-sm font-semibold text-muted">Daily goal</p>
+          <p className="text-2xl font-black tabular-nums">
+            {Math.min(todayXp, DAILY_GOAL_XP)}/{DAILY_GOAL_XP} <span className="text-base font-semibold text-muted">XP</span>
+          </p>
+          <ProgressBar value={goalRatio} tone={goalDone ? "success" : "accent"} label="Daily goal" />
+          <p className="text-xs text-muted">{goalDone ? "✅ Goal reached. Nice!" : todayXp === 0 ? "Learn one phrase to start." : `${DAILY_GOAL_XP - todayXp} XP to go today.`}</p>
+        </Card>
+        <Card className="flex flex-col gap-2">
+          <p className="text-sm font-semibold text-muted">Streak</p>
+          <p className="text-2xl font-black">🔥 {p.streakDays} {p.streakDays === 1 ? "day" : "days"}</p>
+          <p className="text-xs text-muted">{p.streakDays === 0 ? "Practise today to start one." : "Practise every day to keep it."}</p>
+        </Card>
+      </div>
+      </div>
     </div>
   );
 }

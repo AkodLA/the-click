@@ -42,17 +42,17 @@ export default function Landing() {
 
       <main className="mx-auto max-w-5xl px-5">
         {/* Hero: what it is, who it's for, one main action */}
-        <section className="grid items-center gap-10 py-12 md:grid-cols-2 md:py-20">
+        <section className="grid items-center gap-10 py-12 md:py-16 lg:grid-cols-2 lg:py-20">
           <div>
             <Badge tone="brand" className="px-3 py-1 text-sm">🇳🇴 Speaking app for Norwegian · A0–C2</Badge>
             <h1 className="mt-4 text-4xl font-black leading-[1.05] tracking-tight sm:text-5xl md:text-6xl">
               Learn the Norwegian <span className="text-brand">people actually speak.</span>
             </h1>
-            <p className="mt-5 text-lg text-muted">
+            <p className="mt-5 max-w-xl text-lg text-muted">
               Practise real conversations out loud with an AI voice tutor, and learn which words fit where: with friends,
               at work, at the doctor. From your first «hei» to fluent.
             </p>
-            <div className="mt-8 flex flex-col gap-3 sm:flex-row">
+            <div className="mt-8 flex flex-col gap-3 sm:flex-row [&>*]:whitespace-nowrap">
               <Button href="/onboarding" size="lg">
                 Find my level, free
               </Button>
@@ -64,7 +64,7 @@ export default function Landing() {
           </div>
 
           {/* Visual: the "same thing, three rooms" idea that makes Snakk different */}
-          <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-xl">
+          <div className="w-full max-w-lg justify-self-center rounded-[2rem] lg:max-w-none border border-line bg-surface p-6 shadow-xl">
             <p className="text-sm font-semibold text-muted">One meaning, three ways to say it</p>
             <p className="mt-1 text-xl font-black">«That was great!»</p>
             <ul className="mt-4 flex flex-col gap-3">
