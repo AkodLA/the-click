@@ -38,6 +38,11 @@ export function LanguageWelcome() {
   const p = useProgress();
   const dialog = useRef<HTMLDialogElement>(null);
   const [native, setNative] = useState<AvailableLanguage>("en");
+  // Connection with the rest of the app: a native language the picker can't show yet (e.g. Spanish from
+  // the placement test) is kept unless the learner picks one here on purpose.
+  const [nativeTouched, setNativeTouched] = useState(false);
+  const keepNative = !nativeTouched && !(AVAILABLE_LANGUAGES as readonly string[]).includes(p.nativeLanguage) ? p.nativeLanguage : null;
+  const keptName = keepNative ? LANGUAGE_OPTIONS.find((l) => l.code === keepNative)?.nativeName ?? keepNative : null;
   const [target, setTarget] = useState<AvailableLanguage>("nb");
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -48,6 +53,7 @@ export function LanguageWelcome() {
     const t = asAvailable(p.targetLanguage, "nb");
     setNative(n);
     setTarget(t === n ? other(n) : t);
+    setNativeTouched(false);
     setError(null);
     dialog.current?.showModal();
   }, [p.nativeLanguage, p.targetLanguage]);
@@ -67,11 +73,20 @@ export function LanguageWelcome() {
     } catch {
       seen = false;
     }
-    if (!seen) dialog.current?.showModal();
+    // Someone who already has progress (e.g. finished the placement test) has told us their language.
+    let hasProgress = false;
+    try {
+      hasProgress = Boolean(window.localStorage.getItem("snakk.progress.token.v1"));
+    } catch {
+      hasProgress = false;
+    }
+    if (hasProgress) markSeen();
+    else if (!seen) dialog.current?.showModal();
   }, []);
 
   // Picking the same language on both sides flips the other one, so the pair is always valid.
   function pickNative(code: AvailableLanguage) {
+    setNativeTouched(true);
     setNative(code);
     if (code === target) setTarget(other(code));
   }
@@ -84,7 +99,7 @@ export function LanguageWelcome() {
     setSaving(true);
     setError(null);
     try {
-      await progressActions.send({ type: "languages_set", nativeLanguage: native, targetLanguage: target });
+      await progressActions.send({ type: "languages_set", nativeLanguage: keepNative ?? native, targetLanguage: target });
       markSeen();
       dialog.current?.close();
     } catch {
@@ -113,7 +128,12 @@ export function LanguageWelcome() {
           </div>
         </div>
 
-        <LanguageGroup label="I speak" value={native} onPick={pickNative} />
+        <LanguageGroup label="I speak" value={keepNative ? null : native} onPick={pickNative} />
+        {keptName && (
+          <p className="-mt-3 text-sm text-muted">
+            You speak <span className="font-semibold text-ink">{keptName}</span> (from your profile). We&apos;ll keep it unless you pick one above.
+          </p>
+        )}
         <LanguageGroup label="I want to learn" value={target} onPick={pickTarget} />
 
         {target === "en" && (
@@ -136,7 +156,7 @@ export function LanguageWelcome() {
   );
 }
 
-function LanguageGroup({ label, value, onPick }: { label: string; value: AvailableLanguage; onPick: (code: AvailableLanguage) => void }) {
+function LanguageGroup({ label, value, onPick }: { label: string; value: AvailableLanguage | null; onPick: (code: AvailableLanguage) => void }) {
   const available = LANGUAGE_OPTIONS.filter((l) => l.available);
   const soon = LANGUAGE_OPTIONS.filter((l) => !l.available);
   return (
