@@ -7,6 +7,7 @@
  * Nothing is sent to any server.
  */
 import { useEffect, useState } from "react";
+import Link from "next/link";
 import { Badge, Button, Card, SectionTitle } from "@/components/ui";
 import { TranslateButton } from "@/features/translate/translate-button";
 import { LANGUAGE_NAMES } from "@/lib/content";
@@ -77,10 +78,11 @@ export function TranslatorCheck() {
     <div className="flex flex-col gap-6">
       <section className="rounded-3xl bg-brand p-6 text-brand-ink shadow-md">
         <p className="text-sm font-semibold opacity-80">🌐 Translator</p>
-        <h1 className="mt-1 text-3xl font-black leading-tight">Translation that stays on your phone.</h1>
+        <h1 className="mt-1 text-3xl font-black leading-tight">Understand it. Then say it.</h1>
         <p className="mt-2 text-sm opacity-90">
-          Snakk uses the translator built into your browser (Opera Web AI or Chrome). Your text never leaves your device. For the {mem.nbToEn} Norwegian
-          sentences and words in Snakk, you get our own checked translations first.
+          Got a message from school or work you don&apos;t understand? Translate it here, then learn it: tap any word, listen, save it, say it out loud.
+          For the {mem.nbToEn} Norwegian sentences and words in Snakk you get our own checked translations; everything else is machine translation made
+          by your browser (Opera Web AI or Chrome), and it never leaves your device.
         </p>
       </section>
 
@@ -168,7 +170,7 @@ export function TranslatorCheck() {
       )}
 
       <section>
-        <SectionTitle>Translate anything</SectionTitle>
+        <SectionTitle action={<Link href="/speak" className="text-sm font-semibold text-brand">Practise speaking →</Link>}>Understand a message</SectionTitle>
         <Card className="flex flex-col gap-3">
           <div className="grid grid-cols-2 gap-1 rounded-2xl bg-surface-2 p-1" role="radiogroup" aria-label="Direction">
             {(["from-nb", "to-nb"] as const).map((d) => (

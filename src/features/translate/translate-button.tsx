@@ -8,6 +8,9 @@
 import { useState } from "react";
 import { LANGUAGE_NAMES } from "@/lib/content";
 import Link from "next/link";
+import { speakNorwegian } from "@/lib/speech";
+import { SaveToNotes } from "@/features/notes/save-to-notes";
+import { ExplainText } from "@/features/explain/explain-text";
 import type { GlossaryNote } from "@/lib/web-ai/memory";
 import { checkTranslation, translateText, type Confidence } from "@/lib/web-ai/translator";
 
@@ -77,9 +80,29 @@ export function TranslateButton({
       </button>
       {state.kind === "done" && (
         <div className="flex max-w-full flex-col gap-1.5 rounded-2xl bg-surface-2 px-3 py-2 text-sm" aria-live="polite">
-          <p lang={to} dir="auto">
-            {state.text}
-          </p>
+          {to === "nb" ? (
+            // Platform goal: learn it by speaking it. Norwegian results are tappable, listenable and saveable.
+            <>
+              <p lang="nb" className="font-semibold">
+                <ExplainText text={state.text} />
+              </p>
+              <span className="flex flex-wrap items-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => speakNorwegian(state.text)}
+                  className="inline-flex h-11 items-center gap-1 rounded-full border border-line bg-surface px-3 text-xs font-semibold"
+                >
+                  🔊 Listen
+                </button>
+                <SaveToNotes size="sm" text={state.text} meaning={text} source="manual" />
+              </span>
+              <span className="text-xs font-semibold text-brand">🎙️ Now say it out loud yourself, twice.</span>
+            </>
+          ) : (
+            <p lang={to} dir="auto">
+              {state.text}
+            </p>
+          )}
           {state.notes.length > 0 && (
             <ul className="flex flex-col gap-0.5 border-t border-line pt-1.5 text-xs">
               {state.notes.map((n) => (
@@ -93,7 +116,7 @@ export function TranslateButton({
             </ul>
           )}
           <span className="text-[11px] text-muted">
-            {state.via === "memory" ? "✓ Checked translation from Snakk" : "On-device translation · may not be perfect"}
+            {state.via === "memory" ? "✓ Checked translation from Snakk" : "Machine translation on your device · may not be perfect"}
             {state.via === "device" && check === null && (
               <>
                 {" · "}
