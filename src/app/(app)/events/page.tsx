@@ -1,10 +1,6 @@
-import { ComingSoon } from "@/components/ui";
+import { EventsView } from "@/features/events/events-view";
 
-// Owner: T11. Build the feature in src/features/ and render it here.
+// Owner: T11. The real UI lives in src/features/events/.
 export default function Page() {
-  return (
-    <ComingSoon task="T11" title="Språkkafé and events" emoji="🧇">
-      Language cafés near you. Check in to earn XP and badges.
-    </ComingSoon>
-  );
+  return <EventsView />;
 }

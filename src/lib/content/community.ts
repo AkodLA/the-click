@@ -68,6 +68,40 @@ export const languageEvents: LanguageEvent[] = [
     description: "Learn the words you actually need to win.",
     isSample: true,
   },
+  // More sample events (T11). ev-4 is on pitch day, so the live check-in can be shown in the demo.
+  {
+    id: "ev-4",
+    title: "Sunday språkkafé: first words",
+    place: "Community house (example)",
+    area: "Sentrum",
+    startsAt: "2026-11-08T11:00:00+01:00",
+    levels: ["A0", "A1", "A2"],
+    xpReward: 80,
+    description: "For total beginners. Volunteers help you say hello, order a coffee and talk about yourself.",
+    isSample: true,
+  },
+  {
+    id: "ev-5",
+    title: "Lunch chat for job seekers",
+    place: "Volunteer centre (example)",
+    area: "Grønland",
+    startsAt: "2026-11-12T11:30:00+01:00",
+    levels: ["A2", "B1", "B2"],
+    xpReward: 60,
+    description: "Practise small talk and interview phrases with people who work in Norway.",
+    isSample: true,
+  },
+  {
+    id: "ev-6",
+    title: "Debate night: Norwegian news",
+    place: "Student house (example)",
+    area: "Blindern",
+    startsAt: "2026-11-16T19:00:00+01:00",
+    levels: ["B2", "C1", "C2"],
+    xpReward: 70,
+    description: "Read a short news story, then discuss it. Advanced learners and native speakers.",
+    isSample: true,
+  },
 ];
 
 /** Anonymous tandem partners: nickname + avatar only. */
