@@ -27,6 +27,8 @@
   --danger: #d93a3a;
   --danger-soft: #fde8e8;
   --wood: #8a5a3b;
+  --leaf: #5aaee8;
+  --leaf-soft: #e3f2fd;
 
   --reg-slang: #c026d3;
   --reg-informal: #f97316;
@@ -55,6 +57,8 @@
     --danger: #f87171;
     --danger-soft: #3a1717;
     --wood: #b98a62;
+    --leaf: #8ccfff;
+    --leaf-soft: #13263d;
   }
 }
 
@@ -77,6 +81,8 @@
   --color-danger: var(--danger);
   --color-danger-soft: var(--danger-soft);
   --color-wood: var(--wood);
+  --color-leaf: var(--leaf);
+  --color-leaf-soft: var(--leaf-soft);
   --color-reg-slang: var(--reg-slang);
   --color-reg-informal: var(--reg-informal);
   --color-reg-neutral: var(--reg-neutral);

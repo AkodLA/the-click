@@ -8,9 +8,12 @@
     "start": "next start",
     "lint": "eslint",
     "partner:key": "node scripts/create-partner-key.mjs",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "secret-scan": "node scripts/secret-scan.mjs",
+    "security-check": "node scripts/security-check.mjs"
   },
   "dependencies": {
+    "@elevenlabs/react": "^1.21.1",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",
