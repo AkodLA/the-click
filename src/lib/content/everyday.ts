@@ -584,6 +584,63 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-dishes",
+    kind: "everyday",
+    title: "Norwegian dishes",
+    titleNo: "Norsk mat",
+    emoji: "🍲",
+    words: [
+      p("farikal", "🥘", "fårikål", "lamb and cabbage stew", "A2", "Fårikål er Norges nasjonalrett.", "Lamb and cabbage stew is Norway's national dish."),
+      p("kjottkaker", "🧆", "kjøttkaker", "Norwegian meatballs", "A2", "Mormor lager de beste kjøttkakene.", "Grandma makes the best meatballs."),
+      p("laks", "🐟", "laks", "salmon", "A1", "Norsk laks spises over hele verden.", "Norwegian salmon is eaten all over the world."),
+      p("kanelbolle", "🥐", "en kanelbolle", "a cinnamon bun", "A1", "En kanelbolle og en kaffe, takk.", "A cinnamon bun and a coffee, please."),
+      p("lefse", "🫓", "ei lefse", "a soft flatbread", "B1", "Lefse med smør og sukker er godt til kaffen.", "Lefse with butter and sugar is nice with coffee."),
+      p("grot", "🥣", "grøt", "porridge", "A2", "På lørdager spiser vi risgrøt.", "On Saturdays we eat rice porridge."),
+      p("pinnekjott", "🍖", "pinnekjøtt", "salted lamb ribs (Christmas)", "B1", "Vi spiser pinnekjøtt på julaften.", "We eat salted lamb ribs on Christmas Eve."),
+      p("polse", "🌭", "ei pølse", "a sausage / hot dog", "A1", "En pølse i lompe, takk.", "A hot dog in a potato flatbread, please."),
+      p("reker", "🦐", "reker", "prawns", "A2", "Om sommeren spiser vi reker på brygga.", "In summer we eat prawns on the pier."),
+      p("bringebaersyltetoy", "🍓", "syltetøy", "jam", "A2", "Vafler med syltetøy og rømme!", "Waffles with jam and sour cream!"),
+    ],
+  },
+  {
+    id: "everyday-where",
+    kind: "everyday",
+    title: "Where is it?",
+    titleNo: "Hvor er det?",
+    emoji: "📍",
+    words: [
+      p("pa", "⬇️", "på", "on", "A0", "Nøklene ligger på bordet.", "The keys are on the table."),
+      p("under", "🔽", "under", "under", "A0", "Katten sover under senga.", "The cat is sleeping under the bed."),
+      p("i", "📥", "i", "in", "A0", "Melka er i kjøleskapet.", "The milk is in the fridge."),
+      p("ved-siden-av", "↔️", "ved siden av", "next to", "A1", "Apoteket ligger ved siden av butikken.", "The pharmacy is next to the shop."),
+      p("foran", "⏩", "foran", "in front of", "A1", "Vi møtes foran kinoen.", "We meet in front of the cinema."),
+      p("bak", "⏪", "bak", "behind", "A1", "Sykkelen står bak huset.", "The bike is behind the house."),
+      p("mellom", "⏸️", "mellom", "between", "A1", "Banken ligger mellom posten og kafeen.", "The bank is between the post office and the café."),
+      p("inne", "🏠", "inne", "inside", "A1", "Det er varmt inne.", "It's warm inside."),
+      p("ute", "🌳", "ute", "outside", "A1", "Barna leker ute hele dagen.", "The kids play outside all day."),
+      p("oppe-nede", "↕️", "oppe / nede", "upstairs / downstairs", "A1", "Toalettet er nede, soverommene er oppe.", "The toilet is downstairs, the bedrooms are upstairs."),
+    ],
+  },
+  {
+    id: "everyday-chores",
+    kind: "everyday",
+    title: "Housework",
+    titleNo: "Husarbeid",
+    emoji: "🧺",
+    words: [
+      p("rydde", "🧸", "å rydde", "to tidy up", "A1", "Rydd rommet ditt før middag!", "Tidy your room before dinner!"),
+      p("vaske-opp", "🍽️", "å vaske opp", "to do the dishes", "A1", "Hvem vasker opp i dag?", "Who's doing the dishes today?"),
+      p("ta-ut-soppel", "🗑️", "å ta ut søpla", "to take out the rubbish", "A1", "Kan du ta ut søpla?", "Can you take out the rubbish?"),
+      p("kildesortere", "♻️", "å kildesortere", "to sort waste for recycling", "B1", "I Norge kildesorterer vi plast, papir og matavfall.", "In Norway we sort plastic, paper and food waste."),
+      p("vaske-klaer", "🧺", "å vaske klær", "to do the laundry", "A1", "Jeg vasker klær på søndag.", "I do the laundry on Sunday."),
+      p("henge-opp", "👚", "å henge opp klær", "to hang up washing", "A2", "Heng opp klærne så de tørker.", "Hang up the clothes so they dry."),
+      p("re-opp", "🛏️", "å re opp senga", "to make the bed", "A2", "Husk å re opp senga.", "Remember to make the bed."),
+      p("handle", "🛒", "å handle", "to do the shopping", "A1", "Jeg handler på vei hjem fra jobb.", "I do the shopping on the way home from work."),
+      p("lufte", "🪟", "å lufte", "to air (a room)", "B1", "Åpne vinduet og luft litt.", "Open the window and air the room a bit."),
+      p("vanne", "🪴", "å vanne blomstene", "to water the plants", "A2", "Kan du vanne blomstene mens vi er bortreist?", "Can you water the plants while we're away?"),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -684,7 +741,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "dishes", "where", "chores", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;

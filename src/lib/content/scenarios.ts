@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt", "sa-fin-du-er", "hvor-kommer-du-fra", "hvor-lenge-har-du-bodd"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt", "sa-fin-du-er", "hvor-kommer-du-fra", "hvor-lenge-har-du-bodd", "passer-det", "da-sier-vi-det"],
     xpReward: 40,
   },
   {
@@ -37,7 +37,7 @@ export const scenarios: Scenario[] = [
     goal: "Say yes to food politely, give a compliment, and thank the host the Norwegian way at the end.",
     agentRole: "a warm Norwegian host who invited you for Sunday dinner",
     openingLine: "Velkommen inn! Vil du ha noe å drikke?",
-    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig", "takk-for-en-fin-kveld", "kan-vi-dele"],
+    keyPhraseIds: ["nei-sa-hyggelig", "gjerne", "kos", "skal", "takk-for-maten", "bare-hyggelig", "takk-for-en-fin-kveld", "kan-vi-dele", "jeg-synes"],
     xpReward: 40,
   },
   {
@@ -85,7 +85,7 @@ export const scenarios: Scenario[] = [
     goal: "Present yourself and avoid slang. The tutor will catch it if you slip!",
     agentRole: "an HR manager interviewing you for a job",
     openingLine: "Velkommen. Kan du starte med å fortelle litt om deg selv?",
-    keyPhraseIds: ["hyggelig-a-mote", "jeg-lurer-pa", "du-not-de", "dessverre", "jeg-gleder-meg"],
+    keyPhraseIds: ["hyggelig-a-mote", "jeg-lurer-pa", "du-not-de", "dessverre", "jeg-gleder-meg", "jeg-har-erfaring-med", "jeg-er-god-pa", "hva-er-arbeidstiden", "nar-kan-jeg-begynne"],
     xpReward: 80,
   },
   // ---- T20: work scenarios, recommended by the learner's field ----
@@ -150,7 +150,7 @@ export const scenarios: Scenario[] = [
     goal: "Say what you did yesterday, what you'll do today, and mention one problem you're stuck on.",
     agentRole: "a team lead at a Norwegian tech company",
     openingLine: "Hei! Hva jobbet du med i går?",
-    keyPhraseIds: ["jeg-lurer-pa", "det-gar-fint", "greit", "typ", "jeg-tar-det", "godt-jobbet"],
+    keyPhraseIds: ["jeg-lurer-pa", "det-gar-fint", "greit", "typ", "jeg-tar-det", "godt-jobbet", "kan-vi-flytte", "hva-synes-du"],
     xpReward: 60,
     fields: ["it"],
   },
