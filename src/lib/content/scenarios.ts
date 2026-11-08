@@ -13,7 +13,7 @@ export const scenarios: Scenario[] = [
     goal: "Order a coffee and a bun, ask the price, say thanks.",
     agentRole: "a friendly kiosk worker in Oslo",
     openingLine: "Hei! Hva skal det være?",
-    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det", "nydelig-vaer", "kan-jeg-bytte"],
+    keyPhraseIds: ["vil-gjerne", "kan-jeg-fa", "hva-koster", "kjempe", "snakkes", "ha-det", "nydelig-vaer", "kan-jeg-bytte", "snakk-norsk-med-meg"],
     xpReward: 30,
   },
   {
@@ -25,7 +25,7 @@ export const scenarios: Scenario[] = [
     goal: "Greet someone your age, ask what they do, make a plan for the weekend.",
     agentRole: "a relaxed 24-year-old from Oslo at a house party",
     openingLine: "Halla! Har vi møttes før?",
-    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt", "sa-fin-du-er"],
+    keyPhraseIds: ["halla", "skjer-a", "digg", "chille", "fett", "typ", "blir-du-med", "helt-konge", "ikke-sant", "hva-skjer-i-helga", "kom-deg-hjem-trygt", "sa-fin-du-er", "hvor-kommer-du-fra", "hvor-lenge-har-du-bodd"],
     xpReward: 40,
   },
   {
@@ -49,7 +49,7 @@ export const scenarios: Scenario[] = [
     goal: "Introduce yourself, talk about the weekend, use «takk for sist» naturally.",
     agentRole: "a friendly colleague at a Norwegian workplace lunch",
     openingLine: "Hei, du er ny her, ikke sant? Hvordan går det?",
-    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes", "kan-jeg-fa-fri", "hva-gjorde-du-i-helga", "for-et-vaer", "jeg-spanderer"],
+    keyPhraseIds: ["takk-for-sist", "hva-driver-du-med", "kjempe", "uff", "kjipt", "god-helg", "snakkes", "kan-jeg-fa-fri", "hva-gjorde-du-i-helga", "for-et-vaer", "jeg-spanderer", "jeg-laerer-norsk"],
     xpReward: 50,
   },
   {
@@ -98,7 +98,7 @@ export const scenarios: Scenario[] = [
     goal: "Say who you are, ask where to start and when the break is, and repeat back one instruction.",
     agentRole: "a friendly shift leader at a warehouse near Oslo",
     openingLine: "Hei og velkommen! Er det første dagen din her?",
-    keyPhraseIds: ["jeg-heter", "en-gang-til", "saktere", "hva-betyr", "greit", "jeg-lurer-pa", "kan-du-vise-meg", "jeg-er-ferdig"],
+    keyPhraseIds: ["jeg-heter", "en-gang-til", "saktere", "hva-betyr", "greit", "jeg-lurer-pa", "kan-du-vise-meg", "jeg-er-ferdig", "rett-meg"],
     xpReward: 50,
     fields: ["logistics", "transport", "cleaning"],
   },
