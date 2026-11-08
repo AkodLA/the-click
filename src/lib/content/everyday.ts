@@ -641,6 +641,63 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-car",
+    kind: "everyday",
+    title: "Car & driving",
+    titleNo: "Bil og kjøring",
+    emoji: "🚗",
+    words: [
+      p("bil", "🚗", "en bil", "a car", "A0", "Vi har ikke bil, vi tar bussen.", "We don't have a car, we take the bus."),
+      p("kjore", "🛣️", "å kjøre", "to drive", "A1", "Kan du kjøre meg til stasjonen?", "Can you drive me to the station?"),
+      p("parkere", "🅿️", "å parkere", "to park", "A2", "Du kan ikke parkere her.", "You can't park here."),
+      p("vinterdekk", "🛞", "vinterdekk", "winter tyres", "B1", "Husk å bytte til vinterdekk i november.", "Remember to change to winter tyres in November."),
+      p("verksted", "🔧", "et verksted", "a garage (repairs)", "B1", "Bilen står på verkstedet.", "The car is at the garage."),
+      p("fartsgrense", "🚸", "fartsgrensen", "the speed limit", "B1", "Fartsgrensen er 30 ved skolen.", "The speed limit is 30 by the school."),
+      p("elbil", "🔌", "en elbil", "an electric car", "A2", "Nesten alle nye biler i Norge er elbiler.", "Almost all new cars in Norway are electric."),
+      p("lade", "⚡", "å lade", "to charge", "A2", "Jeg må lade bilen før vi drar.", "I need to charge the car before we leave."),
+      p("kollisjon", "💥", "en kollisjon", "a collision", "B1", "Det har vært en kollisjon på E6.", "There's been a collision on the E6."),
+      p("veiarbeid", "🚧", "veiarbeid", "roadworks", "B1", "Det er veiarbeid, så det tar lengre tid.", "There are roadworks, so it takes longer."),
+    ],
+  },
+  {
+    id: "everyday-bathroom",
+    kind: "everyday",
+    title: "Bathroom",
+    titleNo: "Badet",
+    emoji: "🛁",
+    words: [
+      p("tannborste", "🪥", "en tannbørste", "a toothbrush", "A1", "Husk tannbørsten når vi reiser!", "Remember your toothbrush when we travel!"),
+      p("sape", "🧼", "såpe", "soap", "A0", "Vask hendene med såpe.", "Wash your hands with soap."),
+      p("handkle", "🛁", "et håndkle", "a towel", "A1", "Rene håndklær ligger i skapet.", "Clean towels are in the cupboard."),
+      p("sjampo", "🧴", "sjampo", "shampoo", "A1", "Sjampoen er tom.", "The shampoo is empty."),
+      p("speil", "🪞", "et speil", "a mirror", "A1", "Speilet på badet er duggete.", "The bathroom mirror is steamed up."),
+      p("toalettpapir", "🧻", "dopapir", "toilet paper", "A1", "Vi har ikke mer dopapir!", "We're out of toilet paper!", "informal"),
+      p("badekar", "🛀", "et badekar", "a bathtub", "A1", "Barna bader i badekaret.", "The kids are having a bath in the tub."),
+      p("tannkrem", "😁", "tannkrem", "toothpaste", "A1", "Kjøp tannkrem på vei hjem.", "Buy toothpaste on the way home."),
+      p("barbere", "🪒", "å barbere seg", "to shave", "A2", "Han barberer seg hver morgen.", "He shaves every morning."),
+      p("har", "💇", "hår", "hair", "A0", "Jeg må klippe håret.", "I need a haircut."),
+    ],
+  },
+  {
+    id: "everyday-office",
+    kind: "everyday",
+    title: "Office & school supplies",
+    titleNo: "Kontorutstyr",
+    emoji: "🖊️",
+    words: [
+      p("penn", "🖊️", "en penn", "a pen", "A0", "Kan jeg låne en penn?", "Can I borrow a pen?"),
+      p("papir", "📄", "papir", "paper", "A0", "Det er tomt for papir i skriveren.", "The printer is out of paper."),
+      p("saks", "✂️", "ei saks", "scissors", "A1", "Har du ei saks?", "Do you have some scissors?"),
+      p("skriver", "🖨️", "en skriver", "a printer", "A2", "Skriveren virker ikke igjen.", "The printer isn't working again."),
+      p("notatbok", "📓", "ei notatbok", "a notebook", "A1", "Jeg skriver nye ord i notatboka.", "I write new words in my notebook."),
+      p("kalender", "📅", "en kalender", "a calendar", "A1", "Sett det inn i kalenderen.", "Put it in the calendar."),
+      p("mappe", "📁", "ei mappe", "a folder", "A2", "Dokumentene ligger i den blå mappa.", "The documents are in the blue folder."),
+      p("binders", "📎", "en binders", "a paper clip", "A2", "Fest arkene med en binders.", "Attach the sheets with a paper clip."),
+      p("teip", "🩹", "teip", "tape", "A2", "Har vi teip til pakken?", "Do we have tape for the parcel?"),
+      p("viskelaer", "🧽", "et viskelær", "an eraser", "A1", "Kan jeg låne viskelæret ditt?", "Can I borrow your eraser?"),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -741,7 +798,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "dishes", "where", "chores", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "dishes", "where", "chores", "car", "bathroom", "office", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
