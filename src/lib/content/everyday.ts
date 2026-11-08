@@ -527,6 +527,63 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-places",
+    kind: "everyday",
+    title: "Places in town",
+    titleNo: "Steder i byen",
+    emoji: "🗺️",
+    words: [
+      p("skole", "🏫", "en skole", "a school", "A0", "Skolen ligger rett ved parken.", "The school is right by the park."),
+      p("park", "🌳", "en park", "a park", "A0", "Vi møtes i parken klokka tre.", "We meet in the park at three."),
+      p("stasjon", "🚉", "en stasjon", "a station", "A1", "Gå av på neste stasjon.", "Get off at the next station."),
+      p("kirke", "⛪", "en kirke", "a church", "A1", "Konserten er i kirken på søndag.", "The concert is in the church on Sunday."),
+      p("moske", "🕌", "en moské", "a mosque", "A1", "Moskeen er åpen for besøkende i dag.", "The mosque is open to visitors today."),
+      p("museum", "🏛️", "et museum", "a museum", "A1", "Mange museer er gratis for barn.", "Many museums are free for children."),
+      p("svommehall", "🏊", "en svømmehall", "a swimming pool (indoor)", "A2", "Svømmehallen har babysvømming på lørdager.", "The swimming pool has baby swimming on Saturdays."),
+      p("legekontor", "🏥", "et legekontor", "a doctor's surgery", "A2", "Legekontoret åpner klokka åtte.", "The doctor's surgery opens at eight."),
+      p("kjopesenter", "🛍️", "et kjøpesenter", "a shopping centre", "A1", "Vi møtes ved inngangen til kjøpesenteret.", "We meet at the entrance of the shopping centre."),
+      p("servicetorg", "🏢", "et servicetorg", "the town hall service desk", "B1", "Spør på servicetorget i kommunen.", "Ask at the municipality's service desk."),
+    ],
+  },
+  {
+    id: "everyday-seasons",
+    kind: "everyday",
+    title: "Seasons & light",
+    titleNo: "Årstider og lys",
+    emoji: "🍂",
+    words: [
+      p("var", "🌱", "vår", "spring", "A0", "Om våren blir dagene lengre.", "In spring the days get longer."),
+      p("sommer", "🌞", "sommer", "summer", "A0", "I sommer skal vi på ferie i Norge.", "This summer we're holidaying in Norway."),
+      p("host", "🍁", "høst", "autumn", "A0", "Om høsten plukker vi sopp.", "In autumn we pick mushrooms."),
+      p("vinter", "⛄", "vinter", "winter", "A0", "Vinteren er lang og mørk i nord.", "Winter is long and dark in the north."),
+      p("midnattssol", "🌅", "midnattssol", "the midnight sun", "B1", "I Tromsø er det midnattssol i juni.", "In Tromsø there's midnight sun in June."),
+      p("morketid", "🌑", "mørketida", "the polar night / dark season", "B1", "I mørketida kommer ikke sola opp i det hele tatt.", "In the dark season the sun doesn't rise at all."),
+      p("snostorm", "🌨️", "en snøstorm", "a snowstorm", "A2", "Toget er innstilt på grunn av snøstorm.", "The train is cancelled because of a snowstorm."),
+      p("glatt-is", "🧊", "glatt", "slippery (ice)", "A2", "Pass deg, det er glatt på fortauet!", "Careful, the pavement is slippery!"),
+      p("brodder", "🥾", "brodder", "ice grips (for shoes)", "B1", "Med brodder sklir du ikke på isen.", "With ice grips you won't slip on the ice."),
+      p("refleks", "✨", "en refleks", "a reflector", "A2", "Bruk refleks når det er mørkt!", "Wear a reflector when it's dark!"),
+    ],
+  },
+  {
+    id: "everyday-sports",
+    kind: "everyday",
+    title: "Sports",
+    titleNo: "Sport",
+    emoji: "🏅",
+    words: [
+      p("langrenn", "⛷️", "langrenn", "cross-country skiing", "A2", "Langrenn er nasjonalsporten i Norge.", "Cross-country skiing is Norway's national sport."),
+      p("handball", "🤾", "håndball", "handball", "A1", "Datteren min spiller håndball.", "My daughter plays handball."),
+      p("sykling", "🚴", "sykling", "cycling", "A1", "Sykling er en fin måte å komme seg til jobb.", "Cycling is a nice way to get to work."),
+      p("skoyter", "⛸️", "skøyter", "ice skates / skating", "A2", "Vi går på skøyter på isen i vinter.", "We go skating on the ice this winter."),
+      p("klatring", "🧗", "klatring", "climbing", "A2", "Klatring er populært blant ungdom.", "Climbing is popular among young people."),
+      p("yoga", "🧘", "yoga", "yoga", "A1", "Jeg går på yoga to ganger i uka.", "I go to yoga twice a week."),
+      p("tennis", "🎾", "tennis", "tennis", "A1", "Skal vi spille tennis i helga?", "Shall we play tennis at the weekend?"),
+      p("basketball", "🏀", "basketball", "basketball", "A1", "Han trener basketball på fritidsklubben.", "He practises basketball at the youth club."),
+      p("idrettslag", "🏆", "et idrettslag", "a sports club", "B1", "Barna er med i det lokale idrettslaget.", "The kids are in the local sports club."),
+      p("trener", "📣", "en trener", "a coach", "A2", "Treneren sier vi må komme ti minutter før.", "The coach says we have to come ten minutes early."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -627,7 +684,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
