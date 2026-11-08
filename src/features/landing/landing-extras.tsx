@@ -8,7 +8,6 @@ import { Badge, Button } from "@/components/ui";
 const SCREENS = [
   { src: "/screens/speak.png", title: "Talk to your tutor", text: "Real situations, out loud. Slang in a job interview? The tutor tells you." },
   { src: "/screens/phrases.png", title: "Slang with a manual", text: "Every phrase: when to use it, when not to, and what to say instead." },
-  { src: "/screens/tolk.png", title: "Tolk on the table", text: "Each person reads the conversation in their own language." },
 ];
 
 export function LandingScreens() {
@@ -17,7 +16,7 @@ export function LandingScreens() {
       <h2 id="screens-title" className="text-center text-3xl font-black tracking-tight">
         See it in action
       </h2>
-      <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2 md:grid md:grid-cols-3 md:overflow-visible">
+      <div className="-mx-5 mt-10 flex snap-x snap-mandatory gap-5 overflow-x-auto px-5 pb-2 md:mx-auto md:grid md:max-w-3xl md:grid-cols-2 md:overflow-visible">
         {SCREENS.map((s) => (
           <figure key={s.src} className="w-64 shrink-0 snap-center md:w-auto">
             <div className="overflow-hidden rounded-[2rem] border-4 border-ink/90 bg-surface shadow-lg">
