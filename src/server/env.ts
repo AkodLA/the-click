@@ -14,6 +14,8 @@ const schema = z.object({
   ELEVENLABS_TOLK_AGENT_ID: z.string().min(3).optional(),
   /** Partner API keys (hashed). Format: see src/server/partners.ts and docs/PARTNER-API.md */
   PARTNER_KEYS: z.string().optional(),
+  /** Server-only Postgres (Neon via Vercel Storage). Empty = guest mode without a database. */
+  DATABASE_URL: z.string().regex(/^postgres(ql)?:\/\//).optional(),
 });
 
 export type ServerEnv = z.infer<typeof schema>;

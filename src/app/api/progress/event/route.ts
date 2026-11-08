@@ -1,10 +1,10 @@
 import { z } from "zod";
 import { fail, ok, parseBody } from "@/lib/api";
 import { progressEventSchema } from "@/lib/progress/events";
-import { DEFAULT_PROGRESS } from "@/lib/progress/defaults";
 import { checkTutorConversation } from "@/server/conversation-check";
 import { applyEvent, RuleError } from "@/server/progress-rules";
-import { decodeProgress, encodeProgress } from "@/server/progress-token";
+import { encodeProgress } from "@/server/progress-token";
+import { withLearnerProgress } from "@/server/learners";
 import { clientIp, rateLimit } from "@/server/rate-limit";
 
 const bodySchema = z.object({
@@ -26,8 +26,6 @@ export async function POST(req: Request) {
 
   const { token } = body.data;
   let { event } = body.data;
-  const current = token ? decodeProgress(token) : DEFAULT_PROGRESS;
-  if (!current) return fail("invalid_token", "Progress token is invalid or was modified", 400);
 
   // T13: scenario XP only for a real tutor conversation (checked with ElevenLabs, not trusted from the browser).
   if (event.type === "scenario_completed") {
@@ -37,8 +35,12 @@ export async function POST(req: Request) {
   }
 
   try {
-    const { progress, rewards } = applyEvent(current, event);
-    return ok({ token: encodeProgress(progress), progress, rewards });
+    const saved = await withLearnerProgress(token, (current) => {
+      const { progress, rewards } = applyEvent(current, event);
+      return { progress, extra: rewards };
+    });
+    if (!saved) return fail("invalid_token", "Progress token is invalid or was modified", 400);
+    return ok({ token: encodeProgress(saved.progress), progress: saved.progress, rewards: saved.extra });
   } catch (err) {
     if (err instanceof RuleError) return fail(err.code, err.message, err.code === "not_found" ? 404 : 400);
     console.error("progress event failed", err);

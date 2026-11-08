@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { fail, ok } from "@/lib/api";
-import { DEFAULT_PROGRESS } from "@/lib/progress/defaults";
 import { applyEvent } from "@/server/progress-rules";
 import { decodeProgress, encodeProgress } from "@/server/progress-token";
+import { databaseEnabled, withLearnerProgress } from "@/server/learners";
 import { comparePronunciation } from "@/server/pronunciation-compare";
 import { PRONUNCIATION_LIMITS, resolveTarget, SttError, transcribe } from "@/server/pronunciation";
 import { clientIp, rateLimit } from "@/server/rate-limit";
@@ -48,8 +48,10 @@ export async function POST(req: Request) {
   const target = resolveTarget(fields.data.target);
   if (!target) return fail("unknown_target", "You can only practise sentences from Snakk", 400);
 
-  const current = fields.data.token ? decodeProgress(fields.data.token) : DEFAULT_PROGRESS;
-  if (!current) return fail("invalid_token", "Progress token is invalid or was modified", 400);
+  // Guest mode: reject an edited token before spending money on speech-to-text.
+  if (fields.data.token && !databaseEnabled() && !decodeProgress(fields.data.token)) {
+    return fail("invalid_token", "Progress token is invalid or was modified", 400);
+  }
 
   let heard: string;
   try {
@@ -64,8 +66,12 @@ export async function POST(req: Request) {
 
   const result = comparePronunciation(target, heard);
   try {
-    const { progress, rewards } = applyEvent(current, { type: "pronunciation_scored", score: result.score });
-    return ok({ result, token: encodeProgress(progress), progress, rewards });
+    const saved = await withLearnerProgress(fields.data.token, (current) => {
+      const { progress, rewards } = applyEvent(current, { type: "pronunciation_scored", score: result.score });
+      return { progress, extra: rewards };
+    });
+    if (!saved) return fail("invalid_token", "Progress token is invalid or was modified", 400);
+    return ok({ result, token: encodeProgress(saved.progress), progress: saved.progress, rewards: saved.extra });
   } catch (err) {
     console.error("pronunciation progress failed", err);
     return fail("internal", "Something went wrong", 500);
