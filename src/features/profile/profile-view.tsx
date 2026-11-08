@@ -21,6 +21,7 @@ import { AboutYou } from "@/features/personal/about-you";
 import { Certificates, WeekSummary, WhyLevel } from "./insights";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { useMistakes } from "@/lib/personal/mistakes";
+import { SyncDevices } from "./sync-devices";
 
 const STREAK_COPY: Record<StreakState, string> = {
   active: "You practised today. Nice!",
@@ -121,6 +122,9 @@ export function ProfileView() {
 
       {/* T21: week in numbers + most common mistake */}
       <WeekSummary />
+
+      {/* T34: multi-device sync with a code (no email, no password) */}
+      <SyncDevices />
 
       {/* Quick stats */}
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">

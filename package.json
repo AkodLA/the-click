@@ -12,10 +12,12 @@
     "secret-scan": "node scripts/secret-scan.mjs",
     "security-check": "node scripts/security-check.mjs",
     "agents:sync": "node --env-file=.env.local scripts/sync-agents.mjs",
-    "agents:check": "node --env-file=.env.local scripts/sync-agents.mjs --check"
+    "agents:check": "node --env-file=.env.local scripts/sync-agents.mjs --check",
+    "db:migrate": "node --env-file=.env.local scripts/db-migrate.mjs"
   },
   "dependencies": {
     "@elevenlabs/react": "^1.21.1",
+    "@neondatabase/serverless": "^1.2.0",
     "next": "16.4.5",
     "react": "19.3.0",
     "react-dom": "19.3.0",

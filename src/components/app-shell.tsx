@@ -10,7 +10,7 @@ import { Mascot } from "@/components/mascot";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { LanguageWelcome } from "@/features/languages/language-picker";
 import { levelProgress } from "@/lib/progress/levels";
-import { onReward, useProgress, type Reward } from "@/lib/progress/store";
+import { onReward, progressActions, useProgress, type Reward } from "@/lib/progress/store";
 
 const NAV = [
   { href: "/learn", label: "Home", icon: "🏠" },
@@ -24,6 +24,10 @@ const NAV = [
 const WIDE_PATHS = ["/learn"];
 
 export function AppShell({ children }: { children: ReactNode }) {
+  // Database mode: load the latest progress (another device may have changed it).
+  useEffect(() => {
+    void progressActions.refresh();
+  }, []);
   const wide = WIDE_PATHS.includes(usePathname());
   return (
     <div className="flex min-h-dvh flex-col">
@@ -42,7 +46,7 @@ function TopBar() {
   return (
     <header className="sticky top-0 z-20 border-b-2 border-line bg-surface/85 backdrop-blur">
       <div className="mx-auto flex h-14 max-w-2xl items-center justify-between px-4 md:px-6 lg:max-w-5xl">
-        <Link href="/learn" className="flex h-11 items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-brand">
+        <Link href="/" aria-label="Snakk: back to the start page" className="flex h-11 items-center gap-1.5 font-display text-2xl font-bold tracking-tight text-brand">
           <Mascot className="h-8 w-8" still />
           <span>
             snakk<span className="text-accent">.</span>

@@ -161,8 +161,27 @@ export const progressActions = {
     return queued(call, false);
   },
 
-  /** Demo helper: start fresh (e.g. before the pitch). */
+  /**
+   * Pull this device's latest progress from the server (database mode), e.g. after practising on another device.
+   * Silent: in guest mode or offline, nothing changes.
+   */
+  async refresh(): Promise<void> {
+    try {
+      const r = await apiFetch<{ enabled: boolean; token: string | null }>("/api/progress");
+      if (r.enabled && r.token) writeToken(r.token);
+    } catch {
+      // offline or guest mode: keep what we have
+    }
+  },
+
+  /** Use progress the server just returned (e.g. after entering a sync code). */
+  adopt(token: string) {
+    writeToken(token);
+  },
+
+  /** Start fresh on this device (e.g. before the pitch). Other synced devices keep their progress. */
   reset() {
     writeToken(null);
+    void fetch("/api/progress/forget", { method: "POST" }).catch(() => undefined);
   },
 };
