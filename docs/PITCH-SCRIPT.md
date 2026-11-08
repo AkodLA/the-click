@@ -9,6 +9,107 @@ The story in one line: **start in Arabic so the jury feels lost → that feeling
 
 ---
 
+## ▶️ THE SCRIPT (read this out loud, top to bottom)
+
+*Lines in [brackets] are what you do. Everything else, you say. «…» is said exactly like that.*
+
+**[Walk to the middle. Look at the jury. Wait 2 seconds. Speak slowly, in Arabic.]**
+
+مرحباً بكم جميعاً.
+تخيّلوا أنكم وصلتم إلى بلدٍ جديد.
+الطبيب يتكلّم معكم… المدرسة تتكلّم معكم… زملاؤكم في العمل يتكلّمون معكم…
+وأنتم لا تفهمون أيّ كلمة.
+
+**[Pause 2 seconds. Smile. Switch to English.]**
+
+Didn't get that?
+That's okay. That was the point.
+
+For the last ten seconds, you felt what it's like to arrive somewhere… and not understand anyone.
+
+In Norway, more than one in six people are immigrants. That's almost one million people.
+They learn Norwegian from a textbook.
+And then they meet real Norwegians… and nobody talks like the book.
+
+So we asked ourselves one question: how do we make a language easier to learn?
+
+Our answer is simple. You learn it by speaking it. The way people really talk.
+
+This is Snakk.
+
+**[Turn to the screen. The landing page is open. Point at the card «That was great!».]**
+
+Here's one sentence, said three ways.
+One you say with friends. One for everyday life. One for work.
+Snakk tells you which one fits the room you're in.
+That's exactly what textbooks don't teach you.
+
+**[Tap «Find my level, free». Show the first screen for two seconds.]**
+
+You start as a guest. No email, no password.
+A three-minute test estimates your level.
+I did mine this morning…
+
+**[Go to Home.]**
+
+…so here's my home.
+Snakk always tells you what to do next.
+And this little tree grows every time you practise… and gets thirsty when you don't.
+So you come back tomorrow.
+
+**[Tap Speak → Job interview → Start talking.]**
+
+But you don't learn a language by reading. You learn it by talking.
+At the doctor. At a party. Or, like now, in a job interview.
+
+**[Say into the mic, clearly:]** «Det var sykt bra, ass.»
+
+**[The correction card appears. Point at it.]**
+
+It understood me. And it told me: that's how you talk to your friends, not in a job interview. Say this instead.
+
+**[Tap 📒 Save.]**
+
+One tap, and it's saved in my notes.
+
+**[If you have time: tap Phrases, open a phrase card, point at the faint 🗣️ line, tap 🔈, tap 📒 Save. If you're late, skip straight to Tolk.]**
+
+Every phrase tells you when to use it, when not to, and how it sounds. Even spelled out, so anyone can read it.
+And everything I save goes into the right notebook. Everyday, formal, slang.
+
+**[Tap Tolk. Arabic ↔ Norwegian is already set. Tap 🎙️ Start interpreting.]**
+
+And when you can't speak the language yet?
+That's Tolk.
+You speak your language. They hear theirs.
+
+**[Say into the mic, in Arabic:]** «أين أقرب صيدلية؟»
+
+**[Tolk says it in Norwegian. Wait for it. Then look at the jury.]**
+
+Remember the Arabic at the start?
+Now everyone in this room understood it.
+
+**[Turn back to the jury. Calm, confident.]**
+
+Snakk is free to start.
+Snakk Plus is ninety-nine kroner a month, for unlimited voice practice.
+And workplaces pay per seat: warehouses, schools and clinics where teams speak many languages.
+
+We built this in one weekend. Voice AI from ElevenLabs, and a server that keeps your progress safe and your data private.
+
+Ten seconds ago, a room full of people didn't understand Arabic.
+Now you do.
+
+We're Snakk.
+Let's talk.
+
+**[Stop. Smile. Wait for the question. Don't add anything.]**
+
+---
+
+## The same pitch as a step-by-step guide
+
 ## 0. Backstage (10 min before)
 - [ ] Phone/laptop on the **phone hotspot** (not venue Wi-Fi), screen mirrored, volume up, Do Not Disturb on.
 - [ ] **Headset with mic** on (the room is loud; voice works much better).
