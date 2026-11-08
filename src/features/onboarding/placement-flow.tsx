@@ -14,7 +14,7 @@ import type { CefrLevel, PlacementQuestion } from "@/lib/content/types";
 import { progressActions, useProgress } from "@/lib/progress/store";
 import { canSpeak, speakNorwegian } from "@/lib/speech";
 
-const NICK_RE = /^[\p{L}\p{N}_-]+$/u;
+const NICK_RE = /^[\p{L}\p{N}_-]+( [\p{L}\p{N}_-]+)*$/u;
 const NICK_IDEAS = ["FjordFox", "BrunostBear", "NordlysNinja", "TrikkTiger", "VaffelVenn", "SkiSkjære", "MoltebærMåke"];
 const LANGUAGES = Object.entries(LANGUAGE_NAMES).filter(([code]) => code !== "nb");
 
@@ -172,7 +172,7 @@ function Intro({
         : nickname.length > 20
           ? "Max 20 characters."
           : !NICK_RE.test(nickname)
-            ? "Use letters, numbers, _ or - (no spaces)."
+            ? "Use letters, numbers, spaces, _ or -."
             : null;
   const valid = nickname.length >= 3 && !nickProblem;
 

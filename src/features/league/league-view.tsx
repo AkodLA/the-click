@@ -203,8 +203,8 @@ function PeopleLeague() {
           <div className="grid grid-cols-2 gap-2 text-sm">
             <ClimbLink href="/speak" emoji="🎙️" title="Speak" detail="Finish a scenario" />
             <ClimbLink href="/phrases?show=new" emoji="💬" title="Phrases" detail="+5 XP each" />
-            <ClimbLink href="/events" emoji="🧇" title="Språkkafé" detail="Check in for XP" />
-            <ClimbLink href="/write" emoji="✍️" title="Write" detail="Trace æ ø å" />
+            <ClimbLink href="/words" emoji="🧠" title="My words" detail="XP per new word" />
+            <ClimbLink href="/tolk" emoji="🧑‍🤝‍🧑" title="Tolk" detail="Use it in real life" />
           </div>
           <Link href="/profile" className="text-sm font-semibold text-brand">
             Your progress and achievements →

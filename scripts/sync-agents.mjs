@@ -7,7 +7,7 @@
  *   npm run agents:check           # read-only: compare live agents with the repo
  *
  * Needs ELEVENLABS_API_KEY (ElevenAgents: Write) in .env.local. Never prints the key.
- * If ELEVENLABS_TOLK_AGENT_ID (or ELEVENLABS_MESSAGE_AGENT_ID) is empty, that agent is CREATED and its id printed
+ * If ELEVENLABS_TOLK_AGENT_ID is empty, the Tolk agent is CREATED and its id printed
  * (agent ids are not secret: add it to .env.local and Vercel).
  */
 import { readFileSync } from "node:fs";
@@ -98,7 +98,7 @@ const AGENTS = {
     promptFile: "tolk-prompt.md",
     firstMessage: "",
     language: "no",
-    extraLanguages: ["en", "uk", "ar", "pl", "es", "fr", "tr"],
+    extraLanguages: ["en", "uk", "ar", "pl", "es", "fr", "tr", "ja", "zh", "ru"],
     llm: "claude-haiku-5-5",
     temperature: 0,
     speed: 1,
@@ -114,34 +114,6 @@ const AGENTS = {
           translation: str("Your translation into the other language"),
         },
         required: ["spoken_language", "original", "translation"],
-      },
-    ],
-  },
-  // T23 "Say it in Norwegian": text-only (no audio), English in -> natural Norwegian out via show_message.
-  message: {
-    name: "Snakk Message",
-    envVar: "ELEVENLABS_MESSAGE_AGENT_ID",
-    promptFile: "message-prompt.md",
-    firstMessage: "",
-    language: "en",
-    extraLanguages: [],
-    llm: "claude-haiku-5-5",
-    temperature: 0.2,
-    speed: 1,
-    keywords: [],
-    textOnly: true,
-    placeholders: { tone: "friendly", learner_level: "A2", context: "none" },
-    tools: [
-      {
-        name: "show_message",
-        description: "Show the Norwegian version of the learner's message. Call it exactly once per message.",
-        properties: {
-          norwegian: str("The message in natural Norwegian Bokmål"),
-          register: str("The register you used", { enum: ["slang", "informal", "neutral", "formal"] }),
-          literal: str("A short word-for-word English gloss of the Norwegian"),
-          tip: str("One short tip in English, max 20 words (optional)"),
-        },
-        required: ["norwegian", "register"],
       },
     ],
   },

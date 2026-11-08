@@ -56,9 +56,9 @@ export function WhyLevel() {
         {p.cefr !== "A0" && (
           <p className="text-xs text-muted">
             This is Snakk&apos;s estimate, not an official result.{" "}
-            <Link href="/resources" className="font-semibold text-brand underline">
+            <a href="https://hkdir.no/norskprove" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand underline">
               Official tests (Norskprøven) →
-            </Link>
+            </a>
           </p>
         )}
       </Card>
@@ -135,9 +135,9 @@ export function Certificates() {
         <Card className="text-sm text-muted">
           🎓 Pass a level-up test in one of your work packs (e.g. «Ready for warehouse work?») to get your first Snakk certificate. Looking for an official
           exam?{" "}
-          <Link href="/resources" className="font-semibold text-brand underline">
-            Exams & resources →
-          </Link>
+          <a href="https://hkdir.no/norskprove" target="_blank" rel="noopener noreferrer" className="font-semibold text-brand underline">
+            Norskprøven →
+          </a>
         </Card>
       ) : (
         <ul className="flex flex-col gap-2">

@@ -24,15 +24,10 @@ function osloToday() {
 }
 
 const TILES = [
-  { href: "/say", emoji: "🗣️", title: "Say it in Norwegian", text: "English in, Norwegian text or voice message out" }, // T23
-  { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk", text: "Live interpreter for real meetings" },
-  { href: "/tandem", emoji: "🤝", title: "Tandem", text: "Swap languages with a buddy, anonymously" },
-  { href: "/events", emoji: "🧇", title: "Språkkafé", text: "Practise in real life, earn XP" },
-  { href: "/write", emoji: "✍️", title: "Write", text: "Trace A to Å step by step" },
+  { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk", text: "Be understood now: you speak, they hear their language" },
+  { href: "/words", emoji: "🧠", title: "My words", text: "Words for your work and interests" },
   { href: "/notes", emoji: "📒", title: "My notes", text: "Your saved words, sorted into notebooks" },
-  { href: "/resources", emoji: "🎓", title: "Exams & resources", text: "Official tests and free help to learn" },
-  { href: "/words", emoji: "🧠", title: "My words", text: "Words for your work and interests" }, // T20
-  { href: "/mistakes", emoji: "📓", title: "Mistakes", text: "Practise the corrections you got" }, // T21
+  { href: "/mistakes", emoji: "📓", title: "My corrections", text: "Practise what the tutor corrected" },
 ];
 
 export function HomeDashboard() {

@@ -5,7 +5,7 @@ Source of truth for the **Snakk Tolk** agent. Paste the "System prompt" section 
 
 ## Dashboard settings
 - **First message:** leave empty (the app shows the intro on screen; the agent waits for the first speaker).
-- **Default language:** Norwegian. **Additional languages:** English, Ukrainian, Arabic, Polish, Somali, Tigrinya, Spanish, French, Urdu, Dari/Persian, Turkish (all the ones in `src/features/tolk/languages.ts`).
+- **Default language:** Norwegian. **Additional languages:** English, Ukrainian, Arabic, Polish, Somali, Tigrinya, Spanish, French, Urdu, Dari/Persian, Turkish, Japanese, Chinese (Mandarin), Russian (all the ones in `src/features/tolk/tolk-data.ts`).
 - **Voice:** a calm, neutral multilingual voice. **Model:** a multilingual one (e.g. Multilingual v2 / Flash v2.5).
 - **Turn taking:** patient (people pause while they think). Turn eagerness: low.
 - **Security:** authentication ON (signed URLs only), allowlist our Vercel domain + `localhost`.

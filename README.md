@@ -1,31 +1,20 @@
-# Snakk: learn the Norwegian people actually speak
+# Snakk: speak like a local, from day one
 
 > Built in one weekend at **Oslo Sprint Hackathon 2026** by team **The Click**. ("Snakk" is the working name.)
 
-Textbooks teach written Norwegian. Snakk teaches **how Norway talks**. You speak out loud from day one with an AI voice tutor, learn the slang people really use, and learn **when not to use it** and what to say instead. When you're not ready yet, **Tolk** interprets everyday conversations both ways, so your kids don't have to.
+Textbooks teach written language. Snakk teaches **the language as it's really spoken**: you talk out loud from day one with an AI voice tutor in real situations, and learn which words fit where. When you can't speak it yet, **Tolk** speaks the local language for you, at school pickup, at work, or travelling where English doesn't help. Norwegian first.
 
 - **Live app:** https://the-click-psi.vercel.app
 - **Backup demo video:** [`docs/demo/backup-demo.mp4`](docs/demo/backup-demo.mp4) (no live voice) · pitch script: [`docs/PITCH-SCRIPT.md`](docs/PITCH-SCRIPT.md)
 
-## Features
+## Features (5 tabs: Home · Speak · Tolk · Phrases · Me)
 | | |
 |---|---|
-| 🧭 Placement test | Estimates your level, A0 to C2, in about 3 minutes (scored on the server) |
-| 🎙️ Voice tutor | Real-life scenarios (kiosk, party, dinner, job interview, doctor, plus work scenarios like a warehouse shift or a nursing-home handover) with an ElevenLabs voice agent that corrects slang used in the wrong place |
-| 🎯 Pronunciation check | Say a sentence and see which words came through |
-| 💬 Phrasebook | 202 phrases (A0 to C1, incl. idioms like «å tråkke i salaten», weather small talk, phone calls, restaurants and allergies, shops and neighbours, compliments and holiday wishes, getting help with your Norwegian, public transport, job interviews, making plans, giving your opinion, supporting a friend, the pharmacy, customer service at work, phrases for parents and work, and dialects you'll hear), each with a picture of the situation tagged slang / informal / neutral / formal, with ✅ use when · 🚫 avoid when · 💡 say instead, audio and a "sounds like" hint |
-| 🧠 My words | Vocabulary for **your work, interests, age group and level** (9 fields, 6 interests), with spaced review, level-up tests and Snakk certificates |
-| 🖼️ Everyday picture words | 448 beginner words in 43 packs (food, numbers, everyday verbs, question words, help & emergencies, home, colours, town, opposites, bank & papers, housing & renting, kitchen, Norwegian culture, school subjects, clothes, animals, at the doctor, celebrations, phone & internet, places in town, seasons & light, sports, Norwegian dishes, where is it?, housework, car & driving, bathroom, office & school supplies, body parts, garden & forest, drinks & snacks, shop, time, people, weather, body, feelings, work life, travel, fruit & veg, jobs, free time, nature), each with a picture, plus a picture quiz (see it → word, or hear it → picture). 631 of the 635 words have a picture (every work and interest pack too), also when you tap a word anywhere in the app |
-| 📓 Mistakes | Every correction from the tutor, Tandem and the pronunciation check, collected automatically, with practice |
-| 📒 My notes | Save any word with one tap; it lands in the right notebook (Everyday, Formal, Slang, Corrections, Writing, your own) |
-| 👆 Explain a word | Tap any Norwegian word: meaning, register, example, listen, translate |
-| 🎓 Exams & resources | Official tests (Norskprøven, citizenship test) and free learning resources |
-| 🏆 Gamification | XP, levels, streaks with freezes, daily quests, achievements, seasonal challenges, a growing tree you can share, leagues by level and **team leagues** for classes and workplaces |
-| 🧑‍🤝‍🧑 Tolk | Two-way interpreter: voice (ElevenLabs) or typing with **on-device translation** (Opera Web AI / Chrome) |
-| 🤝 Tandem | Swap languages with natives. Nicknames and avatars only, gentle corrections, translate any message |
-| 🧇 Språkkafé | Language events near you, with check-in rewards and calendar export |
-| ✍️ Write | The whole alphabet A–Å with numbered stroke guides, eraser and undo, plus first words |
-| 🌗 Light / dark | Theme switch, or follow the device |
+| 🧭 **Level test** | Estimates your level, A0 to C2, in about 3 minutes (scored on the server). Start as a guest: no email, no password. |
+| 🎙️ **Speak** | A voice tutor (ElevenLabs) plays the other person in real situations: kiosk, party, job interview, doctor, work. It tells you which words fit which situation, and corrects you when they don't. |
+| 🧑‍🤝‍🧑 **Tolk** | Be understood now: you speak your language, the other person hears theirs. Norwegian, English, Arabic, Ukrainian, Polish, Somali, Tigrinya, Spanish, French, Urdu, Dari, Turkish, **Japanese, Chinese, Russian**. |
+| 💬 **Phrases** | Everyday phrases as they're really used, each with ✅ use when · 🚫 avoid when · 💡 say instead, audio, a pronunciation check and a "sounds like" hint. Plus word packs for your job and interests. |
+| 🙂 **Me** | XP, levels, streaks, badges, a weekly league, your saved words and the corrections you got. Progress syncs to your other devices with a sync code. |
 
 ## How it works
 ```
@@ -61,7 +50,6 @@ npm run dev                  # http://localhost:3000
 - API keys are only used server-side. The browser gets a short-lived signed URL for voice sessions.
 - Audio for pronunciation checks is not stored by us.
 - All API input is validated (zod). No secrets in the repo (`.env*` is git-ignored, GitHub push protection is on).
-- Tandem is anonymous: nicknames and avatars, never real names or faces.
 - Personal settings (age group, field, interests) stay in your browser; we never ask your exact age.
 - Text translation runs on your own device: it never reaches our server.
 - We attack our own app: `npm run security-check` (15 attacks) and `npm run secret-scan`. Results: [`docs/SECURITY.md`](docs/SECURITY.md).

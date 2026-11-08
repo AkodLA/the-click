@@ -46,11 +46,11 @@ export function MistakesView() {
             📓
           </p>
           <p className="font-bold">No mistakes yet</p>
-          <p className="max-w-xs text-sm text-muted">Talk to the tutor, chat in Tandem or check your pronunciation. Every correction you get is saved here.</p>
+          <p className="max-w-xs text-sm text-muted">Talk to the tutor or check your pronunciation. Every correction you get is saved here.</p>
           <div className="flex flex-wrap justify-center gap-2">
             <Button href="/speak">🎙️ Speak</Button>
-            <Button href="/tandem" variant="secondary">
-              🤝 Tandem
+            <Button href="/phrases" variant="secondary">
+              💬 Phrases
             </Button>
           </div>
         </Card>

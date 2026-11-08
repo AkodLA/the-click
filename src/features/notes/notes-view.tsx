@@ -320,7 +320,7 @@ function EmptyState({ searching, notebook }: { searching: boolean; notebook?: No
     formal: { href: "/phrases", text: "Find formal phrases in the Phrasebook" },
     slang: { href: "/phrases", text: "Find slang in the Phrasebook" },
     corrections: { href: "/speak", text: "Talk with your tutor" },
-    writing: { href: "/write", text: "Practise writing" },
+    writing: { href: "/phrases", text: "Find words in the Phrasebook" },
   };
   const tip = notebook ? where[notebook] : { href: "/phrases", text: "Open the Phrasebook" };
   return (

@@ -15,9 +15,8 @@ import { onReward, useProgress, type Reward } from "@/lib/progress/store";
 const NAV = [
   { href: "/learn", label: "Home", icon: "🏠" },
   { href: "/speak", label: "Speak", icon: "🎙️" },
+  { href: "/tolk", label: "Tolk", icon: "🧑‍🤝‍🧑" },
   { href: "/phrases", label: "Phrases", icon: "💬" },
-  { href: "/notes", label: "Notes", icon: "📒" },
-  { href: "/league", label: "League", icon: "🏆" },
   { href: "/profile", label: "Me", icon: "🙂" },
 ];
 

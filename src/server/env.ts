@@ -12,8 +12,6 @@ const schema = z.object({
   ELEVENLABS_API_KEY: z.string().min(10).optional(),
   ELEVENLABS_TUTOR_AGENT_ID: z.string().min(3).optional(),
   ELEVENLABS_TOLK_AGENT_ID: z.string().min(3).optional(),
-  /** T23 "Say it in Norwegian" text agent (agent/message-prompt.md). Optional: without it, /say uses the on-device translator. */
-  ELEVENLABS_MESSAGE_AGENT_ID: z.string().min(3).optional(),
   /** Partner API keys (hashed). Format: see src/server/partners.ts and docs/PARTNER-API.md */
   PARTNER_KEYS: z.string().optional(),
 });
