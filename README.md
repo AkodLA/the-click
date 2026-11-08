@@ -4,7 +4,7 @@
 
 Textbooks teach written Norwegian. Snakk teaches **how Norway talks**. You speak out loud from day one with an AI voice tutor, learn the slang people really use, and learn **when not to use it** and what to say instead. When you're not ready yet, **Tolk** interprets everyday conversations both ways, so your kids don't have to.
 
-- **Live app:** https://the-click-psi.vercel.app
+- **Live app:** https://the-click-grind6.vercel.app
 - **Backup demo video:** [`docs/demo/backup-demo.mp4`](docs/demo/backup-demo.mp4) (no live voice) · pitch script: [`docs/PITCH-SCRIPT.md`](docs/PITCH-SCRIPT.md)
 
 ## Features

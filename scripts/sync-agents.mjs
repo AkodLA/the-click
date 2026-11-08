@@ -14,13 +14,12 @@ import { readFileSync } from "node:fs";
 
 const API = "https://api.elevenlabs.io/v1/convai";
 const KEY = process.env.ELEVENLABS_API_KEY;
-// Hostnames allowed to start voice sessions. the-click-psi is the live app (README, repo homepage);
-// add more (e.g. a Vercel preview) with AGENT_ALLOWLIST_EXTRA=host1,host2 in .env.local.
+// Hostnames allowed to start voice sessions: only the team's live app (Akram's Vercel project) and localhost.
+// Add a Vercel preview for one run with AGENT_ALLOWLIST_EXTRA=host1,host2 in .env.local.
 const ALLOWLIST = [
   ...new Set([
     "localhost",
     "the-click-grind6.vercel.app",
-    "the-click-psi.vercel.app",
     ...(process.env.AGENT_ALLOWLIST_EXTRA ?? "").split(",").map((h) => h.trim().toLowerCase()).filter((h) => /^[a-z0-9.-]+$/.test(h)),
   ]),
 ];
