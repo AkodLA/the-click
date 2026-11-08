@@ -1,91 +1,89 @@
-# PITCH SCRIPT (T14)
+# PITCH SCRIPT: Snakk (final, Sunday)
 
-The 2-minute pitch, the demo clicks, the slides and the Q&A. **Facts and sources live in `docs/PITCH.md` (T3).**
-Rule: *no source = we don't say it.* Every number below is from `docs/PITCH.md`.
-
----
-
-## 0. Before going on stage (checklist)
-- [ ] Phone on the **phone hotspot**, not venue Wi-Fi. Screen mirrored to the projector. Volume up, Do Not Disturb on.
-- [ ] Open the production link, **Me → «Start over on this device»** (bottom of the profile), so the demo starts at 0 XP.
-- [ ] Microphone allowed once in the browser (do it backstage, not on stage).
-- [ ] Tutor tested once today with the party and job-interview scenarios (ElevenLabs credits OK).
-- [ ] Backup video open in a second tab (`docs/demo/`), ready to play if voice fails.
-- [ ] Slides: 1 title · 2 problem · 3 demo (live) · 4 Tolk · 5 business · 6 roadmap + ask.
+**Speaker: Anas.** Akram drives the phone (demo) and answers technical questions. Anis answers product questions.
+**2 minutes + 1 minute of questions.** Facts and sources: `docs/PITCH.md`. Rule: **no source = we don't say it.**
+Live app: **https://the-click-psi.vercel.app**
 
 ---
 
-## 1. The 2-minute script (demo in English, Norwegian lines in «quotes»)
+## 0. Before going on stage (5 min backstage)
+- [ ] Phone on the **phone hotspot** (not venue Wi-Fi), screen mirrored, volume up, Do Not Disturb on.
+- [ ] **Earbuds / headset** on the demo phone (the venue is loud; voice is far more reliable with a headset mic).
+- [ ] Open the live app → **Me → Start over on this device** so the demo starts at 0 XP.
+- [ ] Allow the microphone once (backstage, not on stage).
+- [ ] Test the job interview scenario once (credits OK, voice connects).
+- [ ] Tolk set to **Norwegian ↔ Japanese** (or Chinese), ready on screen.
 
-| Time | Who / screen | Say |
+---
+
+## 1. The 2-minute script
+
+| Time | Screen (Akram) | Anas says |
 |---|---|---|
-| **0:00–0:15** | Slide 2 | «Almost one million people in Norway are immigrants: more than 1 in 6. Most of them learned Norwegian from a textbook: *«Hvordan har De det?»*. Then they meet real Norwegians, and nobody talks like that. **Snakk teaches the Norwegian people actually speak, by speaking it.**» |
-| **0:15–0:30** | Phone: `/onboarding` | «First, a 3-minute test estimates your level.» *(Nickname, tap through 2–3 questions or «I'm a total beginner».)* «A2. Now we talk.» |
-| **0:30–0:50** | `/speak` → 🎉 **Small talk at a party** | «A party in Oslo.» *Say:* «**Halla! Skjer'a?**» *The tutor answers like a 24-year-old from Oslo would.* «Slang is perfect here.» |
-| **0:50–1:10** | `/speak` → 💼 **Job interview** | «Same slang, wrong room.» *Say:* «**Det var sykt bra, ass.**» *The ✏️ card appears:* «sykt» is slang → «**veldig bra**». «The tutor catches it. Every phrase in the app tells you when to use it, when not to, and what to say instead.» |
-| **1:10–1:25** | Phrase card → 🎙️ **Say the example** | «And it checks your pronunciation, word by word.» *Green and red words appear.* *XP toast + achievement* → «Streaks, levels, and a weekly league with learners at your level.» *(Tap 🏆 League: rank moved up.)* |
-| **1:25–1:45** | Slide 4 → `/tolk` (demo) | «And when you're not ready yet? Since 2022 the law says public services may not use children as interpreters, but kids still end up doing it, and 1 in 4 public interpreting jobs isn't done by a qualified interpreter. **Tolk** is the parent's own aid for everyday moments: the phone lies on the table, each person reads it in their own language.» *(Play 2 turns of the pickup chat.)* «For the formal meeting, the school books a real interpreter. We're the help in between.» |
-| **1:45–2:00** | Slides 5–6 | «Learners start free, premium is 99 kr a month. Organisations, like employers, municipalities and schools, buy seats for their people. Next: real accounts, QR check-in at språkkafés, more languages. **We're Snakk. Let's talk.**» |
+| **0:00–0:15** | Landing page | «Almost one million people in Norway are immigrants: more than 1 in 6. They learn Norwegian from textbooks, then they meet real Norwegians, and nobody talks like the book. And when you travel, it's the same: in Japan, China or Russia, English often doesn't help you. **Snakk: speak like a local, from day one.**» |
+| **0:15–0:30** | `/onboarding` | «You start as a guest: no sign-up. A short test estimates your level…» *(tap 2–3 answers)* «…A2. Now we talk.» |
+| **0:30–1:00** | `/speak` → 💼 **Job interview** | «You don't learn a language by reading. You learn it by speaking, in real situations: the doctor, a job interview, a party.» *Akram says:* «**Det var sykt bra, ass.**» *The ✏️ card appears.* «It understood, and it told me: *that's how you talk with friends, not in an interview*. Say «veldig bra». **The language as it's really used, and which words fit which situation.**» |
+| **1:00–1:15** | Phrase card → 🎙️ pronunciation, then XP toast | «It checks your pronunciation word by word, and every step gives XP, levels and streaks, so you come back tomorrow. Your progress follows you to your phone with a sync code: no email, no password.» |
+| **1:15–1:35** | `/tolk` Norwegian ↔ Japanese | «And when you can't speak it yet? **Tolk.** You speak your language, the other person hears theirs. A parent at school pickup, a worker on day one, a traveller in Tokyo.» *(2 turns.)* |
+| **1:35–1:50** | Landing → Pricing | «Learners start free and upgrade for unlimited voice practice. **Workplaces** pay per seat: warehouses, schools, clinics with multilingual teams use Tolk and training in their people's own language.» |
+| **1:50–2:00** | – | «Built this weekend: voice AI by ElevenLabs, a server that decides everything that matters, so nobody can fake progress or reach our keys. Next: more languages and our first pilot workplace. **We're Snakk. Let's talk.**» |
 
-**Timing tip:** if the tutor is slow, skip the party scenario and go straight to the job interview (the strongest moment).
+**If short on time:** skip the pronunciation beat (1:00–1:15). The job interview and Tolk are the two moments that matter.
 
 ---
 
 ## 2. If something breaks on stage
-| Problem | Do this (no apologising, keep talking) |
+| Problem | Do this (don't apologise, keep talking) |
 |---|---|
-| Voice doesn't connect / no sound | «Let me show you the recording.» Play the backup video from 0:30. |
-| Tutor misses the slang | Say it again, slower: «Det var **sykt** bra.» If it still misses: open `/phrases?id=sykt` and show the card. |
-| Wi-Fi dies | Phone hotspot. If the hotspot dies too: backup video. Tolk works offline in **demo mode**. |
-| Pronunciation check fails | Skip it; the XP toast also appears when you tap «I've got it» on a phrase. |
+| Voice doesn't connect | «Here's what the learner sees» → open `/phrases`, show a phrase card (use when / avoid / say instead). Keep going. |
+| Tutor misses the slang | Say it again, slower: «Det var **sykt** bra». Still missing: show the phrase card for «sykt». |
+| Wi-Fi dies | Phone hotspot. Tolk also has a **demo mode** that works offline. |
+| Tolk mishears | «In a quiet room with a headset it's much better.» Move on to business. |
 
 ---
 
-## 3. Slides (one idea each, big text)
-1. **Snakk.** Learn the Norwegian people actually speak, by speaking it. *(Team The Click)*
-2. **The problem.** Textbook Norwegian ≠ spoken Norwegian. «Hvordan har De det?» vs «Halla, skjer'a?». ~1 in 6 people in Norway are immigrants (SSB 2026).
-3. **Live demo** (phone mirrored).
-4. **Tolk.** Kids still end up interpreting (IMDi 2025). Tolk = the parent's aid for everyday moments; the school books the qualified interpreter (tolkeloven § 4).
-5. **Business model.**
-   - Learners: **Free** (daily tutor limit) → **Premium 99 kr/month** (unlimited tutor, all scenarios, pronunciation everywhere, Tolk).
-   - Organisations: **seats** for staff / students + Tolk + a progress overview with no personal data. Buyers: employers and warehouses, municipalities and introduction programmes, schools, libraries.
-   - Channels: introduction programmes, employers, libraries and språkkafé organisers. Partner API for warehouse screens and robots.
-6. **Roadmap + ask.**
-   - Now: tutor, register corrections, pronunciation, phrasebook, Tolk, gamification, security by design.
-   - Next 3 months: real accounts + progress in a database (stops token replay), QR check-in at språkkafés, real tandem chat, native-speaker review of every phrase.
-   - Later: avatar calls in tandem, a daily agent that finds real language events, Tolk as an API for organisations, more target languages.
-   - **The ask:** 2 pilot partners (an introduction programme and an employer) and ElevenLabs credits to run them.
+## 3. The technical part (say it simply)
+- **Voice:** ElevenLabs voice agents (the tutor and Tolk) + ElevenLabs speech-to-text for pronunciation.
+- **Security by design:** the browser only says *what happened*; our server decides XP, levels and test scores. API keys never leave the server. Checked against the **OWASP Top 10**: strict security headers, input validation on every route, rate limits on everything that costs money, 0 known vulnerabilities in our dependencies.
+- **Privacy:** no email, no password, no real name. A learner is a random ID with a nickname. Audio isn't stored by us.
+- **Scalable:** stateless app on Vercel (scales automatically) + Postgres (Supabase) reached **only from our server**. Agents are configured from code (`npm run agents:sync`), so a new language or scenario is a text change, not a rebuild.
+- **Open for partners:** a versioned partner API with keys (`/api/v1`), so workplace systems can plug in later.
 
 ---
 
-## 4. Q&A prep, per juror
-**Ethical hacker**
-- *«Can I give myself XP?»* No. The browser only reports *what happened*; the server decides the XP and signs the result (HMAC). Editing the token breaks the signature. We ran 15 attacks against our own app: all blocked (`docs/SECURITY.md`, `npm run security-check`).
-- *«Can I fake finishing a scenario?»* No: the server asks ElevenLabs whether the conversation happened with our tutor agent, recently, with the learner speaking, and only once. The slang count comes from the tutor's own tool calls.
-- *«API keys?»* Server only. The browser gets a short-lived signed URL. Strict CSP, rate limits on every paid route, secret scan over the full git history.
-- *«Weak spots?»* We list them ourselves: in-memory rate limits, `'unsafe-inline'` scripts because of Next's static pages, no presence proof for check-ins yet. Fixes are in `docs/SECURITY.md`.
+## 4. Market, USP, business (for slides and questions)
+**The market (say it without invented numbers):**
+- In Norway: almost 1 million immigrants (SSB 2026). Public services ordered 1.4 million interpreting jobs in 2025, and about 1 in 4 wasn't done by a qualified interpreter (IMDi). The need to **speak** and to **be understood** is real and daily.
+- Worldwide: travellers and workers in countries where English isn't common.
 
-**Lawyer**
-- *«Isn't Tolk breaking tolkeloven?»* The duty is on **public bodies**: when they need an interpreter, they book a qualified one. Tolk is the **parent's own** communication aid for everyday moments and says so on screen; it never claims to be a certified interpreter. In our demo the teacher even says the school will book an interpreter for the formal meeting.
-- *«Privacy / GDPR?»* No accounts, no names, no emails on our servers. Progress lives in the learner's browser as a signed token. Audio goes to ElevenLabs for speech-to-text and is **not stored by us**. Tolk transcripts live in the browser tab only. Tandem is nicknames only and blocks phone numbers, emails and links.
-- *«Children?»* No personal data collected; tandem is moderated by design (report button, no contact details). Age limits come with accounts (roadmap).
+**Who we compete with, and our edge (USP):**
+| Alternative | What it lacks | Snakk |
+|---|---|---|
+| Language apps (text-first) | You tap and read; you rarely **speak** in real situations | Speaking-first, real situations, tells you **which words fit which situation** |
+| Translator apps | Translate, but you never **learn**; awkward in a conversation | Tolk **and** a tutor in one app: be understood today, speak yourself tomorrow |
+| Human tutors / courses | Expensive, fixed times | Always available, at your level, for the price of a subscription |
 
-**Business / investor**
-- *«Why would anyone pay?»* Speaking practice is the expensive part of learning (teachers, tutors). An always-available voice tutor that knows the register is worth a monthly fee; organisations pay because staff who speak Norwegian work safer and stay longer.
-- *«Competition?»* Most apps teach textbook sentences; we teach *when to say what*, out loud. (Don't name competitors' weaknesses without a source: see `docs/PITCH.md`.)
-- *«Unit cost?»* Voice minutes are the main cost; the free tier has a daily limit, and every paid route has a credit limit and rate limit.
+**One-sentence USP:** *Snakk is the only app that both teaches you to speak the local language as it's really used, and speaks it for you until you can.*
 
-**Education / language expert**
-- *«Is your Norwegian correct?»* Every phrase card is checked by a native speaker on the team; phrases are Bokmål as spoken in Eastern Norway, with the region shown when it matters.
-- *«How do you place learners?»* The test **estimates** the level (A0–C2) from scored questions, server-side, so answers aren't in the browser. Don't say it «gives your CEFR level».
+**Business model:**
+- **Learners:** free to start (daily voice limit) → **Plus** monthly subscription for unlimited voice practice and Tolk.
+- **Workplaces (B2B):** seats for multilingual teams (warehouses, schools, clinics, municipalities): training in their people's own language + Tolk for everyday moments.
+- **Costs:** voice minutes are the main cost, so the free tier is limited and every paid route is rate-limited.
+
+**Roadmap:** more target languages (beyond Norwegian) · pilot with one workplace · native-speaker review of all content · optional accounts on top of the sync code.
 
 ---
 
-## 5. Words to avoid
-- ❌ «certified interpreter», «replaces interpreters» → ✅ «communication aid for everyday moments».
-- ❌ numbers without a source (see `docs/PITCH.md` «Do NOT say»).
-- ❌ «AI understands your accent» → ✅ «checks which words came through».
+## 5. Q&A prep (1 minute, short answers)
+- **«Can I fake my XP?»** (ethical hacker) «No. The server decides XP and stores it in Postgres; the browser can't change it. Keys never reach the browser. We checked every route against OWASP's Top 10.»
+- **«What data do you store?»** (lawyer) «A random ID, a nickname you choose, and your progress. No email, no name, no audio.»
+- **«Isn't Tolk a replacement for interpreters?»** (lawyer) «No. Public services must book a qualified interpreter; Tolk is a personal aid for everyday moments, and it says so on screen.»
+- **«Why would people pay?»** (investor) «Speaking practice is the expensive part of learning a language. An always-available tutor and a pocket interpreter are worth a monthly fee, and workplaces pay because staff who understand each other work safer.»
+- **«Why Norwegian first?»** «We're in Norway, we have native speakers on the team to check the content, and the need is proven here. The engine works for any language.»
+- **«What's next?»** «A pilot workplace, more languages, and optional accounts.»
 
-## 6. Backup demo video
-`docs/demo/backup-demo.mp4`: a recorded walkthrough of the real app (landing → placement test → Home → tutor briefing → phrase card → Tolk demo → profile and league), made from the integration build with Playwright.
-⚠️ It has **no live voice** (no ElevenLabs key in the recording environment). Before the Sunday 13:00 code freeze, record a **real** run on a phone with the voice tutor and save it next to it (`docs/demo/backup-demo-voice.mp4`).
+## 6. Words to avoid
+- ❌ «certified interpreter», «replaces interpreters» → ✅ «a personal aid for everyday moments».
+- ❌ numbers without a source (see `docs/PITCH.md`).
+- ❌ «gives your CEFR level» → ✅ «estimates your level».
+- ❌ «it understands every accent» → ✅ «it checks which words came through».
