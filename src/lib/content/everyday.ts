@@ -698,6 +698,63 @@ const packs: VocabPack[] = [
     ],
   },
   {
+    id: "everyday-body-parts",
+    kind: "everyday",
+    title: "Body parts",
+    titleNo: "Kroppsdeler",
+    emoji: "🧍",
+    words: [
+      p("arm", "💪", "en arm", "an arm", "A0", "Jeg har vondt i armen.", "My arm hurts."),
+      p("bein", "🦵", "et bein", "a leg", "A0", "Han brakk beinet på ski.", "He broke his leg skiing."),
+      p("rygg", "🔙", "en rygg", "a back", "A1", "Mange får vondt i ryggen av å sitte mye.", "Many people get back pain from sitting a lot."),
+      p("nese", "👃", "ei nese", "a nose", "A0", "Jeg er tett i nesa.", "My nose is blocked."),
+      p("ore", "👂", "et øre", "an ear", "A0", "Barnet har vondt i øret.", "The child has an earache."),
+      p("munn", "👄", "en munn", "a mouth", "A0", "Åpne munnen og si «a».", "Open your mouth and say «ah»."),
+      p("hals", "🧣", "en hals", "a throat / neck", "A1", "Jeg har vondt i halsen.", "I have a sore throat."),
+      p("kne", "🦿", "et kne", "a knee", "A1", "Kneet er hovent etter fotballkampen.", "My knee is swollen after the football match."),
+      p("finger", "☝️", "en finger", "a finger", "A0", "Jeg skar meg i fingeren.", "I cut my finger."),
+      p("hjerte", "❤️", "et hjerte", "a heart", "A1", "Hjertet banker fort når jeg løper.", "My heart beats fast when I run."),
+    ],
+  },
+  {
+    id: "everyday-garden",
+    kind: "everyday",
+    title: "Garden & forest",
+    titleNo: "Hage og skog",
+    emoji: "🌿",
+    words: [
+      p("hage", "🏡", "en hage", "a garden", "A1", "Vi griller i hagen om sommeren.", "We barbecue in the garden in summer."),
+      p("et-tre", "🌳", "et tre", "a tree", "A0", "Det står et stort tre foran huset.", "There's a big tree in front of the house."),
+      p("gress", "🌱", "gress", "grass", "A1", "Ikke gå på gresset!", "Don't walk on the grass!"),
+      p("sopp", "🍄", "sopp", "mushrooms", "A2", "Ikke spis sopp du ikke kjenner!", "Don't eat mushrooms you don't know!"),
+      p("stein", "🪨", "en stein", "a stone / rock", "A1", "Barna kaster stein i vannet.", "The kids throw stones into the water."),
+      p("blad", "🍃", "et blad", "a leaf", "A1", "Om høsten faller bladene.", "In autumn the leaves fall."),
+      p("grille", "🍖", "å grille", "to barbecue", "A1", "Skal vi grille i parken i kveld?", "Shall we barbecue in the park tonight?"),
+      p("klippe-plen", "🌾", "å klippe plenen", "to mow the lawn", "B1", "Naboen klipper plenen hver lørdag klokka åtte!", "The neighbour mows the lawn every Saturday at eight!"),
+      p("insekt", "🐝", "en bie", "a bee", "A1", "Det er en bie i kjøkkenet!", "There's a bee in the kitchen!"),
+      p("mygg", "🦟", "en mygg", "a mosquito", "A2", "Det er mye mygg ved vannet om sommeren.", "There are lots of mosquitoes by the lake in summer."),
+    ],
+  },
+  {
+    id: "everyday-snacks",
+    kind: "everyday",
+    title: "Drinks & snacks",
+    titleNo: "Drikke og snacks",
+    emoji: "🧃",
+    words: [
+      p("te", "🍵", "te", "tea", "A0", "Vil du ha te eller kaffe?", "Would you like tea or coffee?"),
+      p("juice", "🧃", "juice", "juice", "A0", "Barna drikker eplejuice.", "The kids drink apple juice."),
+      p("brus", "🥤", "brus", "fizzy drink / soda", "A1", "Vi kjøper brus til festen.", "We're buying soda for the party."),
+      p("sjokolade", "🍫", "sjokolade", "chocolate", "A0", "En Kvikk Lunsj på tur er tradisjon.", "A Kvikk Lunsj on a hike is tradition."),
+      p("potetgull", "🥔", "potetgull", "crisps / chips", "A2", "Fredagskos med potetgull og film!", "Friday night with crisps and a film!"),
+      p("notter", "🥜", "nøtter", "nuts", "A1", "Det er nøtter i denne kaka.", "There are nuts in this cake."),
+      p("kjeks", "🍪", "kjeks", "biscuits / crackers", "A1", "Vi har kjeks til kaffen.", "We have biscuits with the coffee."),
+      p("popkorn", "🍿", "popkorn", "popcorn", "A0", "Skal vi lage popkorn til filmen?", "Shall we make popcorn for the film?"),
+      p("smoothie", "🥝", "en smoothie", "a smoothie", "A1", "Jeg lager smoothie til frokost.", "I make a smoothie for breakfast."),
+      p("drikkeflaske", "🍶", "ei drikkeflaske", "a water bottle", "A2", "Husk drikkeflaske til turen.", "Remember a water bottle for the trip."),
+    ],
+  },
+  {
     id: "everyday-colours",
     kind: "everyday",
     title: "Colours",
@@ -798,7 +855,7 @@ const packs: VocabPack[] = [
 ];
 
 /** Order on /words (the first 6 show before «Show all»): what a total beginner needs first. */
-const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "dishes", "where", "chores", "car", "bathroom", "office", "jobs", "free-time", "nature"];
+const ORDER = ["food", "numbers", "verbs", "questions", "emergency", "home", "colours", "town", "opposites", "official", "housing", "shop", "time", "people", "weather", "body", "feelings", "work", "travel", "fruit-veg", "kitchen", "culture", "school-subjects", "clothes", "animals", "doctor", "celebrations", "phone", "places", "seasons", "sports", "dishes", "where", "chores", "car", "bathroom", "office", "body-parts", "garden", "snacks", "jobs", "free-time", "nature"];
 const rank = (id: string) => {
   const i = ORDER.indexOf(id.replace(/^everyday-/, ""));
   return i === -1 ? ORDER.length : i;
