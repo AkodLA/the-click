@@ -14,21 +14,21 @@ const CARD = "rounded-3xl border-2 border-line bg-surface shadow-[0_4px_0_var(--
 const TILT = ["-rotate-1", "rotate-1", "-rotate-[0.5deg]"];
 
 const STEPS = [
-  { emoji: "🧭", title: "Find your level", text: "A 3-minute quiz places you from total beginner (A0) to near-native (C2)." },
-  { emoji: "🎙️", title: "Talk out loud", text: "Chat with a friendly AI voice tutor in real situations. Mistakes welcome!" },
-  { emoji: "🏷️", title: "Know what fits where", text: "Every phrase says if it's slang, casual or formal, so you never say «halla» to your boss." },
+  { href: "/onboarding", emoji: "🧭", title: "Find your level", text: "A 3-minute quiz estimates your level, from total beginner (A0) to near-native (C2)." },
+  { href: "/speak", emoji: "🎙️", title: "Talk out loud", text: "Chat with a friendly AI voice tutor in real situations. Mistakes welcome!" },
+  { href: "/phrases", emoji: "🏷️", title: "Say it like a local", text: "Everyday Norwegian as it's really used, and which words fit which situation." },
 ];
 
 const FEATURES = [
-  { emoji: "🎯", title: "Pronunciation check", text: "Say it out loud and see which words came through." },
-  { emoji: "😎", title: "Slang, with a manual", text: "When to say «digg», when NOT to, and what to say instead." },
-  { emoji: "🧑‍🤝‍🧑", title: "Tolk interpreter", text: "Snakk interprets your parent-teacher meeting, so your kids don't have to." },
-  { emoji: "🤝", title: "Anonymous tandem", text: "Swap languages with natives. Nicknames and avatars only." },
-  { emoji: "🧇", title: "Språkkafé near you", text: "Find language cafés, check in, and practise in real life." },
-  { emoji: "🌳", title: "Grow your tree", text: "XP, streaks and a little tree that grows as you practise." },
+  { href: "/tolk", emoji: "🧑‍🤝‍🧑", title: "Tolk: be understood now", text: "You speak your language, they hear theirs. At school pickup, at work, or travelling in Japan, China or Russia." },
+  { href: "/phrases", emoji: "🎯", title: "Pronunciation check", text: "Say it out loud and see which words came through." },
+  { href: "/phrases", emoji: "💬", title: "Phrases with context", text: "When to use a phrase, when not to, and what to say instead." },
+  { href: "/words", emoji: "🧠", title: "Words for your life", text: "Word packs for your job and interests, with pictures." },
+  { href: "/profile", emoji: "🌳", title: "Levels, streaks, badges", text: "XP, a weekly league and a little tree that grows as you practise." },
+  { href: "/profile", emoji: "📱", title: "On all your devices", text: "A sync code moves your progress to your phone. No email, no password." },
 ];
 
-const AUDIENCES = ["🏡 New in Norway", "💼 Working here", "🎒 Parents of school kids", "📚 Students", "💞 Partners of Norwegians"];
+const AUDIENCES = ["🏡 New in Norway", "💼 Working here", "🎒 Parents of school kids", "📚 Students", "✈️ Travelling abroad"];
 
 const BUBBLES = [
   { text: "Det var sykt bra, ass!", register: "slang" as const, tilt: "-rotate-2", align: "self-start" },
@@ -56,9 +56,6 @@ export default function Landing() {
           </nav>
           <div className="flex items-center gap-2">
             <ThemeToggle />
-            <Button href="/learn" className="h-10 px-5 text-sm">
-              Open app
-            </Button>
           </div>
         </div>
       </header>
@@ -71,28 +68,28 @@ export default function Landing() {
 
           <div className="relative">
             <span className="inline-flex -rotate-2 items-center gap-2 rounded-full border-2 border-line bg-sun px-4 py-1.5 font-display text-sm font-semibold text-ink shadow-[0_3px_0_var(--line)]">
-              🇳🇴 A fun app for speaking Norwegian
+              🇳🇴 Speak like a local, from day one
             </span>
             <h1 className="mt-5 text-5xl font-bold leading-[1.02] tracking-tight sm:text-6xl">
-              Learn the Norwegian people{" "}
+              Learn the language{" "}
               <span className="relative inline-block text-brand">
-                actually speak.
+                as it&apos;s really spoken.
                 <Squiggle className="absolute -bottom-2 left-0 h-3 w-full" />
               </span>
             </h1>
             <p className="mt-6 max-w-xl text-lg text-muted">
-              Chat out loud with a friendly AI tutor, pick up the slang people really use, and learn when to switch to
-              your best formal Norwegian. From your first «hei» to fluent, a few minutes a day.
+              Talk out loud with a friendly AI tutor in real situations, and learn which words fit where. Can&apos;t speak it
+              yet? Tolk speaks the local language for you. Norwegian first, from your first «hei» to fluent.
             </p>
             <div className="mt-8 flex flex-col gap-4 sm:flex-row [&>*]:whitespace-nowrap">
               <Button href="/onboarding" size="lg">
                 Find my level, free
               </Button>
-              <Button href="/learn" size="lg" variant="secondary">
-                Try it first
+              <Button href="/tolk" size="lg" variant="secondary">
+                Be understood now (Tolk)
               </Button>
             </div>
-            <p className="mt-5 text-sm font-semibold text-muted">✓ No account · ✓ Free to start · ✓ Works on your phone</p>
+            <p className="mt-5 text-sm font-semibold text-muted">✓ No email, no password · ✓ Free to start · ✓ Works on your phone</p>
           </div>
 
           {/* Visual: Snakki shows "same thing, three rooms" as a little chat */}
@@ -132,15 +129,17 @@ export default function Landing() {
           <p className="mt-2 text-center text-lg text-muted">Three steps. Five minutes a day. Lots of «heia!»</p>
           <ol className="mt-10 grid gap-6 md:grid-cols-3">
             {STEPS.map((s, i) => (
-              <li key={s.title} className={`relative p-6 pt-8 transition hover:rotate-0 ${CARD} ${TILT[i]}`}>
+              <li key={s.title} className={`relative transition hover:-translate-y-0.5 hover:rotate-0 ${CARD} ${TILT[i]}`}>
+                <Link href={s.href} className="block h-full rounded-3xl p-6 pt-8">
                 <span className="absolute -top-4 left-6 flex h-10 w-10 items-center justify-center rounded-full border-2 border-line bg-sun font-display text-lg font-bold text-ink shadow-[0_3px_0_var(--line)]">
                   {i + 1}
                 </span>
                 <div className="text-4xl" aria-hidden>
                   {s.emoji}
                 </div>
-                <h3 className="mt-3 text-xl font-semibold">{s.title}</h3>
+                <h3 className="mt-3 text-xl font-semibold">{s.title} →</h3>
                 <p className="mt-1 text-muted">{s.text}</p>
+                </Link>
               </li>
             ))}
           </ol>
@@ -149,10 +148,11 @@ export default function Landing() {
         {/* Real situations: makes "real life Norwegian" concrete */}
         <section id="situations" className="scroll-mt-20 pb-16">
           <h2 className="text-center text-4xl font-bold">Practise the moments that matter</h2>
-          <p className="mt-2 text-center text-lg text-muted">Your tutor plays the other person. You just talk.</p>
+          <p className="mt-2 text-center text-lg text-muted">Your tutor plays the other person. You just talk. Tap one to start.</p>
           <ul className="mt-10 grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3">
             {scenarios.map((s, i) => (
-              <li key={s.id} className={`flex items-center gap-3 p-4 transition hover:rotate-0 ${CARD} ${TILT[i % TILT.length]}`}>
+              <li key={s.id} className={`transition hover:-translate-y-0.5 hover:rotate-0 ${CARD} ${TILT[i % TILT.length]}`}>
+                <Link href={`/speak?scenario=${s.id}`} className="flex items-center gap-3 rounded-3xl p-4">
                 <span className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl bg-accent-soft text-3xl" aria-hidden>
                   {s.emoji}
                 </span>
@@ -160,6 +160,7 @@ export default function Landing() {
                   <p className="font-display text-lg font-semibold leading-snug">{s.title}</p>
                   <p className="text-sm font-bold text-muted">Level {s.level}</p>
                 </div>
+                </Link>
               </li>
             ))}
           </ul>
@@ -167,10 +168,10 @@ export default function Landing() {
 
         {/* Everything else */}
         <section id="features" className="scroll-mt-20 pb-16">
-          <h2 className="text-center text-4xl font-bold">More ways to get fluent</h2>
+          <h2 className="text-center text-4xl font-bold">Everything in Snakk</h2>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {FEATURES.map((f) => (
-              <div key={f.title} className={`flex gap-4 p-5 ${CARD}`}>
+              <Link key={f.title} href={f.href} className={`flex gap-4 p-5 transition hover:-translate-y-0.5 ${CARD}`}>
                 <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-soft text-2xl" aria-hidden>
                   {f.emoji}
                 </div>
@@ -178,7 +179,7 @@ export default function Landing() {
                   <h3 className="text-lg font-semibold">{f.title}</h3>
                   <p className="mt-0.5 text-sm text-muted">{f.text}</p>
                 </div>
-              </div>
+              </Link>
             ))}
           </div>
         </section>
@@ -206,10 +207,7 @@ export default function Landing() {
       <LanguageWelcome />
 
       <footer className="border-t-2 border-line bg-surface/70 py-8 text-center text-sm font-semibold text-muted">
-        Made with ☕ and 💙 by The Click at Oslo Sprint 2026 · No accounts, no personal data on our servers
-        <span className="mt-2 block">
-          <Link href="/resources" className="font-bold text-brand hover:underline">🎓 Taking a Norwegian test? See exams &amp; resources →</Link>
-        </span>
+        Made with ☕ and 💙 by The Click at Oslo Sprint 2026 · No email, no password, no real names
       </footer>
     </div>
   );

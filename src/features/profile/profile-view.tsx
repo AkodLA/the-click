@@ -20,6 +20,7 @@ import { levelProgress } from "@/lib/progress/levels";
 import { AboutYou } from "@/features/personal/about-you";
 import { Certificates, WeekSummary, WhyLevel } from "./insights";
 import { progressActions, useProgress } from "@/lib/progress/store";
+import { useMistakes } from "@/lib/personal/mistakes";
 
 const STREAK_COPY: Record<StreakState, string> = {
   active: "You practised today. Nice!",
@@ -30,6 +31,7 @@ const STREAK_COPY: Record<StreakState, string> = {
 
 export function ProfileView() {
   const p = useProgress();
+  const mistakes = useMistakes();
   const { level, ratio, toNext } = levelProgress(p.xp);
   const streak = streakNow(p);
   const weekXp = weekXpNow(p);
@@ -124,7 +126,7 @@ export function ProfileView() {
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
         <Stat emoji="💬" value={p.learnedPhraseIds.length} label="Phrases" href="/phrases?show=learned" />
         <Stat emoji="🏅" value={unlockedCount} label="Badges" href="#achievements" />
-        <Stat emoji="🧇" value={p.checkedInEventIds.length} label="Cafés" href="/events" />
+        <Stat emoji="📓" value={mistakes.length} label="Corrections" href="/mistakes" />
         <Stat emoji="🧠" value={(p.learnedWordIds ?? []).length} label="Words" href="/words" />
       </div>
 

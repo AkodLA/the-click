@@ -28,14 +28,15 @@ export function TolkTable({
 }) {
   return (
     <div className="fixed inset-0 z-40 flex flex-col bg-bg" role="dialog" aria-modal="true" aria-label="Tolk interpreter">
-      {/* Person B, across the table: rotated so they can read it. */}
-      <Side lang={langB} side="b" turns={turns} status={status} flipped />
-      <div className="flex shrink-0 flex-col gap-2 border-y border-line bg-surface px-4 py-3 shadow-sm">
+      {/* Both people read their own side the right way up: side by side on a laptop, stacked on a phone. */}
+      <div className="flex min-h-0 flex-1 flex-col divide-y divide-line md:flex-row md:divide-x md:divide-y-0">
+        <Side lang={langA} side="a" turns={turns} status={status} />
+        <Side lang={langB} side="b" turns={turns} status={status} />
+      </div>
+      <div className="flex shrink-0 flex-col gap-2 border-t border-line bg-surface px-4 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] shadow-sm">
         {banner}
         <div className="mx-auto flex w-full max-w-2xl items-center justify-center gap-3">{controls}</div>
       </div>
-      {/* Person A, holding the phone. */}
-      <Side lang={langA} side="a" turns={turns} status={status} />
     </div>
   );
 }

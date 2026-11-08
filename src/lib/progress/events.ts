@@ -11,7 +11,7 @@ export const progressEventSchema = z.discriminatedUnion("type", [
   z.object({
     type: z.literal("profile_set"),
     // Nickname only, never a real name: letters, digits, _ and -. 3–20 characters.
-    nickname: z.string().trim().min(3).max(20).regex(/^[\p{L}\p{N}_-]+$/u, "Use letters, numbers, _ or -"),
+    nickname: z.string().trim().min(3).max(20).regex(/^[\p{L}\p{N}_-]+( [\p{L}\p{N}_-]+)*$/u, "Use letters, numbers, spaces, _ or -"),
     nativeLanguage: z.string().regex(/^[a-z]{2,3}$/),
   }),
   z.object({

@@ -39,7 +39,7 @@ export function LandingScreens() {
 const ORG_POINTS = [
   { emoji: "🏢", title: "Employers & warehouses", text: "Staff practise the Norwegian of their workplace: safety words, breaks, small talk at lunch." },
   { emoji: "🏛️", title: "Municipalities & introduction programmes", text: "Speaking practice between classes, with progress the teacher can follow." },
-  { emoji: "🏫", title: "Schools & libraries", text: "Tolk for everyday moments with parents (pickup, a quick question), and språkkafé check-ins." },
+  { emoji: "🏫", title: "Schools & clinics", text: "Tolk for everyday moments with parents and patients: pickup, a quick question, a first visit." },
   { emoji: "🔌", title: "Partner API", text: "Phrases with context for your own screens or robots, behind a scoped API key." },
 ];
 
@@ -49,7 +49,7 @@ export function ForOrganisations() {
       <div className="rounded-[2rem] border border-line bg-surface p-6 shadow-sm md:p-10">
         <Badge tone="brand">For organisations</Badge>
         <h2 id="orgs-title" className="mt-3 text-3xl font-black tracking-tight">
-          Help your people speak Norwegian at work.
+          Help your team understand each other.
         </h2>
         <p className="mt-2 max-w-2xl text-muted">
           Snakk seats for your team, plus Tolk for the moments when they&apos;re not ready yet. No personal data on our servers: learners use
@@ -79,28 +79,30 @@ export function ForOrganisations() {
 
 const PLANS = [
   {
-    name: "Free",
-    price: "0 kr",
-    per: "",
-    highlight: false,
-    points: ["Placement test and phrasebook", "10 minutes with the voice tutor per day", "Tandem, språkkafé and league"],
-    cta: { label: "Start free", href: "/onboarding" },
-  },
-  {
-    name: "Premium",
-    price: "99 kr",
-    per: "/ month",
+    name: "For learners",
+    price: "Free",
+    per: "to start",
     highlight: true,
-    points: ["Unlimited voice tutor", "All scenarios, A0 to C2", "Pronunciation check on every phrase", "Tolk for everyday moments"],
-    cta: { label: "Try it now", href: "/onboarding" },
+    points: [
+      "Level test, phrasebook and daily voice practice",
+      "Tolk for everyday moments and travel",
+      "Progress on all your devices with a sync code",
+      "Plus, 99 kr / month: unlimited voice tutor and Tolk",
+    ],
+    cta: { label: "Start speaking", href: "/onboarding" },
   },
   {
-    name: "Organisations",
+    name: "For workplaces",
     price: "Per seat",
-    per: "",
+    per: "/ month",
     highlight: false,
-    points: ["Seats for staff or students", "Tolk for your team", "Progress overview (no personal data)", "Partner API access"],
-    cta: { label: "See how it works", href: "/tolk" },
+    points: [
+      "Multilingual teams: warehouses, schools, clinics",
+      "Training in the Norwegian of your workplace",
+      "Tolk so colleagues understand each other from day one",
+      "No personal data: nicknames only",
+    ],
+    cta: { label: "See Tolk", href: "/tolk" },
   },
 ];
 
@@ -111,7 +113,7 @@ export function Pricing() {
         Simple pricing
       </h2>
       <p className="mt-2 text-center text-sm text-muted">Planned pricing for launch. Everything in this demo is free.</p>
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
+      <div className="mx-auto mt-10 grid max-w-3xl gap-4 md:grid-cols-2">
         {PLANS.map((p) => (
           <div
             key={p.name}
@@ -119,7 +121,7 @@ export function Pricing() {
           >
             <div className="flex items-center justify-between">
               <h3 className="text-lg font-black">{p.name}</h3>
-              {p.highlight && <Badge tone="brand">Most popular</Badge>}
+              
             </div>
             <p>
               <span className="text-4xl font-black">{p.price}</span> <span className="text-muted">{p.per}</span>

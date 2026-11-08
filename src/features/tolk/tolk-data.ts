@@ -26,6 +26,9 @@ export const TOLK_LANGUAGES: TolkLanguage[] = [
   { code: "ur", name: "Urdu", native: "اردو", rtl: true },
   { code: "fa", name: "Dari / Persian", native: "دری / فارسی", rtl: true },
   { code: "tr", name: "Turkish", native: "Türkçe" },
+  { code: "ja", name: "Japanese", native: "日本語" },
+  { code: "zh", name: "Chinese (Mandarin)", native: "中文" },
+  { code: "ru", name: "Russian", native: "Русский" },
 ];
 
 export function tolkLanguage(code: string): TolkLanguage {
